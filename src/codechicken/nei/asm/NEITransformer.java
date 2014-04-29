@@ -4,12 +4,8 @@ import codechicken.lib.asm.*;
 import codechicken.lib.asm.ModularASMTransformer.*;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import net.minecraft.launchwrapper.IClassTransformer;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.tree.*;
-import org.objectweb.asm.util.TraceClassVisitor;
 
-import java.io.*;
 import java.util.Map;
 
 import static codechicken.lib.asm.InsnComparator.*;
@@ -19,6 +15,10 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class NEITransformer implements IClassTransformer
 {
+    static {
+        ASMInit.init();
+    }
+
     private ModularASMTransformer transformer = new ModularASMTransformer();
     private Map<String, ASMBlock> asmblocks = ASMReader.loadResource("/assets/nei/asm/blocks.asm");
 
@@ -28,9 +28,11 @@ public class NEITransformer implements IClassTransformer
                 new ObfMapping("net/minecraft/block/BlockMobSpawner", "func_149689_a", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V"),
                 asmblocks.get("spawnerPlaced")));
 
-        //Make MobSpawnerBaseLogic use getSpawnerWorld when creating new entities
-        transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/tileentity/MobSpawnerBaseLogic", "func_98281_h", "()Lnet/minecraft/entity/Entity;"),
-                asmblocks.get("d_spawnerWorld"), asmblocks.get("spawnerWorld")));
+        if(FMLLaunchHandler.side().isClient()) {
+            //Make MobSpawnerBaseLogic use getSpawnerWorld when creating new entities
+            transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/tileentity/MobSpawnerBaseLogic", "func_98281_h", "()Lnet/minecraft/entity/Entity;"),
+                    asmblocks.get("d_spawnerWorld"), asmblocks.get("spawnerWorld")));
+        }
 
         //Removes trailing seperators from NBTTagList/Compound.toString because OCD
         transformer.add(new MethodInjector(new ObfMapping("net/minecraft/nbt/NBTTagCompound", "toString", "()Ljava/lang/String;"),

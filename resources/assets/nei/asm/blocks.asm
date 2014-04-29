@@ -35,9 +35,9 @@ ALOAD 0
 ALOAD 1
 ILOAD 2
 ILOAD 3
-INVOKESPECIAL net/minecraft/client/gui/GuiScreen.setWorldAndResolution (Lnet/minecraft/client/Minecraft;II)V
+INVOKESPECIAL net/minecraft/client/gui/GuiScreen.func_146280_a (Lnet/minecraft/client/Minecraft;II)V
 ALOAD 1
-GETFIELD net/minecraft/client/Minecraft.currentScreen : Lnet/minecraft/client/gui/GuiScreen;
+GETFIELD net/minecraft/client/Minecraft.field_71462_r : Lnet/minecraft/client/gui/GuiScreen;
 ALOAD 0
 IF_ACMPNE LEND
 ALOAD 0
@@ -60,7 +60,7 @@ RETURN
 
 list m_handleMouseInput
 ALOAD 0
-INVOKESPECIAL net/minecraft/client/gui/GuiScreen.handleMouseInput ()V
+INVOKESPECIAL net/minecraft/client/gui/GuiScreen.func_146274_d ()V
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.handleMouseWheel ()V
@@ -165,7 +165,7 @@ ALOAD 4
 ILOAD 2
 ILOAD 3
 ALOAD 8
-INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_77021_b (Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V
+INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_94148_a (Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V
 
 list drawSlot
 ALOAD 0
@@ -251,7 +251,7 @@ GOTO LCONT
 L0
 ICONST_0
 LCONT
-INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.handleMouseClick (Lnet/minecraft/inventory/Slot;III)V
+INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.func_146984_a (Lnet/minecraft/inventory/Slot;III)V
 
 list handleMouseClick2
 ALOAD 0
@@ -333,7 +333,7 @@ LCONT
 
 list n_updateScreen
 ALOAD 0
-INVOKESPECIAL net/minecraft/client/gui/GuiScreen.updateScreen ()V
+INVOKESPECIAL net/minecraft/client/gui/GuiScreen.func_73876_c ()V
 
 list updateScreen
 ALOAD 0

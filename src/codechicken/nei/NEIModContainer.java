@@ -82,7 +82,7 @@ public class NEIModContainer extends DummyModContainer
         return VersionParser.parseRange(CodeChickenCorePlugin.mcVersion);
     }
 
-    /*@Override
+    @Override
     public File getSource() {
         return NEICorePlugin.location;
     }
@@ -90,5 +90,5 @@ public class NEIModContainer extends DummyModContainer
     @Override
     public Class<?> getCustomResourcePackClass() {
         return getSource().isDirectory() ? FMLFolderResourcePack.class : FMLFileResourcePack.class;
-    }*/
+    }
 }

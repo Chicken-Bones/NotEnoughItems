@@ -149,16 +149,15 @@ public class ShapedRecipeHandler extends TemplateRecipeHandler
     public CachedShapedRecipe forgeShapedRecipe(ShapedOreRecipe recipe) {
         int width;
         int height;
-        Object[] items;
         try {
             width = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 4);
             height = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 5);
-            items = ReflectionManager.getField(ShapedOreRecipe.class, Object[].class, recipe, 3);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
+        Object[] items = recipe.getInput();
         for (Object item : items)
             if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
                 return null;
