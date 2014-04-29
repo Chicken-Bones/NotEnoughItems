@@ -1,0 +1,159 @@
+load=Lade
+save=Speichere
+
+enchant=Verzaubern
+enchant.level=Level
+enchant.locked=Gesperrt
+enchant.unlocked=Entsperrt
+
+inventory.options=Optionen
+inventory.prev=Zurück
+inventory.next=Weiter
+inventory.item_subsets=Item-SubSets
+inventory.delete.all=LÖSCHE ALLE ITEMS aus deinem aktuellen Inventarbildschirm
+inventory.delete.enable=Ermögliche Lösch-Modus
+inventory.delete.1=Schalte Lösch-Modus an
+inventory.delete.0=Schalte Lösch-Modus aus
+inventory.rain.enable=Ermögliche Regen
+inventory.rain.1=Schalte Regen an
+inventory.rain.0=Schalte Regen aus
+inventory.magnet.enable=Ermögliche Magnetmodus
+inventory.magnet.1=Schalte Magnetmodus an
+inventory.magnet.0=Schalte Magnetmodus aus
+inventory.dawn.enable=Ermögliche Morgen-Mittag
+inventory.dawn.set=Setze Zeit auf Morgen
+inventory.noon.enable=Ermögliche Mittag-Abend
+inventory.noon.set=Setze Zeit auf Mittag
+inventory.dusk.enable=Ermögliche Abend-Nacht
+inventory.dusk.set=Setze Zeit auf Abend
+inventory.midnight.enable=Ermögliche Nacht-Morgen
+inventory.midnight.set=Setze Zeit auf Nacht
+inventory.heal=Heile den Spieler
+inventory.gamemode.0=Setze Spielmodus auf Überleben
+inventory.gamemode.1=Setze Spielmodus auf Kreativ
+inventory.gamemode.2=Setze Spielmodus auf Kreativ+
+inventory.gamemode.3=Setze Spielmodus auf Abenteuer
+
+chat.gamemode.0=Du spielst nun Überleben
+chat.gamemode.1=Du spielst nun Kreativ
+chat.gamemode.2=Du spielst nun Kreativ+
+chat.gamemode.3=Du spielst nun Abenteuer
+
+options=NEI-Optionen
+options.back=Zurück
+options.world=Welt
+options.global=Global
+options.global.tip.0=Optionen werden auf alle Welten angewandt
+options.global.tip.1=Clicke W neben einer:Option , um das Übergehen: für diese Welt zu aktivieren
+options.wbutton.tip.0=Nutzt globale Einstellungen
+options.wbutton.tip.1=Übergeht globale Einstellungen
+
+options.keys=Tastenbelegung
+options.keys.gui=Inventar
+options.keys.gui.recipe=Rezept
+options.keys.gui.usage=Nutzung
+options.keys.gui.enchant=Verzauberungen
+options.keys.gui.potion=Tränke
+options.keys.gui.back=Vorheriges Rezept
+options.keys.gui.prev=Vorherige Seite
+options.keys.gui.next=Nächste Seite
+options.keys.gui.hide=Verstelle NEI-Sichtbarkeit
+options.keys.gui.search=Fokussiere Such-Leiste
+options.keys.world=Welt
+options.keys.world.chunkoverlay=Chunk-Grenzen-Overlay
+options.keys.world.moboverlay=Mob-Spawn-Overlay
+options.keys.world.highlight_tips=Highlight-Tooltips
+options.keys.world.dawn=Morgen
+options.keys.world.noon=Mittag
+options.keys.world.dusk=Abend
+options.keys.world.midnight=Nacht
+options.keys.world.rain=Regen
+options.keys.world.heal=Heilen
+options.keys.world.creative=Spielmodus
+options.keys.world.creative.tip=Wechsle Spielmodus
+
+options.inventory=Inventar
+options.inventory.widgetsenabled.true=NEI Aktiviert
+options.inventory.widgetsenabled.false=NEI Deaktiviert
+options.inventory.cheatmode.0=Rezeptmodus
+options.inventory.cheatmode.1=Mehrzweckmodus
+options.inventory.cheatmode.2=Cheat-Modus
+options.inventory.layoutstyle=Layout-Stil
+options.inventory.profileRecipes=Profil-Rezepte
+options.inventory.profileRecipes.true=Wahr
+options.inventory.profileRecipes.false=Falsch
+options.inventory.itemIDs=Item-IDs
+options.inventory.itemIDs.0=Versteckt
+options.inventory.itemIDs.1=Auto
+options.inventory.itemIDs.2=Gezeigt
+options.inventory.utilities=Nützliches
+options.inventory.utilities.tip=Wähle Inhalte für den Mehrzweckmodus
+options.inventory.utilities.time=Zeit
+options.inventory.utilities.rain=Regen
+options.inventory.utilities.heal=Heilen
+options.inventory.utilities.delete=Löschem
+options.inventory.utilities.magnet=Magnet
+options.inventory.utilities.gamemode=Spielmodus
+options.inventory.utilities.enchant=Verzaubern
+options.inventory.utilities.potion=Tränke
+options.inventory.utilities.item=Items
+options.inventory.gamemodes=Spielmodi
+options.inventory.gamemodes.tip=Wähle die Spielmodi, zu denen gewechselt werden kann.
+options.inventory.gamemodes.creative=Kreativ
+options.inventory.gamemodes.creative+=Kreativ+
+options.inventory.gamemodes.adventure=Abenteuer
+
+options.command=Befehle
+options.command.creative=Spielmodus
+options.command.creative.tip={0} = 1 für Kreativ, 0 für Überleben, {1} = Spieler
+options.command.item=Item
+options.command.item.tip={0} = Spieler, {1} = itemID, {2} = Anzahl, {3} = itemDamage
+options.command.time=Zeit
+options.command.time.tip={0} = Weltzeit
+options.command.rain=Regen
+options.command.rain.tip={0} = 1 für An, 0 für Aus
+options.command.heal=Heilen
+options.command.heal.tip={0} = Spieler
+
+options.world.highlight_tips=Highlight-Tooltips
+options.world.highlight_tips.hide=Versteckt
+options.world.highlight_tips.show=Gezeigt
+
+options.tools=Werkzeuge
+options.tools.dump=Daten-Ablage
+options.tools.dump.dump=Ablegen
+options.tools.dump.dumped=%s-IDs wurden nach %s abgelegt
+options.tools.dump.mode.0=Genutzt
+options.tools.dump.mode.1=Frei
+options.tools.dump.mode.2=Alles
+options.tools.dump.item=Block/Item
+options.tools.dump.items=Blöcke/Items
+options.tools.dump.potion=Trank
+options.tools.dump.potions=Tränke
+options.tools.dump.enchantment=Verzauberungs
+options.tools.dump.enchantments=Verzauberungen
+options.tools.dump.biome=Biom
+options.tools.dump.biomes=Biome
+options.tools.dump.itempanel=Item-Panel
+options.tools.dump.itempanel.dumped=Inhalte des Item-Panels wurden nach %s abgelegt
+options.tools.dump.itempanel.mode.0=CSV
+options.tools.dump.itempanel.mode.1=NBT
+
+layoutstyle.minecraft=Minecraft
+layoutstyle.oldtmi=Altes TMI
+
+recipe.page=Seite %s/%s
+recipe.shaped=Geformte Herstellung
+recipe.shapeless=Formlose Herstellung
+recipe.furnace=Schmelzen
+recipe.fuel=Brennstoff
+recipe.fuel.required=%s erfordert
+recipe.fuel.processed=%s verarbeitet
+recipe.fuel.produced=%s produziert
+recipe.firework=Feuerwerk
+recipe.firework.tooltip0=Farbstoffe fügen den Ladungen Farben hinzu
+recipe.firework.tooltip1=Neu zu färben fügt der Ladung verblassende Farben hinzu
+recipe.firework.tooltip2=Mehere Ladungen können von einer Rakete gespawnt werden
+recipe.brewing=Brauen
+recipe.profiler.crafting=Herstellungsprofil
+recipe.profiler.usage=Nutzungsprofil

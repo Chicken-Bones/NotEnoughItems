@@ -1,0 +1,115 @@
+buildscript {
+    repositories {
+        mavenCentral()
+		mavenLocal()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+group = "codechicken" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "NotEnoughItems"
+
+// Define properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    // Load config.  It shall from now be referenced as simply config or project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+dependencies {
+    compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:dev"
+    //compile "codechicken:CodeChickenCore:${config.mc_version}-${config.ccc_version}:dev"
+}
+
+version =  "${project.config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
+
+println  config.mc_version + "-" + config.forge_version
+// Setup the forge minecraft plugin data. Specify the preferred forge/minecraft version here
+minecraft {
+    version = config.mc_version + "-" + config.forge_version
+}
+
+sourceSets {
+    main {
+        def root = project.projectDir.parentFile
+        java {
+            srcDir new File(root, "src")
+        }
+        resources {
+            srcDir new File(root, "resources")
+        }
+    }
+}
+
+processResources {
+    //redo task if any of these properties change
+    inputs.property "version", project.version
+    inputs.property "mc_version", config.mc_version
+
+    // Replace properties in info files
+    from(sourceSets.main.resources.srcDirs) {
+        include '*.info'
+        expand 'version':project.version,'mc_version':config.mc_version
+    }
+    // Copy everything else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'assets/**/*.*'
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'src'
+    version = "${project.minecraft.version}-${project.version}"
+}
+
+def commonManifest = {
+    attributes 'FMLCorePlugin': 'codechicken.nei.asm.NEICorePlugin'
+    attributes 'AccessTransformer': 'nei_at.cfg'
+}
+
+jar {
+    classifier = 'universal'
+    version = "${project.minecraft.version}-${project.version}"
+    manifest commonManifest
+}
+
+task devJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+    version = "${project.minecraft.version}-${project.version}"
+    manifest commonManifest
+}
+
+// Tell the artifact system about our extra jars
+artifacts {
+    archives sourceJar, devJar
+}
+
+// Configure an upload task.
+uploadArchives {
+    dependsOn 'reobf'
+	if (project.hasProperty("local_maven")) {
+		repositories {
+			logger.info('Publishing to local maven repo')
+
+			mavenDeployer {
+				repository(url: "file://${local_maven}")
+			}
+		}
+	}
+}

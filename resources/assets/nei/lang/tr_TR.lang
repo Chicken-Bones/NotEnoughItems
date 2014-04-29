@@ -1,0 +1,159 @@
+load=Yükle
+save=Kaydet
+
+enchant=Büyü
+enchant.level=Level
+enchant.locked=Kilitli
+enchant.unlocked=Açık
+
+inventory.options=Ayarlar
+inventory.prev=Geri
+inventory.next=İleri
+inventory.item_subsets=Item/Mod Listesi
+inventory.delete.all=Mevcut envanterdeki tüm itemleri sil
+inventory.delete.enable=Silme modunu aktif et
+inventory.delete.1=Silme modunu aç
+inventory.delete.0=Silme modunu kapat
+inventory.rain.enable=yağmur aktif et
+inventory.rain.1=Yağmur yağdır
+inventory.rain.0=Yağmuru durdur
+inventory.magnet.enable=Mıknatısı aktif et 
+inventory.magnet.1=Mıknatısı aç
+inventory.magnet.0=Mıknatısı kapat
+inventory.dawn.enable=Sabah-Öğle aktif et
+inventory.dawn.set=Saati sabah(6:00) yap
+inventory.noon.enable=Öğlen-akşam aktif et
+inventory.noon.set=Saati öğlen(12:00) yap
+inventory.dusk.enable=Akşam-Gece aktif et 
+inventory.dusk.set=Saati akşam(00:00) yap
+inventory.midnight.enable=Gece-Sabah aktif et
+inventory.midnight.set=Saati gece(00:00) yap
+inventory.heal=Oyuncuya can ver
+inventory.gamemode.0= Oyunu Hayatta kalma modu yap
+inventory.gamemode.1= Oyunu Yaratıcı mod yap
+inventory.gamemode.2= Oyunu Yaratıcı mod+ yap
+inventory.gamemode.3= Oyunu Macera modu yap
+
+chat.gamemode.0=Hayatta kalma modunu oynuyorsunuz
+chat.gamemode.1=Yaratıcı modu oynuyorsunuz
+chat.gamemode.2=yaratıcı mod+ oynuyorsunuz
+chat.gamemode.3=Macera modunu oynuyorsunuz
+
+options=NEI Ayarları
+options.back=Geri
+options.world=Dünya
+options.global=Genel
+options.global.tip.0=Ayarlar tüm dünyalar için kaydedilecek
+options.global.tip.1=W tuşuna tıklayın:seçeneği aç:dünyada gör
+options.wbutton.tip.0=Genel ayarları kullanıyorsunuz
+options.wbutton.tip.1=Genel ayarların üstüne yazılıyor
+
+options.keys=Tuşlar
+options.keys.gui=Envanter
+options.keys.gui.recipe=Tarifler
+options.keys.gui.usage=Kullanım yeri
+options.keys.gui.enchant=Büylüler
+options.keys.gui.potion=İksirler
+options.keys.gui.back=Önceki tarif
+options.keys.gui.prev=Önceki sayfa
+options.keys.gui.next=Sonraki sayfa
+options.keys.gui.hide=Nei görünürlük ayarı
+options.keys.gui.search=Arama çubuğu odağı
+options.keys.world=Dünya
+options.keys.world.chunkoverlay=Chunk sınır yerleşimi
+options.keys.world.moboverlay=Mob Spawn yerleşimi
+options.keys.world.highlight_tips=Nesne ipucu
+options.keys.world.dawn=Sabah
+options.keys.world.noon=Öğlen
+options.keys.world.dusk=Akşam
+options.keys.world.midnight=Gece
+options.keys.world.rain=Yağmur
+options.keys.world.heal=Can
+options.keys.world.creative=Oyun modu
+options.keys.world.creative.tip=Cycle Gamemode
+
+options.inventory=Envarter
+options.inventory.widgetsenabled.true=NEI Açık
+options.inventory.widgetsenabled.false=NEI Kapalı
+options.inventory.cheatmode.0=Tarif modu
+options.inventory.cheatmode.1=Yardımcı mod
+options.inventory.cheatmode.2=Hileli mod
+options.inventory.layoutstyle=Tema
+options.inventory.profileRecipes=Profil tarifleri
+options.inventory.profileRecipes.true=Doğru
+options.inventory.profileRecipes.false=Yanlış
+options.inventory.itemIDs=Item IDleri
+options.inventory.itemIDs.0=Gizli
+options.inventory.itemIDs.1=Otomatik
+options.inventory.itemIDs.2=Göster
+options.inventory.utilities=Yardımcılar
+options.inventory.utilities.tip=Yardımcıları seç
+options.inventory.utilities.time=Saat
+options.inventory.utilities.rain=Yağmur
+options.inventory.utilities.heal=Can
+options.inventory.utilities.delete=Sil
+options.inventory.utilities.magnet=Mıknatıs
+options.inventory.utilities.gamemode=Oyun modu
+options.inventory.utilities.enchant=Büyüleme
+options.inventory.utilities.potion=İksirler
+options.inventory.utilities.item=Itemler
+options.inventory.gamemodes=Oyun modu
+options.inventory.gamemodes.tip=Select the gamemodes to cycle through
+options.inventory.gamemodes.creative=Yaratıcı mod
+options.inventory.gamemodes.creative+=Yaratıcı mod+
+options.inventory.gamemodes.adventure=Macera
+
+options.command=Komutlar
+options.command.creative=Oyun modu
+options.command.creative.tip={0} = 1 for creative, 0 for survival, {1} = player
+options.command.item=Item
+options.command.item.tip={0} = player, {1} = itemID, {2} = quantity, {3} = itemDamage
+options.command.time=Zaman
+options.command.time.tip={0} = worldtime
+options.command.rain=Yağmur
+options.command.rain.tip={0} = 1 for on, 0 for off
+options.command.heal=Can
+options.command.heal.tip={0} = player
+
+options.world.highlight_tips=Nesne ipucu
+options.world.highlight_tips.hide=Kapalı
+options.world.highlight_tips.show=Açık
+
+options.tools=Araçlar
+options.tools.dump=Verileri Silme
+options.tools.dump.dump=Sil
+options.tools.dump.dumped=%s IDs silindi %s
+options.tools.dump.mode.0=Kullanıldı
+options.tools.dump.mode.1=Boş
+options.tools.dump.mode.2=Hepsi
+options.tools.dump.item=Blok/Item
+options.tools.dump.items=Bloklar/Itemlar
+options.tools.dump.potion=İksir
+options.tools.dump.potions=İksirler
+options.tools.dump.enchantment=Büyü
+options.tools.dump.enchantments=Büyüler
+options.tools.dump.biome=Biyom
+options.tools.dump.biomes=Biyomlar
+options.tools.dump.itempanel=Item Paneli
+options.tools.dump.itempanel.dumped=Item panelinden %s kadar silindi 
+options.tools.dump.itempanel.mode.0=CSV
+options.tools.dump.itempanel.mode.1=NBT
+
+layoutstyle.minecraft=Minecraft
+layoutstyle.oldtmi=Eski TMI
+
+recipe.page=Sayfa %s/%s
+recipe.shaped=Üretim
+recipe.shapeless=Üretim
+recipe.furnace=Pişirme
+recipe.fuel=Yakıt
+recipe.fuel.required=%s gerekli
+recipe.fuel.processed=%s işlenmiş
+recipe.fuel.produced=%s üretilmiş
+recipe.firework=Havaifişek
+recipe.firework.tooltip0=Renk ekle veya değiştir
+recipe.firework.tooltip1=Rengi kaldır veya değiştir
+recipe.firework.tooltip2=Fazlaca roket yap veya ışınla
+recipe.brewing=İksir Standı
+recipe.profiler.crafting=Üretme Profili
+recipe.profiler.usage=Kullanma Profili
