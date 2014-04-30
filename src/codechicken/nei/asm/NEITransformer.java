@@ -41,6 +41,18 @@ public class NEITransformer implements IClassTransformer
         transformer.add(new MethodInjector(new ObfMapping("net/minecraft/nbt/NBTTagList", "toString", "()Ljava/lang/String;"),
                 asmblocks.get("n_commaFix"), asmblocks.get("commaFix"), true));
 
+        //fix workbench container losing items on shift click output without room for the full stack
+        transformer.add(new MethodTransformer(new ObfMapping("net/minecraft/inventory/ContainerWorkbench", "func_82846_b", "(Lnet/minecraft/entity/player/EntityPlayer;I)Lnet/minecraft/item/ItemStack;"))
+        {
+            @Override
+            public void transform(MethodNode mv) {
+                ASMHelper.logger.debug("NEI: Applying workbench fix");
+                InsnListSection key = findN(mv.instructions, asmblocks.get("n_workbenchFix").list).get(0);
+                key.insertBefore(asmblocks.get("workbenchFix").rawListCopy());
+            }
+        });
+
+
         String GuiContainer = "net/minecraft/client/gui/inventory/GuiContainer";
         //add manager field
         transformer.add(new FieldWriter(ACC_PUBLIC, new ObfMapping(GuiContainer, "manager", "Lcodechicken/nei/guihook/GuiContainerManager;")));
@@ -117,6 +129,7 @@ public class NEITransformer implements IClassTransformer
         {
             @Override
             public void transform(MethodNode mv) {
+                ASMHelper.logger.debug("NEI: Injecting mouseUp call");
                 ASMBlock gotoBlock = asmblocks.get("n_mouseUpGoto");
                 ASMBlock needleBlock = asmblocks.get("n_mouseUp");
                 ASMBlock injectionBlock = asmblocks.get("mouseUp");
