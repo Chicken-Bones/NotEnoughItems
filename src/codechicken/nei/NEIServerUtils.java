@@ -2,6 +2,7 @@ package codechicken.nei;
 
 import codechicken.core.CommonUtils;
 import codechicken.core.ServerUtils;
+import codechicken.lib.inventory.InventoryRange;
 import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.packet.PacketCustom;
 import net.minecraft.command.ICommandSender;
@@ -104,7 +105,7 @@ public class NEIServerUtils
     }
 
     public static boolean canItemFitInInventory(EntityPlayer player, ItemStack itemstack) {
-        return InventoryUtils.insertItem(player.inventory, itemstack, true) == 0;
+        return InventoryUtils.insertItem(new InventoryRange(player.inventory, 0, 36), itemstack, true) == 0;
     }
 
     public static void sendNotice(ICommandSender sender, IChatComponent msg, String permission) {
