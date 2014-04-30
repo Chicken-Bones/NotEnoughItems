@@ -415,7 +415,7 @@ public abstract class GuiContainer extends GuiScreen
                     {
                         if (par3 == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100)
                         {
-                            this.handleMouseClick(slot, k1, par3, 3);
+                            managerHandleMouseClick(slot, k1, par3, 3);
                         }
                         else
                         {
@@ -432,7 +432,7 @@ public abstract class GuiContainer extends GuiScreen
                                 b0 = 4;
                             }
 
-                            manager.handleMouseClick(slot, k1, par3, b0);
+                            managerHandleMouseClick(slot, k1, par3, b0);
                         }
 
                         this.field_146995_H = true;
@@ -491,9 +491,9 @@ public abstract class GuiContainer extends GuiScreen
                     {
                         if (i1 - this.field_146986_E > 500L)
                         {
-                            this.handleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, 0, 0);
-                            this.handleMouseClick(slot, slot.slotNumber, 1, 0);
-                            this.handleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, 0, 0);
+                            managerHandleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, 0, 0);
+                            managerHandleMouseClick(slot, slot.slotNumber, 1, 0);
+                            managerHandleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, 0, 0);
                             this.field_146986_E = i1 + 750L;
                             --this.draggedStack.stackSize;
                         }
@@ -555,14 +555,14 @@ public abstract class GuiContainer extends GuiScreen
 
                         if (slot1 != null && slot1.canTakeStack(this.mc.thePlayer) && slot1.getHasStack() && slot1.inventory == slot.inventory && Container.func_94527_a(slot1, this.field_146994_N, true))
                         {
-                            this.handleMouseClick(slot1, slot1.slotNumber, p_146286_3_, 1);
+                            managerHandleMouseClick(slot1, slot1.slotNumber, p_146286_3_, 1);
                         }
                     }
                 }
             }
             else
             {
-                this.handleMouseClick(slot, j1, p_146286_3_, 6);
+                managerHandleMouseClick(slot, j1, p_146286_3_, 6);
             }
 
             this.field_146993_M = false;
@@ -599,12 +599,12 @@ public abstract class GuiContainer extends GuiScreen
 
                     if (j1 != -1 && this.draggedStack != null && flag1)
                     {
-                        this.handleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, p_146286_3_, 0);
-                        this.handleMouseClick(slot, j1, 0, 0);
+                        managerHandleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, p_146286_3_, 0);
+                        managerHandleMouseClick(slot, j1, 0, 0);
 
                         if (this.mc.thePlayer.inventory.getItemStack() != null)
                         {
-                            this.handleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, p_146286_3_, 0);
+                            managerHandleMouseClick(this.clickedSlot, this.clickedSlot.slotNumber, p_146286_3_, 0);
                             this.field_147011_y = p_146286_1_ - l;
                             this.field_147010_z = p_146286_2_ - i1;
                             this.returningStackDestSlot = this.clickedSlot;
@@ -631,22 +631,22 @@ public abstract class GuiContainer extends GuiScreen
             }
             else if (this.field_147007_t && !this.field_147008_s.isEmpty())
             {
-                this.handleMouseClick((Slot)null, -999, Container.func_94534_d(0, this.field_146987_F), 5);
+                managerHandleMouseClick((Slot)null, -999, Container.func_94534_d(0, this.field_146987_F), 5);
                 iterator = this.field_147008_s.iterator();
 
                 while (iterator.hasNext())
                 {
                     slot1 = (Slot)iterator.next();
-                    this.handleMouseClick(slot1, slot1.slotNumber, Container.func_94534_d(1, this.field_146987_F), 5);
+                    managerHandleMouseClick(slot1, slot1.slotNumber, Container.func_94534_d(1, this.field_146987_F), 5);
                 }
 
-                this.handleMouseClick((Slot)null, -999, Container.func_94534_d(2, this.field_146987_F), 5);
+                managerHandleMouseClick((Slot)null, -999, Container.func_94534_d(2, this.field_146987_F), 5);
             }
             else if (this.mc.thePlayer.inventory.getItemStack() != null)
             {
                 if (p_146286_3_ == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100)
                 {
-                    this.handleMouseClick(slot, j1, p_146286_3_, 3);
+                    managerHandleMouseClick(slot, j1, p_146286_3_, 3);
                 }
                 else
                 {
@@ -657,7 +657,7 @@ public abstract class GuiContainer extends GuiScreen
                         this.field_146994_N = slot != null && slot.getHasStack() ? slot.getStack() : null;
                     }
 
-                    manager.handleMouseClick(slot, j1, p_146286_3_, flag1 ? 1 : 0);
+                    managerHandleMouseClick(slot, j1, p_146286_3_, flag1 ? 1 : 0);
                 }
             }
             else if(p_146286_3_ >= 0)
@@ -718,11 +718,11 @@ public abstract class GuiContainer extends GuiScreen
         {
             if (par2 == this.mc.gameSettings.keyBindPickBlock.getKeyCode())
             {
-                this.handleMouseClick(this.theSlot, this.theSlot.slotNumber, 0, 3);
+                managerHandleMouseClick(this.theSlot, this.theSlot.slotNumber, 0, 3);
             }
             else if (par2 == this.mc.gameSettings.keyBindDrop.getKeyCode())
             {
-                this.handleMouseClick(this.theSlot, this.theSlot.slotNumber, isCtrlKeyDown() ? 1 : 0, 4);
+                managerHandleMouseClick(this.theSlot, this.theSlot.slotNumber, isCtrlKeyDown() ? 1 : 0, 4);
             }
         }
     }
@@ -738,7 +738,7 @@ public abstract class GuiContainer extends GuiScreen
             {
                 if (p_146983_1_ == this.mc.gameSettings.keyBindsHotbar[j].getKeyCode())
                 {
-                    this.handleMouseClick(this.theSlot, this.theSlot.slotNumber, j, 2);
+                    managerHandleMouseClick(this.theSlot, this.theSlot.slotNumber, j, 2);
                     return true;
                 }
             }
@@ -799,5 +799,10 @@ public abstract class GuiContainer extends GuiScreen
     {
         super.handleMouseInput();
         manager.handleMouseWheel();
+    }
+
+	public void managerHandleMouseClick(Slot slot, int slotIndex, int button, int modifiers)
+    {
+        manager.handleMouseClick(slot, slotIndex, button, modifiers);
     }
 }

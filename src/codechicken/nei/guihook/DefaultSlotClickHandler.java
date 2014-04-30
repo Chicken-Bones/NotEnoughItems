@@ -13,12 +13,14 @@ public class DefaultSlotClickHandler implements IContainerSlotClickHandler
     @Override
     public boolean handleSlotClick(GuiContainer gui, int slotIndex, int button, Slot slot, int modifier, boolean eventconsumed)
     {
-        if(!eventconsumed) {
-            if(slot != null)
-                slotIndex = slot.slotNumber;
-            GuiContainerManager.getManager(gui).handleSlotClick(slotIndex, button, slotIndex != -999 ? modifier : 0);
-        }
+        if(!eventconsumed)
+            callHandleMouseClick(gui, slot, slotIndex, button, modifier);
+
         return true;
+    }
+
+    private static void callHandleMouseClick(GuiContainer gui, Slot slot, int slotIndex, int button, int modifiers) {
+        //calls GuiContainer.mouseClicked using ASM generated forwarder
     }
 
     @Override

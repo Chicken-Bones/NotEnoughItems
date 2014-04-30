@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-		mavenLocal()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -14,6 +13,14 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
+}
+
+//add dependency repositories
+repositories {
+	maven {
+		name = "chickenbones"
+		url = "http://localhost/maven"
+	}
 }
 
 apply plugin: 'forge'
@@ -30,9 +37,10 @@ configFile.withReader {
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
 }
+
 dependencies {
     compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:dev"
-    //compile "codechicken:CodeChickenCore:${config.mc_version}-${config.ccc_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.mc_version}-${config.ccc_version}:dev"
 }
 
 version =  "${project.config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
@@ -43,9 +51,9 @@ minecraft {
     version = config.mc_version + "-" + config.forge_version
 }
 
+def root = project.projectDir.parentFile
 sourceSets {
     main {
-        def root = project.projectDir.parentFile
         java {
             srcDir new File(root, "src")
         }
@@ -71,12 +79,7 @@ processResources {
     }
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'src'
-    version = "${project.minecraft.version}-${project.version}"
-}
-
+version = "${project.minecraft.version}-${project.version}"
 def commonManifest = {
     attributes 'FMLCorePlugin': 'codechicken.nei.asm.NEICorePlugin'
     attributes 'AccessTransformer': 'nei_at.cfg'
@@ -84,14 +87,18 @@ def commonManifest = {
 
 jar {
     classifier = 'universal'
-    version = "${project.minecraft.version}-${project.version}"
     manifest commonManifest
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.java
+    from new File(root, "dev")
+    classifier = 'src'
 }
 
 task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'
-    version = "${project.minecraft.version}-${project.version}"
     manifest commonManifest
 }
 

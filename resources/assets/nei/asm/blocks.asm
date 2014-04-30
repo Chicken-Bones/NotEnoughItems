@@ -12,7 +12,7 @@ ACONST_NULL
 
 list spawnerWorld
 ALOAD 0
-INVOKEVIRTUAL net/minecraft/tileentity/MobSpawnerBaseLogic.getSpawnerWorld()Lnet/minecraft/world/World;
+INVOKEVIRTUAL net/minecraft/tileentity/MobSpawnerBaseLogic.func_98271_a()Lnet/minecraft/world/World;
 
 list n_commaFix
 LDC *
@@ -64,20 +64,6 @@ INVOKESPECIAL net/minecraft/client/gui/GuiScreen.func_146274_d ()V
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.handleMouseWheel ()V
-RETURN
-
-list m_publicKeyTyped
-ALOAD 0
-ILOAD 1
-ILOAD 2
-INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.func_73869_a(CI)V
-RETURN
-
-list m_callKeyTyped
-ALOAD 0
-ILOAD 1
-ILOAD 2
-INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.publicKeyTyped(CI)V
 RETURN
 
 list preDraw
@@ -200,21 +186,20 @@ RETURN
 LCONT
 
 list d_handleMouseClick
-ALOAD 0
-ALOAD 5
-ILOAD 11
-ILOAD 3
-ILOAD 13
 INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.func_146984_a (Lnet/minecraft/inventory/Slot;III)V
 
 list handleMouseClick
+INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.managerHandleMouseClick (Lnet/minecraft/inventory/Slot;III)V
+
+list m_managerHandleMouseClick
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
-ALOAD 5
-ILOAD 11
+ALOAD 1
+ILOAD 2
 ILOAD 3
-ILOAD 13
+ILOAD 4
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.handleMouseClick (Lnet/minecraft/inventory/Slot;III)V
+RETURN
 
 list n_mouseDragged
 ASTORE 7
@@ -238,35 +223,6 @@ INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.overrideMouseUp (III)Z
 IFEQ LCONT
 RETURN
 LCONT
-
-list d_handleMouseClick2
-ALOAD 0
-ALOAD 4
-ILOAD 8
-ILOAD 3
-ILOAD 11
-IFEQ L0
-ICONST_1
-GOTO LCONT
-L0
-ICONST_0
-LCONT
-INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.func_146984_a (Lnet/minecraft/inventory/Slot;III)V
-
-list handleMouseClick2
-ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
-ALOAD 4
-ILOAD 8
-ILOAD 3
-ILOAD 11
-IFEQ L0
-ICONST_1
-GOTO LCONT
-L0
-ICONST_0
-LCONT
-INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.handleMouseClick (Lnet/minecraft/inventory/Slot;III)V
 
 list n_mouseUpGoto
 IFNULL LSTART
