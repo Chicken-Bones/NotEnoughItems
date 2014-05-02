@@ -211,7 +211,7 @@ public class NEIClientConfig
         LayoutManager.quantity.setText(Integer.toString(getItemQuantity()));
 
         if (newWorld && Minecraft.getMinecraft().isSingleplayer())
-            world.config.getTag("inventory.cheatmode").setIntValue(NEIClientUtils.getGamemode() == 1 ? 2 : 0);
+            world.config.getTag("inventory.cheatmode").setIntValue(NEIClientUtils.mc().playerController.isInCreativeMode() ? 2 : 0);
 
         NEIInfo.load(ClientUtils.getWorld());
     }
