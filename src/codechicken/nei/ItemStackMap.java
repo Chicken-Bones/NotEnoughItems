@@ -1,10 +1,14 @@
 package codechicken.nei;
 
+import com.google.common.base.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import static codechicken.lib.inventory.InventoryUtils.actualDamage;
 import static codechicken.lib.inventory.InventoryUtils.newItemStack;
@@ -30,14 +34,14 @@ public class ItemStackMap <T>
         }
 
         public int hashCode() {
-            return damage*31+Objects.hashCode(tag);
+            return Objects.hashCode(damage, tag);
         }
 
         public boolean equals(Object o) {
             if(!(o instanceof StackMetaKey))
                 return false;
             StackMetaKey t = (StackMetaKey)o;
-            return damage == t.damage && Objects.equals(tag, t.tag);
+            return damage == t.damage && Objects.equal(tag, t.tag);
         }
     }
 
@@ -127,7 +131,7 @@ public class ItemStackMap <T>
                     list.add(newItemStack(item, 1, key.damage, key.tag));
         }
 
-        public void addValues(LinkedList<T> list) {
+        public void addValues(List<T> list) {
             if(wildcard != null)
                 list.add(wildcard);
             if(damageMap != null)
@@ -138,7 +142,7 @@ public class ItemStackMap <T>
                 list.addAll(metaMap.values());
         }
 
-        public void addEntries(Item item, LinkedList<Entry<T>> list) {
+        public void addEntries(Item item, List<Entry<T>> list) {
             if(wildcard != null)
                 list.add(new Entry<T>(newItemStack(item, 1, WILDCARD_VALUE, WILDCARD_TAG), wildcard));
             if(damageMap != null)
