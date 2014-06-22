@@ -1,4 +1,4 @@
-# fr_FR translation, par Linyor
+# fr_FR traduction, par Linyor
 nei.load=Charger
 nei.save=Sauvegarde
 
@@ -13,7 +13,7 @@ nei.inventory.next=Suivant
 nei.inventory.item_subsets=Sous-ensembles d'objets
 nei.inventory.delete.all=Supprimer TOUS les éléments de l'écran de l'inventaire actuel
 nei.inventory.delete.one=Supprimer %s
-nei.inventory.delete.all=Tous supprimer %s
+nei.inventory.delete.all=Supprimer les %s
 nei.inventory.delete.enable=Activer le mode de suppression
 nei.inventory.delete.1=Mode de suppression ON
 nei.inventory.delete.0=Mode de suppression OFF
@@ -42,16 +42,16 @@ nei.chat.gamemode.1=Vous jouez maintenant en créatif
 nei.chat.gamemode.2=Vous jouez maintenant en créatif+
 nei.chat.gamemode.3=Vous jouez maintenant en aventure
 nei.chat.rain.on=Pluie activée
-nei.chat.rain.off=Pluie désactivé
+nei.chat.rain.off=Pluie désactivée
 nei.chat.time=Jour %d. %d:00
-nei.chat.give.noitem=Pas de tel objet.
+nei.chat.give.noitem=Objet inexistant.
 
 nei.options=NEI Options
 nei.options.back=Retour
 nei.options.world=Monde
 nei.options.global=Global
 nei.options.global.tip.0=Les options s'appliquent à tous les mondes
-nei.options.global.tip.1=Cliquer sur le "W" à coté d'une option pour l'activer pour ce monde
+nei.options.global.tip.1=Cliquez sur le "W" à coté d'une option pour l'activer pour ce monde
 nei.options.wbutton.tip.0=Utilisation des paramètres globaux
 nei.options.wbutton.tip.1=Annuler l'utilisation des paramètres globaux
 
@@ -65,7 +65,7 @@ nei.options.keys.gui.back=Recette précédente
 nei.options.keys.gui.prev=Recette suivante
 nei.options.keys.gui.next=Page suivante
 nei.options.keys.gui.hide=Afficher ou cacher NEI
-nei.options.keys.gui.search=Pointer sur la barre de recherche
+nei.options.keys.gui.search=Sélectionner la barre de recherche
 nei.options.keys.world=Monde
 nei.options.keys.world.chunkoverlay=Overlay limitation des chunks
 nei.options.keys.world.moboverlay=Overlay spawn des monstres
@@ -77,7 +77,7 @@ nei.options.keys.world.midnight=Minuit
 nei.options.keys.world.rain=Pluie
 nei.options.keys.world.heal=Santé
 nei.options.keys.world.creative=Mode de jeu
-nei.options.keys.world.creative.tip=Cycle mode de jeu
+nei.options.keys.world.creative.tip=Changer mode de jeu
 
 nei.options.inventory=Inventaire
 nei.options.inventory.widgetsenabled.true=NEI activé
@@ -90,9 +90,9 @@ nei.options.inventory.profileRecipes=Profil Recettes
 nei.options.inventory.profileRecipes.true=Vrai
 nei.options.inventory.profileRecipes.false=Faux
 nei.options.inventory.itemIDs=Objet IDs
-nei.options.inventory.itemIDs.0=Caché
+nei.options.inventory.itemIDs.0=Cachés
 nei.options.inventory.itemIDs.1=Auto
-nei.options.inventory.itemIDs.2=Montré
+nei.options.inventory.itemIDs.2=Montrés
 nei.options.inventory.utilities=Utilitaires
 nei.options.inventory.utilities.tip=Sélectionnez les fonctions pour le mode utilitaire
 nei.options.inventory.utilities.time=Heure
@@ -105,21 +105,21 @@ nei.options.inventory.utilities.enchant=Enchantement
 nei.options.inventory.utilities.potion=Potions
 nei.options.inventory.utilities.item=Objets
 nei.options.inventory.gamemodes=Modes de jeux
-nei.options.inventory.gamemodes.tip=Sélectionnez les modes de jeu pour faire défiler
+nei.options.inventory.gamemodes.tip=Sélectionnez les modes de jeu à faire défiler
 nei.options.inventory.gamemodes.creative=Créatif
 nei.options.inventory.gamemodes.creative+=Créatif+
 nei.options.inventory.gamemodes.adventure=Aventure
 
 nei.options.command=Commandes
 nei.options.command.creative=Mode de jeu
-nei.options.command.creative.tip={0}=1 pour créatif, 0 pour survie, {1}=joueur
+nei.options.command.creative.tip={0} = 1 pour créatif, 0 pour survie, {1} = joueur
 nei.options.command.item=Objet
-nei.options.command.item.tip={0}=joueur, {1}=ObjetID, {2}=quantité, {3}=DommagesObjet
+nei.options.command.item.tip={0}=joueur, {1}= ObjetID, {2} = quantité, {3} = Dommages
 nei.options.command.time=Heure
 nei.options.command.time.tip={0}=HeureDuMonde
 nei.options.command.rain=Pluie
 nei.options.command.rain.tip={0}=1 pour ON, 0 pour OFF
-nei.options.command.heal=Santé
+nei.options.command.heal=Guérir
 nei.options.command.heal.tip={0}=joueur
 
 nei.options.world.highlight_tips=Mettez en surbrillance les info-bulles
@@ -127,9 +127,9 @@ nei.options.world.highlight_tips.hide=Caché
 nei.options.world.highlight_tips.show=Montré
 
 nei.options.tools=Outils
-nei.options.tools.dump=Jeter des données
+nei.options.tools.dump=Data Dumps
 nei.options.tools.dump.dump=Jeter
-nei.options.tools.dump.dumped=%s IDs jeter de %s
+nei.options.tools.dump.dumped=%s IDs jeter %s
 nei.options.tools.dump.mode.0=Utiliser
 nei.options.tools.dump.mode.1=Libre
 nei.options.tools.dump.mode.2=Tout
@@ -144,7 +144,7 @@ nei.options.tools.dump.enchantments=Enchantements
 nei.options.tools.dump.biome=Biome
 nei.options.tools.dump.biomes=Biomes
 nei.options.tools.dump.itempanel=Panneau d'objet
-nei.options.tools.dump.itempanel.dumped=Contenu du panneau d'objet ont été jetés de %s
+nei.options.tools.dump.itempanel.dumped=Contenu du panneau d'objet ont été jetés %s
 nei.options.tools.dump.itempanel.mode.0=CSV
 nei.options.tools.dump.itempanel.mode.1=NBT
 nei.options.tools.dump.itempanel.mode.2=Json
@@ -153,9 +153,9 @@ nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Ancien TMI
 
 nei.recipe.page=Page %s/%s
-nei.recipe.shaped=Modèle du craft
-nei.recipe.shapeless=Pas de modèle de craft
-nei.recipe.furnace=Extracteur
+nei.recipe.shaped=Modèle de recette
+nei.recipe.shapeless=Pas de modèle de recette
+nei.recipe.furnace=Cuire
 nei.recipe.fuel=Carburant
 nei.recipe.fuel.required=%s requis
 nei.recipe.fuel.processed=%s traité
@@ -166,4 +166,4 @@ nei.recipe.firework.tooltip1=Décoloration: ajouter des couleurs fade dans les e
 nei.recipe.firework.tooltip2=Plusieurs charges peuvent être appliqué dans une fusée
 nei.recipe.brewing=Brassage
 nei.recipe.profiler.crafting=Profilage artisanat
-nei.recipe.profiler.usage=Utilisation de profils
+nei.recipe.profiler.usage=Profilage d'utilisation
