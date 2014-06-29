@@ -105,8 +105,8 @@ public class NEITransformer implements IClassTransformer
         //Replace default renderItem with delegate and slot overlay/underlay
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_146977_a", "(Lnet/minecraft/inventory/Slot;)V"), asmblocks.get("d_drawSlot"), asmblocks.get("drawSlot")));
 
-        //Inject mouseClicked hook after super call in mouseClicked
-        transformer.add(new MethodInjector(new ObfMapping(GuiContainer, "func_73864_a", "(III)V"), asmblocks.get("n_mouseClicked"), asmblocks.get("mouseClicked"), false));
+        //Inject mouseClicked hook at the start of mouseClicked
+        transformer.add(new MethodInjector(new ObfMapping(GuiContainer, "func_73864_a", "(III)V"), asmblocks.get("mouseClicked"), true));
 
         //Replace general handleMouseClicked call with delegate
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_73864_a", "(III)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//mouseClicked
@@ -152,6 +152,22 @@ public class NEITransformer implements IClassTransformer
 
         //Inject updateScreen hook after super call
         transformer.add(new MethodInjector(new ObfMapping(GuiContainer, "func_73876_c", "()V"), asmblocks.get("n_updateScreen"), asmblocks.get("updateScreen"), false));
+
+        //Cancel tab click calls when tabs are obscured
+        transformer.add(new MethodInjector(new ObfMapping("net/minecraft/client/gui/inventory/GuiContainerCreative", "func_147049_a", "(Lnet/minecraft/creativetab/CreativeTabs;II)Z"),
+                asmblocks.get("handleTabClick"), true));
+
+        //Cancel tab tooltip rendering when tabs are obscured
+        transformer.add(new MethodInjector(new ObfMapping("net/minecraft/client/gui/inventory/GuiContainerCreative", "func_147052_b", "(Lnet/minecraft/creativetab/CreativeTabs;II)Z"),
+                asmblocks.get("renderTabTooltip"), true));
+
+        String[] buttons = new String[]{"CancelButton", "ConfirmButton", "PowerButton"};
+        for(String button : buttons) {
+            ObfMapping m = new ObfMapping("net/minecraft/client/gui/inventory/GuiBeacon$"+button, "func_146111_b", "(II)V");
+            InsnListSection l = asmblocks.get("beaconButtonObscured").list.copy();
+            ((FieldInsnNode)l.get(1)).owner = m.s_owner;
+            transformer.add(new MethodInjector(m, l.list, true));
+        }
     }
 
     private void addProtectedForwarder(ObfMapping called, ObfMapping caller) {

@@ -199,9 +199,6 @@ GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/
 ALOAD 1
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.renderSlotOverlay (Lnet/minecraft/inventory/Slot;)V
 
-list n_mouseClicked
-INVOKESPECIAL net/minecraft/client/gui/GuiScreen.func_73864_a (III)V
-
 list mouseClicked
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
@@ -323,3 +320,54 @@ list updateScreen
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.updateScreen ()V
+
+
+#Other inventory modifications
+
+list renderTabTooltip
+ALOAD 0
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
+ILOAD 2
+ILOAD 3
+INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.objectUnderMouse (II)Z
+IFEQ LCONT
+ICONST_0
+IRETURN
+LCONT
+
+list handleTabClick
+ALOAD 0
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
+ILOAD 2
+ALOAD 0
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiLeft : I
+IADD
+ILOAD 3
+ALOAD 0
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiTop : I
+IADD
+INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.objectUnderMouse (II)Z
+IFEQ LCONT
+ICONST_0
+IRETURN
+LCONT
+
+list beaconButtonObscured
+ALOAD 0
+GETFIELD BeaconButton.this$0 : Lnet/minecraft/client/gui/inventory/GuiBeacon;
+DUP
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
+SWAP
+DUP
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiLeft : I
+ILOAD 1
+IADD
+SWAP
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiTop : I
+ILOAD 2
+IADD
+INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.objectUnderMouse (II)Z
+IFEQ LCONT
+RETURN
+LCONT
+

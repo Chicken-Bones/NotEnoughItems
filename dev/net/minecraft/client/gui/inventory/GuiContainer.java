@@ -360,10 +360,10 @@ public abstract class GuiContainer extends GuiScreen
      */
     protected void mouseClicked(int par1, int par2, int par3)
     {
-        super.mouseClicked(par1, par2, par3);
-
         if (manager.mouseClicked(par1, par2, par3))
             return;
+
+        super.mouseClicked(par1, par2, par3);
         
         boolean flag = par3 == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100;
         Slot slot = this.getSlotAtPosition(par1, par2);

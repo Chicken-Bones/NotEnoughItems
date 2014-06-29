@@ -10,7 +10,7 @@ nei.inventory.options=Options
 nei.inventory.prev=Prev
 nei.inventory.next=Next
 nei.inventory.item_subsets=Item SubSets
-nei.inventory.delete.all=DELETE ALL ITEMS from current inventory screen
+nei.inventory.delete.inv=DELETE ALL ITEMS from current inventory screen
 nei.inventory.delete.one=Delete %s
 nei.inventory.delete.all=Delete ALL %s
 nei.inventory.delete.enable=Enable delete mode
@@ -88,10 +88,15 @@ nei.options.inventory.layoutstyle=Layout Style
 nei.options.inventory.profileRecipes=Profile Recipes
 nei.options.inventory.profileRecipes.true=True
 nei.options.inventory.profileRecipes.false=False
+nei.options.inventory.itemsort=Item Panel Sorting
 nei.options.inventory.itemIDs=Item IDs
 nei.options.inventory.itemIDs.0=Hidden
 nei.options.inventory.itemIDs.1=Auto
 nei.options.inventory.itemIDs.2=Shown
+nei.options.inventory.searchmode=Search Mode
+nei.options.inventory.searchmode.0=Plain
+nei.options.inventory.searchmode.1=Extended
+nei.options.inventory.searchmode.2=Regex
 nei.options.inventory.utilities=Utilities
 nei.options.inventory.utilities.tip=Select features for utility mode
 nei.options.inventory.utilities.time=Time
@@ -113,7 +118,7 @@ nei.options.command=Commands
 nei.options.command.creative=Gamemode
 nei.options.command.creative.tip={0} = 1 for creative, 0 for survival, {1} = player
 nei.options.command.item=Item
-nei.options.command.item.tip={0} = player, {1} = itemID, {2} = quantity, {3} = itemDamage
+nei.options.command.item.tip={0} = player, {1} = id, {2} = amount, {3} = damage, {4} = nbt, {5} = name
 nei.options.command.time=Time
 nei.options.command.time.tip={0} = worldtime
 nei.options.command.rain=Rain
@@ -166,3 +171,13 @@ nei.recipe.firework.tooltip2=Multiple charges can be spawned from one rocket
 nei.recipe.brewing=Brewing
 nei.recipe.profiler.crafting=Crafting Profiling
 nei.recipe.profiler.usage=Usage Profiling
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Sorts items from vanilla minecraft first
+nei.itemsort.mod=Mod
+nei.itemsort.mod.tip=Groups items in the same mod, sorted by mod name
+nei.itemsort.id=Item ID
+nei.itemsort.default=Default
+nei.itemsort.default.tip=Leave the natural ordering of each item unchanged
+nei.itemsort.damage=Item Damage
+nei.itemsort.name=Display Name
