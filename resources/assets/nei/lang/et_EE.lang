@@ -1,0 +1,186 @@
+﻿# Estonian language file
+# Created by tambry
+
+nei.load=Lae
+nei.save=Salvesta
+
+nei.enchant=Enchant
+nei.enchant.level=Level
+nei.enchant.locked=Lukustatud
+nei.enchant.unlocked=Lukustamata
+
+nei.inventory.options=Valikud
+nei.inventory.prev=Eelmine
+nei.inventory.next=Järgmine
+nei.inventory.item_subsets=Item SubSets
+nei.inventory.delete.inv=KUSTUTA KÕIK ASJAD hetke seljakoti aknast
+nei.inventory.delete.one=Kustuta %s
+nei.inventory.delete.all=Kustuta KÕIK %s
+nei.inventory.delete.enable=Lülita kustutamis moodi
+nei.inventory.delete.1=Lülita kustutamis mood välja
+nei.inventory.delete.0=Lülita kustutamis mood sisse
+nei.inventory.rain.enable=Luba vihm
+nei.inventory.rain.1=Lülita vihm välja
+nei.inventory.rain.0=Lülita vihm sisse
+nei.inventory.magnet.enable=Lülita magneti moodi
+nei.inventory.magnet.1=Lülita magneti mood sisse
+nei.inventory.magnet.0=Lülita magneti mood välja
+nei.inventory.dawn.enable=Lülita hommik-keskpäev
+nei.inventory.dawn.set=Pane aeg hommikuks
+nei.inventory.noon.enable=Lülita keskpäev-õhtu
+nei.inventory.noon.set=Pane aeg keskpäevaks
+nei.inventory.dusk.enable=Lülita õhtu-ööpäev
+nei.inventory.dusk.set=Pane aeg õhtuks
+nei.inventory.midnight.enable=Lülita ööpäev-hommik
+nei.inventory.midnight.set=Pane aeg ööpäevaks
+nei.inventory.heal=Ravi mängijat
+nei.inventory.gamemode.0=Pane mängumood ellujäämiseks
+nei.inventory.gamemode.1=Pane mängumood loovaks
+nei.inventory.gamemode.2=Pane mängumood loovaks+
+nei.inventory.gamemode.3=Pane mängumood seikluseks
+
+nei.chat.gamemode.0=Sa mängid nüüd ellujäämises
+nei.chat.gamemode.1=Sa mängid nüüd loovas
+nei.chat.gamemode.2=Sa mängid nüüd loovas+
+nei.chat.gamemode.3=Sa mängid nüüd seikluses
+nei.chat.rain.on=Vihm sisse lülitatud
+nei.chat.rain.off=Vihm välja lülitatud
+nei.chat.time=Päev %d. %d:00
+nei.chat.give.noitem=Pole sellist asja olemas.
+
+nei.options=NEI Valikud
+nei.options.back=Tagasi
+nei.options.world=Maailm
+nei.options.global=Globaalne
+nei.options.global.tip.0=Valikud mõjutavad kõiki maailmi
+nei.options.global.tip.1=Vajuta W kõrval:valiku, et ületeh:ületeha see maailm
+nei.options.wbutton.tip.0=Kasutab globaalseid seadeid
+nei.options.wbutton.tip.1=Globaalsete seadmete ületegemine
+
+nei.options.keys=Klahviseosed
+nei.options.keys.gui=Seljakott
+nei.options.keys.gui.recipe=Retsept
+nei.options.keys.gui.usage=Kasutus
+nei.options.keys.gui.enchant=Loitsud
+nei.options.keys.gui.potion=Joogid
+nei.options.keys.gui.back=Eel. Retsept
+nei.options.keys.gui.prev=Eel. Leht
+nei.options.keys.gui.next=Järg. Leht
+nei.options.keys.gui.hide=Lülita NEI nähtavust
+nei.options.keys.gui.search=Fokuseeri otsingu riba
+nei.options.keys.world=Maailm
+nei.options.keys.world.chunkoverlay=Chunk'i ääre ülekate
+nei.options.keys.world.moboverlay=Koletiste sündimis ülekate
+nei.options.keys.world.highlight_tips=Highlight Tooltips
+nei.options.keys.world.dawn=Hommik
+nei.options.keys.world.noon=Keskpäev
+nei.options.keys.world.dusk=Õhtu
+nei.options.keys.world.midnight=Kesköö
+nei.options.keys.world.rain=Vihm
+nei.options.keys.world.heal=Ravi
+nei.options.keys.world.creative=Mängumööd
+nei.options.keys.world.creative.tip=Tsükli mängumoodi
+
+nei.options.inventory=Seljakott
+nei.options.inventory.widgetsenabled.true=NEI lubatud
+nei.options.inventory.widgetsenabled.false=NEI keelatud
+nei.options.inventory.cheatmode.0=Retsepti mood
+nei.options.inventory.cheatmode.1=Utiliidi mood
+nei.options.inventory.cheatmode.2=Petmis mood
+nei.options.inventory.layoutstyle=Layout Style
+nei.options.inventory.profileRecipes=Profileeri retsepte
+nei.options.inventory.profileRecipes.true=Tõene
+nei.options.inventory.profileRecipes.false=Väär
+nei.options.inventory.itemsort=Item Panel Sorting
+nei.options.inventory.itemIDs=Asja ID-d
+nei.options.inventory.itemIDs.0=Peidetud
+nei.options.inventory.itemIDs.1=Auto
+nei.options.inventory.itemIDs.2=Näidatud
+nei.options.inventory.searchmode=Otsimis mood
+nei.options.inventory.searchmode.0=Plain
+nei.options.inventory.searchmode.1=Extended
+nei.options.inventory.searchmode.2=Regex
+nei.options.inventory.utilities=Utiliidid
+nei.options.inventory.utilities.tip=Vali funktsioonid utiliidi moodi jaoks
+nei.options.inventory.utilities.time=Aeg
+nei.options.inventory.utilities.rain=Vihm
+nei.options.inventory.utilities.heal=Ravi
+nei.options.inventory.utilities.delete=Kustuta
+nei.options.inventory.utilities.magnet=Magnet
+nei.options.inventory.utilities.gamemode=Gamemode
+nei.options.inventory.utilities.enchant=Enchanting
+nei.options.inventory.utilities.potion=Joogid
+nei.options.inventory.utilities.item=Asja
+nei.options.inventory.gamemodes=Mängumoodid
+nei.options.inventory.gamemodes.tip=Vali mängumoodid millest läbi tsüklida
+nei.options.inventory.gamemodes.creative=Loov
+nei.options.inventory.gamemodes.creative+=Loov+
+nei.options.inventory.gamemodes.adventure=Seiklus
+
+nei.options.command=Käsud
+nei.options.command.creative=Mängumood
+nei.options.command.creative.tip={0} = 1 loova jaoks, 0 ellujäämis jaoks, {1} = mängija
+nei.options.command.item=Item
+nei.options.command.item.tip={0} = mängija, {1} = id, {2} = kogus, {3} = kahju, {4} = nbt, {5} = nimi
+nei.options.command.time=Time
+nei.options.command.time.tip={0} = maailmaaeg
+nei.options.command.rain=Rain
+nei.options.command.rain.tip={0} = 1 sisse jaoks, 0 välja jaoks
+nei.options.command.heal=Heal
+nei.options.command.heal.tip={0} = mängija
+
+nei.options.world.highlight_tips=Tõsta esile vihjed
+nei.options.world.highlight_tips.hide=Peidetud
+nei.options.world.highlight_tips.show=Näidatud
+
+nei.options.tools=Töövahendid
+nei.options.tools.dump=Data Dumps
+nei.options.tools.dump.dump=Dump
+nei.options.tools.dump.dumped=%s IDs dumped to %s
+nei.options.tools.dump.mode.0=Kasutatud
+nei.options.tools.dump.mode.1=Vaba
+nei.options.tools.dump.mode.2=Kõik
+nei.options.tools.dump.item=Asi
+nei.options.tools.dump.items=Asjad
+nei.options.tools.dump.block=Blokk
+nei.options.tools.dump.blocks=Blokkid
+nei.options.tools.dump.potion=Jook
+nei.options.tools.dump.potions=Joogid
+nei.options.tools.dump.enchantment=Enchantment
+nei.options.tools.dump.enchantments=Enchantments
+nei.options.tools.dump.biome=Biome
+nei.options.tools.dump.biomes=Biomes
+nei.options.tools.dump.itempanel=Item Panel
+nei.options.tools.dump.itempanel.dumped=Item Panel contents were dumped to %s
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+
+nei.layoutstyle.minecraft=Minecraft
+nei.layoutstyle.oldtmi=Vana TMI
+
+nei.recipe.page=Leht %s/%s
+nei.recipe.shaped=Kujuga Valmistamine
+nei.recipe.shapeless=Kujutu Valmistamine
+nei.recipe.furnace=Sulatamine
+nei.recipe.fuel=Kütus
+nei.recipe.fuel.required=%s vajatud
+nei.recipe.fuel.processed=%s protsessitud
+nei.recipe.fuel.produced=%s valmistatud
+nei.recipe.firework=Ilutulestik
+nei.recipe.firework.tooltip0=Dyes add colours to the charges
+nei.recipe.firework.tooltip1=Recolouring adds fade colours to the charge
+nei.recipe.firework.tooltip2=Multiple charges can be spawned from one rocket
+nei.recipe.brewing=Keetmine
+nei.recipe.profiler.crafting=Crafting Profiling
+nei.recipe.profiler.usage=Usage Profiling
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Sorts items from vanilla minecraft first
+nei.itemsort.mod=Mod
+nei.itemsort.mod.tip=Groups items in the same mod, sorted by mod name
+nei.itemsort.id=Item ID
+nei.itemsort.default=Vaikimisi
+nei.itemsort.default.tip=Leave the natural ordering of each item unchanged
+nei.itemsort.damage=Item Damage
+nei.itemsort.name=Display Name
