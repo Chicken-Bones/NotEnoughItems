@@ -19,7 +19,7 @@ buildscript {
 repositories {
 	maven {
 		name = "chickenbones"
-		url = "http://localhost/maven"
+		url = "http://chickenbones.net/maven"
 	}
 }
 
