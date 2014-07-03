@@ -239,9 +239,13 @@ public class NEIServerUtils
                         !NEIServerConfig.canPlayerPerformAction(player.getCommandSenderName(), NEIActions.gameModes[mode]))
             return;
 
+        //creative+
+        NEIServerConfig.forPlayer(player.getCommandSenderName()).enableAction("creative+", mode == 2);
+        if(mode == 2 && !(player.openContainer instanceof ContainerCreativeInv))//open the container immediately for the client
+            NEISPH.processCreativeInv(player, true);
+
         //change it on the server
         player.theItemInWorldManager.setGameType(getGameType(mode));
-        NEIServerConfig.forPlayer(player.getCommandSenderName()).enableAction("creative+", mode == 2);
 
         //tell the client to change it
         new PacketCustom(NEISPH.channel, 14).writeByte(mode).sendToPlayer(player);
