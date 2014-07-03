@@ -2,6 +2,7 @@ package codechicken.nei;
 
 import codechicken.core.gui.GuiScrollSlot;
 import codechicken.lib.gui.GuiDraw;
+import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.ItemList.ItemsLoadedCallback;
 import codechicken.nei.ItemList.NothingItemFilter;
@@ -12,6 +13,8 @@ import codechicken.nei.api.ItemFilter.ItemFilterProvider;
 import codechicken.nei.guihook.GuiContainerManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.awt.*;
@@ -369,7 +372,8 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     /**
      * All operations on this variable should be synchronised.
      */
-    public static final ItemStackSet hiddenItems = new ItemStackSet();
+    private static final ItemStackSet hiddenItems = new ItemStackSet();
+    private static boolean hiddenItemsDirty = false;
 
     public static SubsetState getState(SubsetTag tag) {
         SubsetState state = subsetState.get(tag.fullname);
@@ -405,6 +409,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
             hiddenItems.add(item);
         else
             hiddenItems.remove(item);
+        hiddenItemsDirty = true;
     }
 
     public static void showOnly(SubsetTag tag) {
@@ -425,6 +430,14 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     public static void setHidden(ItemStack item, boolean hidden) {
         synchronized (hiddenItems) {
             _setHidden(item, hidden);
+            updateState(false);
+        }
+    }
+
+    public static void unhideAll() {
+        synchronized (hiddenItems) {
+            hiddenItems.clear();
+            hiddenItemsDirty = true;
             updateState(false);
         }
     }
@@ -456,6 +469,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     public void update() {
         Point mouse = GuiDraw.getMousePosition();
         updateVisiblity(mouse.x, mouse.y);
+        saveHidden();
     }
 
     private void updateVisiblity(int mx, int my) {
@@ -482,12 +496,8 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         }
 
         if(button == 0) {
-            if(System.currentTimeMillis() - lastclicktime < 500) {
-                synchronized (hiddenItems) {
-                    hiddenItems.clear();
-                    updateState(false);
-                }
-            }
+            if(System.currentTimeMillis() - lastclicktime < 500)
+                unhideAll();
             else
                 root.setVisible();
 
@@ -653,5 +663,38 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
             new ThreadSubsetItems().start();
         }
         ItemList.updateFilter();
+    }
+
+    public static void loadHidden() {
+        synchronized (hiddenItems) {
+            hiddenItems.clear();
+            try {
+                NBTTagList list = NEIClientConfig.world.nbt.getTagList("hiddenItems", 10);
+                for(int i = 0; i < list.tagCount(); i++)
+                    hiddenItems.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
+            }
+            catch (Exception e) {
+                hiddenItems.clear();
+                NEIClientConfig.logger.error("Error loading hiddenItems", e);
+            }
+        }
+    }
+
+    private static void saveHidden() {
+        if(!hiddenItemsDirty)
+            return;
+
+        synchronized (hiddenItems) {
+            NBTTagList list = new NBTTagList();
+            for(ItemStack item : hiddenItems.values()) {
+                NBTTagCompound tag = new NBTTagCompound();
+                item.writeToNBT(tag);
+                list.appendTag(tag);
+            }
+            NEIClientConfig.world.nbt.setTag("hiddenItems", list);
+            NEIClientConfig.world.saveNBT();
+
+            hiddenItemsDirty = false;
+        }
     }
 }

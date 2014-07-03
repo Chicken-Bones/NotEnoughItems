@@ -212,6 +212,7 @@ public class NEIClientConfig
         creativeInv = new ItemStack[54];
         LayoutManager.searchField.setText(getSearchExpression());
         LayoutManager.quantity.setText(Integer.toString(getItemQuantity()));
+        SubsetWidget.loadHidden();
 
         if (newWorld && Minecraft.getMinecraft().isSingleplayer())
             world.config.getTag("inventory.cheatmode").setIntValue(NEIClientUtils.mc().playerController.isInCreativeMode() ? 2 : 0);
