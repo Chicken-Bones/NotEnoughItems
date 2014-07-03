@@ -35,11 +35,11 @@ list workbenchFix
 NEW codechicken/lib/inventory/InventoryRange
 DUP
 ALOAD 0
-GETFIELD net/minecraft/inventory/ContainerWorkbench.inventorySlots : Ljava/util/List;
+GETFIELD net/minecraft/inventory/ContainerWorkbench.field_75151_b : Ljava/util/List;
 BIPUSH 10
 INVOKEINTERFACE java/util/List.get (I)Ljava/lang/Object;
 CHECKCAST net/minecraft/inventory/Slot
-GETFIELD net/minecraft/inventory/Slot.inventory : Lnet/minecraft/inventory/IInventory;
+GETFIELD net/minecraft/inventory/Slot.field_75224_c : Lnet/minecraft/inventory/IInventory;
 ICONST_0
 BIPUSH 36
 INVOKESPECIAL codechicken/lib/inventory/InventoryRange.<init>(Lnet/minecraft/inventory/IInventory;II)V
