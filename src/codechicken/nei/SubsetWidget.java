@@ -55,8 +55,13 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
                         SubsetWidget.showOnly(tag);
                     else
                         SubsetWidget.setHidden(tag, button == 1);
-                } else
-                    SubsetWidget.setHidden(state.items.get(slot-sorted.size()), button == 1);
+                } else {
+                    ItemStack item = state.items.get(slot-sorted.size());
+                    if(NEIClientUtils.controlKey())
+                        NEIClientUtils.cheatItem(item, button, -1);
+                    else
+                        SubsetWidget.setHidden(state.items.get(slot-sorted.size()), button == 1);
+                }
             }
 
             @Override
@@ -280,8 +285,10 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
             if(slot.contentHeight() > height)
                 width+=slot.scrollbarDim().width;
 
-            if(pwidth >= 0 ? x+width+pwidth > area.x2() : x-width < area.x1())
-                pwidth*=-1;
+            boolean fitLeft = x-width >= area.x1();
+            boolean fitRight = x+width+pwidth <= area.x2();
+            if(pwidth >= 0 ? !fitRight && fitLeft : !fitLeft)
+                pwidth*=-1;//swap
             x += pwidth >= 0 ? pwidth : -width;
 
             slot.setSize(x, y, width, height);
