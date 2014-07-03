@@ -29,7 +29,7 @@ ALOAD 5
 BIPUSH 10
 BIPUSH 46
 ICONST_1
-INVOKEVIRTUAL net/minecraft/inventory/ContainerWorkbench.mergeItemStack (Lnet/minecraft/item/ItemStack;IIZ)Z
+INVOKEVIRTUAL net/minecraft/inventory/ContainerWorkbench.func_75135_a (Lnet/minecraft/item/ItemStack;IIZ)Z
 
 list workbenchFix
 NEW codechicken/lib/inventory/InventoryRange
