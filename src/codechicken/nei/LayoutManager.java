@@ -573,9 +573,8 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
 
         NEIController.load(gui);
 
-        if (checkCreativeInv(gui) &&
-                gui.mc.currentScreen instanceof GuiContainerCreative)//makes cycle transitions seamless. Only closes if we are opening from fresh
-            gui.mc.displayGuiScreen(null);
+        if (checkCreativeInv(gui) && gui.mc.currentScreen instanceof GuiContainerCreative)//override creative with creative+
+            gui.mc.displayGuiScreen(null);//close the screen and wait for the server to open it for us
     }
 
     @Override
