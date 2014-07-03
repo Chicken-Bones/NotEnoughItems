@@ -340,11 +340,11 @@ ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 ILOAD 2
 ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiLeft : I
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_147003_i : I
 IADD
 ILOAD 3
 ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiTop : I
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_147009_r : I
 IADD
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.objectUnderMouse (II)Z
 IFEQ LCONT
@@ -359,11 +359,11 @@ DUP
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 SWAP
 DUP
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiLeft : I
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_147003_i : I
 ILOAD 1
 IADD
 SWAP
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.guiTop : I
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_147009_r : I
 ILOAD 2
 IADD
 INVOKEVIRTUAL codechicken/nei/guihook/GuiContainerManager.objectUnderMouse (II)Z
