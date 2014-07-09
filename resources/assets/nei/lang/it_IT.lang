@@ -1,0 +1,183 @@
+nei.load=Carica
+nei.save=Salva
+
+nei.enchant=Incanta
+nei.enchant.level=Livello
+nei.enchant.locked=Serrato
+nei.enchant.unlocked=Libero
+
+nei.inventory.options=Opzioni
+nei.inventory.prev=Prec
+nei.inventory.next=Pros
+nei.inventory.item_subsets=Sottoinsieme oggetti
+nei.inventory.delete.inv=ELIMINA TUTTI GLI OGGETTI nell'inventario corrente
+nei.inventory.delete.one=Elimina %s
+nei.inventory.delete.all=Elimina TUTTI %s
+nei.inventory.delete.enable=Abilita la modalità elimina
+nei.inventory.delete.1=Attiva modalità elimina
+nei.inventory.delete.0=Disattiva modalità elimina
+nei.inventory.rain.enable=Abilita pioggia
+nei.inventory.rain.1=Attiva la pioggia
+nei.inventory.rain.0=Disattiva la pioggia
+nei.inventory.magnet.enable=Abilita modalità magnete
+nei.inventory.magnet.1=Attiva modalità magnete
+nei.inventory.magnet.0=Disattiva modalità magnete
+nei.inventory.dawn.enable=Abilita alba-mezzogiorno
+nei.inventory.dawn.set=Imposta tempo ad alba
+nei.inventory.noon.enable=Abilita mezzogiorno-tramonto
+nei.inventory.noon.set=Imposta tempo a mezzogiorno
+nei.inventory.dusk.enable=Abilita tramonto-mezzanotte
+nei.inventory.dusk.set=Imposta tempo a tramonto
+nei.inventory.midnight.enable=Abilita mezzanotte-alba
+nei.inventory.midnight.set=Imposta tempo a mezzanotte
+nei.inventory.heal=Cura il giocatore
+nei.inventory.gamemode.0=Imposta modalità di gioco su sopravvivenza
+nei.inventory.gamemode.1=Imposta modalità di gioco su creativa
+nei.inventory.gamemode.2=Imposta modalità di gioco su creativa+
+nei.inventory.gamemode.3=Imposta modalità di gioco su avventura
+
+nei.chat.gamemode.0=Ora stai giocando su sopravvivenza
+nei.chat.gamemode.1=Ora stai giocando su creativa
+nei.chat.gamemode.2=Ora stai giocando su creativa+
+nei.chat.gamemode.3=Ora stai giocando su avventura
+nei.chat.rain.on=Pioggia attivata
+nei.chat.rain.off=Pioggia disattivata
+nei.chat.time=Giorno %d. %d:00
+nei.chat.give.noitem=Nessun oggetto del genere.
+
+nei.options=Opzioni NEI
+nei.options.back=Indietro
+nei.options.world=Mondo
+nei.options.global=Globale
+nei.options.global.tip.0=Opzioni avvengono su tutti i mondi
+nei.options.global.tip.1=Clicca la W vicino a una:opzione per impostarla:solo su questo mondo
+nei.options.wbutton.tip.0=Usando opzione globale
+nei.options.wbutton.tip.1=Sovrascrivendo opzioni globali
+
+nei.options.keys=Controlli
+nei.options.keys.gui=Inventario
+nei.options.keys.gui.recipe=Ricetta
+nei.options.keys.gui.usage=Usi
+nei.options.keys.gui.enchant=Incantare
+nei.options.keys.gui.potion=Pozioni
+nei.options.keys.gui.back=Ricetta prec
+nei.options.keys.gui.prev=Pagina prec
+nei.options.keys.gui.next=Pagina pros
+nei.options.keys.gui.hide=Modifica visibilità NEI
+nei.options.keys.gui.search=Attiva barra di ricerca
+nei.options.keys.world=Mondo
+nei.options.keys.world.chunkoverlay=Mostra confini dei chunk
+nei.options.keys.world.moboverlay=Mostra spawn dei mob
+nei.options.keys.world.highlight_tips=Esalta tooltips
+nei.options.keys.world.dawn=Alba
+nei.options.keys.world.noon=Mezzogiorno
+nei.options.keys.world.dusk=Tramonto
+nei.options.keys.world.midnight=Mezzanotte
+nei.options.keys.world.rain=Pioggia
+nei.options.keys.world.heal=Cura
+nei.options.keys.world.creative=Modalità di gioco
+nei.options.keys.world.creative.tip=Cicla modalità di gioco
+
+nei.options.inventory=Inventario
+nei.options.inventory.widgetsenabled.true=NEI Attivato
+nei.options.inventory.widgetsenabled.false=NEI Disattivato
+nei.options.inventory.cheatmode.0=Modalità ricette
+nei.options.inventory.cheatmode.1=Modalità utilità
+nei.options.inventory.cheatmode.2=Modalità cheat
+nei.options.inventory.layoutstyle=Stile layout
+nei.options.inventory.profileRecipes=Ricerca profilo
+nei.options.inventory.profileRecipes.true=Vero
+nei.options.inventory.profileRecipes.false=Falso
+nei.options.inventory.itemsort=Pannello ordine degli oggetti
+nei.options.inventory.itemIDs=ID degli oggetti
+nei.options.inventory.itemIDs.0=Nascosti
+nei.options.inventory.itemIDs.1=Auto
+nei.options.inventory.itemIDs.2=Mostrati
+nei.options.inventory.searchmode=Modalità di ricerca
+nei.options.inventory.searchmode.0=Piatto
+nei.options.inventory.searchmode.1=Esteso
+nei.options.inventory.searchmode.2=Regex
+nei.options.inventory.utilities=Utilità
+nei.options.inventory.utilities.tip=Seleziona funzioni per modalità utilità
+nei.options.inventory.utilities.time=Tempo
+nei.options.inventory.utilities.rain=Pioggia
+nei.options.inventory.utilities.heal=Cura
+nei.options.inventory.utilities.delete=Elimina
+nei.options.inventory.utilities.magnet=Magnete
+nei.options.inventory.utilities.gamemode=Modalità di gioco
+nei.options.inventory.utilities.enchant=Incantare
+nei.options.inventory.utilities.potion=Pozioni
+nei.options.inventory.utilities.item=Oggetti
+nei.options.inventory.gamemodes=Modalità di gioco
+nei.options.inventory.gamemodes.tip=Seleziona le modalità di gioco da ciclare
+nei.options.inventory.gamemodes.creative=Creativa
+nei.options.inventory.gamemodes.creative+=Creativa+
+nei.options.inventory.gamemodes.adventure=Avventura
+
+nei.options.command=Comandi
+nei.options.command.creative=Modalità di gioco
+nei.options.command.creative.tip={0} = 1 per creativa, 0 per sopravvivenza, {1} = giocatore
+nei.options.command.item=Oggetti
+nei.options.command.item.tip={0} = giocatore, {1} = id, {2} = quantità, {3} = danno, {4} = nbt, {5} = nome
+nei.options.command.time=Tempo
+nei.options.command.time.tip={0} = orario
+nei.options.command.rain=Pioggia
+nei.options.command.rain.tip={0} = 1 per attivarlo, 0 per disattivarlo
+nei.options.command.heal=Cura
+nei.options.command.heal.tip={0} = giocatore
+
+nei.options.world.highlight_tips=Esalta tooltips
+nei.options.world.highlight_tips.hide=Mostra
+nei.options.world.highlight_tips.show=Nascosto
+
+nei.options.tools=Attrezzi
+nei.options.tools.dump=Scarica data
+nei.options.tools.dump.dump=Scarica
+nei.options.tools.dump.dumped=%s IDs scaricati a %s
+nei.options.tools.dump.mode.0=Usato
+nei.options.tools.dump.mode.1=Libero
+nei.options.tools.dump.mode.2=Tutti
+nei.options.tools.dump.item=Oggetto
+nei.options.tools.dump.items=Oggetti
+nei.options.tools.dump.block=Blocco
+nei.options.tools.dump.blocks=Blocchi
+nei.options.tools.dump.potion=Pozione
+nei.options.tools.dump.potions=Pozioni
+nei.options.tools.dump.enchantment=Incantesimo
+nei.options.tools.dump.enchantments=Incantesimi
+nei.options.tools.dump.biome=Bioma
+nei.options.tools.dump.biomes=Biomi
+nei.options.tools.dump.itempanel=Pannello oggetti
+nei.options.tools.dump.itempanel.dumped=Il contenuto del Pannello oggetti è stato scricato in %s
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+
+nei.layoutstyle.minecraft=Minecraft
+nei.layoutstyle.oldtmi=Vecchio TMI
+
+nei.recipe.page=Pagina %s/%s
+nei.recipe.shaped=Fabbric. formata
+nei.recipe.shapeless=Fabbric. senzaforma
+nei.recipe.furnace=Fornace
+nei.recipe.fuel=Carburante
+nei.recipe.fuel.required=%s richiesto
+nei.recipe.fuel.processed=%s processato
+nei.recipe.fuel.produced=%s prodotto
+nei.recipe.firework=Razzi pirotecnici
+nei.recipe.firework.tooltip0=Tinture aggiungono colore alle stelle pirotecniche
+nei.recipe.firework.tooltip1=Riclorando le stelle pirotecniche si aggiungono dei colori che svaniscono
+nei.recipe.firework.tooltip2=Più stelle pirotecniche possono essere usati nello stesso razzo
+nei.recipe.brewing=Pozioni
+nei.recipe.profiler.crafting=Fabbrica profiling
+nei.recipe.profiler.usage=Usa profiling
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Ordina oggetti da vanilla per prima
+nei.itemsort.mod=Mod
+nei.itemsort.mod.tip=Gruppi di oggetti dello stesso mod, ordinati per nome della mod
+nei.itemsort.id=ID degli oggetti
+nei.itemsort.default=Classico
+nei.itemsort.default.tip=Lascia l'ordine di ogni oggetto così com'è
+nei.itemsort.damage=Danno degli oggetti
+nei.itemsort.name=Mostra nome
