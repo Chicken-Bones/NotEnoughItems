@@ -162,10 +162,14 @@ public class NEITransformer implements IClassTransformer
                 asmblocks.get("renderTabTooltip"), true));
 
         String[] buttons = new String[]{"CancelButton", "ConfirmButton", "PowerButton"};
-        for(String button : buttons) {
-            ObfMapping m = new ObfMapping("net/minecraft/client/gui/inventory/GuiBeacon$"+button, "func_146111_b", "(II)V");
+        String[] this_fields = new String[]{"field_146146_o", "field_146147_o", "field_146149_p"};
+        for(int i = 0; i < 3; i++) {
+            ObfMapping m = new ObfMapping("net/minecraft/client/gui/inventory/GuiBeacon$"+buttons[i], "func_146111_b", "(II)V");
             InsnListSection l = asmblocks.get("beaconButtonObscured").list.copy();
-            ((FieldInsnNode)l.get(1)).owner = m.s_owner;
+            FieldInsnNode this_ref = ((FieldInsnNode)l.get(1));
+            this_ref.owner = m.toClassloading().s_owner;
+            if(ObfMapping.obfuscated) //missing srg mappings for inner outer reference fields
+                this_ref.name = ObfMapping.obfMapper.mapFieldName(null, this_fields[i], null);
             transformer.add(new MethodInjector(m, l.list, true));
         }
     }
