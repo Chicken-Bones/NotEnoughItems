@@ -162,7 +162,7 @@ public class NEITransformer implements IClassTransformer
                 asmblocks.get("renderTabTooltip"), true));
 
         String[] buttons = new String[]{"CancelButton", "ConfirmButton", "PowerButton"};
-        String[] this_fields = new String[]{"field_146146_o", "field_146147_o", "field_146149_p"};
+        String[] this_fields = new String[]{"field_146146_o", "field_146147_o", "field_146150_o"};
         for(int i = 0; i < 3; i++) {
             ObfMapping m = new ObfMapping("net/minecraft/client/gui/inventory/GuiBeacon$"+buttons[i], "func_146111_b", "(II)V");
             InsnListSection l = asmblocks.get("beaconButtonObscured").list.copy();
