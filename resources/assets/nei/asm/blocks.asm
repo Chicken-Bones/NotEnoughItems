@@ -354,7 +354,8 @@ LCONT
 
 list beaconButtonObscured
 ALOAD 0
-GETFIELD BeaconButton.this$0 : Lnet/minecraft/client/gui/inventory/GuiBeacon;
+# NEI will replace the owner with the appropriate inner class
+GETFIELD net/minecraft/client/gui/inventory/GuiBeacon.this$0 : Lnet/minecraft/client/gui/inventory/GuiBeacon;
 DUP
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.manager : Lcodechicken/nei/guihook/GuiContainerManager;
 SWAP

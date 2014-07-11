@@ -37,10 +37,10 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
 
     public static ArrayList<SortEntry> entries = new ArrayList<SortEntry>();
     public static ArrayList<SortEntry> list = new ArrayList<SortEntry>();
-    public static ItemSorter instance = new ItemSorter();
+    public static final ItemSorter instance = new ItemSorter();
 
     //optimisations
-    public HashMap<ItemStack, Integer> ordering = new HashMap<ItemStack, Integer>();
+    public HashMap<ItemStack, Integer> ordering = null;
 
     public static void sort(ArrayList<ItemStack> items) {
         Collections.sort(items, instance);
@@ -57,10 +57,11 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
 
     @Override
     public void itemsLoaded() {
-        ordering.clear();
+        HashMap<ItemStack, Integer> newMap = new HashMap<ItemStack, Integer>();
         int i = 0;
         for(ItemStack stack : ItemList.items)
-            ordering.put(stack, i++);
+            newMap.put(stack, i++);
+        ordering = newMap;
     }
 
     public static String getSaveString() {
