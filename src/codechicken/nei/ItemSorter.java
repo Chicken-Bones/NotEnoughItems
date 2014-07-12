@@ -129,8 +129,10 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
         {
             @Override
             public int compare(ItemStack o1, ItemStack o2) {
-                int order1 = instance.ordering.get(o1);
-                int order2 = instance.ordering.get(o2);
+                Integer order1 = instance.ordering.get(o1);
+                Integer order2 = instance.ordering.get(o2);
+                if(order1 == null) return order2 == null ? 0 : 1;
+                if(order2 == null) return -1;
                 return compareInt(order1, order2);
             }
         });
