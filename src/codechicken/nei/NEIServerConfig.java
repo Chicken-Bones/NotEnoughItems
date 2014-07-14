@@ -181,7 +181,7 @@ public class NEIServerConfig
         bannedItems.clear();
         File file = new File(saveDir, "banneditems.cfg");
         if(!file.exists()) {
-            bannedItems.put(new ItemStack(Blocks.bedrock), new HashSet<String>(Arrays.asList("NONE")));
+            bannedItems.put(new ItemStack(Blocks.command_block), new HashSet<String>(Arrays.asList("NONE")));
             saveBannedItems();
             return;
         }
