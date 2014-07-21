@@ -496,6 +496,8 @@ public class GuiContainerManager
                 keyTyped(c, k);
             }
         }
+
+        window.mc.func_152348_aa();
     }
 
 
