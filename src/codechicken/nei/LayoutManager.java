@@ -564,7 +564,7 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
         if (isEnabled()) {
             setInputFocused(null);
 
-            ItemList.loadItems();
+            ItemList.loadItems.restart();
             overlayRenderer = null;
 
             getLayoutStyle().init();

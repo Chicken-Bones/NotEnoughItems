@@ -98,12 +98,8 @@ public class ItemList
         return filters;
     }
 
-    private static class ThreadLoadItems extends Thread
+    public static final RestartableTask loadItems = new RestartableTask("NEI Item Loading")
     {
-        public ThreadLoadItems() {
-            super("NEI Item Loading");
-        }
-
         private void damageSearch(Item item, List<ItemStack> permutations) {
             HashSet<String> damageIconSet = new HashSet<String>();
             for (int damage = 0; damage < 16; damage++)
@@ -126,99 +122,84 @@ public class ItemList
         }
 
         @Override
-        public void run() {
-            ThreadOperationTimer timer = ThreadOperationTimer.start(this, 500);
-            restart:
-            do {
-                reload = false;
-                LinkedList<ItemStack> items = new LinkedList<ItemStack>();
-                LinkedList<ItemStack> permutations = new LinkedList<ItemStack>();
-                ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
+        public void execute() {
+            ThreadOperationTimer timer = getTimer(500);
 
-                timer.setLimit(500);
-                for (Item item : (Iterable<Item>) Item.itemRegistry) {
-                    if (reload)
-                        continue restart;
+            LinkedList<ItemStack> items = new LinkedList<ItemStack>();
+            LinkedList<ItemStack> permutations = new LinkedList<ItemStack>();
+            ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
 
-                    if (item == null || erroredItems.contains(item))
-                        continue;
+            timer.setLimit(500);
+            for (Item item : (Iterable<Item>) Item.itemRegistry) {
+                if (interrupted()) return;
 
-                    try {
-                        timer.reset(item);
+                if (item == null || erroredItems.contains(item))
+                    continue;
 
-                        permutations.clear();
-                        permutations.addAll(ItemInfo.getItemOverrides(item));
-                        if (permutations.isEmpty())
-                            item.getSubItems(item, null, permutations);
+                try {
+                    timer.reset(item);
 
-                        if (permutations.isEmpty())
-                            damageSearch(item, permutations);
+                    permutations.clear();
+                    permutations.addAll(ItemInfo.getItemOverrides(item));
+                    if (permutations.isEmpty())
+                        item.getSubItems(item, null, permutations);
 
-                        timer.reset();
+                    if (permutations.isEmpty())
+                        damageSearch(item, permutations);
 
-                        items.addAll(permutations);
-                        itemMap.putAll(item, permutations);
-                    } catch (Throwable t) {
-                        NEIServerConfig.logger.error("Removing item: " + item + " from list.", t);
-                        erroredItems.add(item);
-                    }
+                    timer.reset();
+
+                    items.addAll(permutations);
+                    itemMap.putAll(item, permutations);
+                } catch (Throwable t) {
+                    NEIServerConfig.logger.error("Removing item: " + item + " from list.", t);
+                    erroredItems.add(item);
                 }
-
-                ItemList.items = items;
-                ItemList.itemMap = itemMap;
-                for(ItemsLoadedCallback callback : loadCallbacks)
-                    callback.itemsLoaded();
-
-                updateFilter();
             }
-            while (reload);
-            loading = false;
-        }
-    }
 
-    public static class ThreadFilterItems extends Thread {
-        public ThreadFilterItems() {
-            super("NEI Item Filtering");
-        }
+            if(interrupted()) return;
+            ItemList.items = items;
+            ItemList.itemMap = itemMap;
+            for(ItemsLoadedCallback callback : loadCallbacks)
+                callback.itemsLoaded();
 
+            updateFilter.restart();
+        }
+    };
+
+    public static final RestartableTask updateFilter = new RestartableTask("NEI Item Filtering")
+    {
         @Override
-        public void run() {
-            restart:
-            do {
-                refilter = false;
-                ArrayList<ItemStack> filtered = new ArrayList<ItemStack>();
-                List<ItemFilter> filters = getItemFilters();
-                for(ItemStack item : items) {
-                    if(refilter)
-                        continue restart;
+        public void execute() {
+            ArrayList<ItemStack> filtered = new ArrayList<ItemStack>();
+            List<ItemFilter> filters = getItemFilters();
+            for(ItemStack item : items) {
+                if (interrupted()) return;
 
-                    if(itemMatches(item, filters))
-                        filtered.add(item);
-                }
-
-                ItemSorter.sort(filtered);
-                ItemPanel.updateItemList(filtered);
+                if(itemMatches(item, filters))
+                    filtered.add(item);
             }
-            while(refilter);
-            filtering = false;
-        }
-    }
 
+            if(interrupted()) return;
+            ItemSorter.sort(filtered);
+            if(interrupted()) return;
+            ItemPanel.updateItemList(filtered);
+        }
+    };
+
+    /**
+     * @deprecated Use updateFilter.restart()
+     */
+    @Deprecated
     public static void updateFilter() {
-        if (filtering)
-            refilter = true;
-        else {
-            filtering = true;
-            new ThreadFilterItems().start();
-        }
+        updateFilter.restart();
     }
 
+    /**
+     * @deprecated Use loadItems.restart()
+     */
+    @Deprecated
     public static void loadItems() {
-        if (loading)
-            reload = true;
-        else {
-            loading = true;
-            new ThreadLoadItems().start();
-        }
+        loadItems.restart();
     }
 }
