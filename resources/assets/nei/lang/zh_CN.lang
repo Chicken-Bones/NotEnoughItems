@@ -120,6 +120,29 @@ options.world.highlight_tips=高亮显示
 options.world.highlight_tips.hide=隐藏
 options.world.highlight_tips.show=显示
 
+nei.options.tools=工具
+nei.options.tools.dump=数据转储
+nei.options.tools.dump.dump=转储
+nei.options.tools.dump.dumped=%s ID已被转储到 %s 内
+nei.options.tools.dump.mode.0=已使用
+nei.options.tools.dump.mode.1=可用
+nei.options.tools.dump.mode.2=全部
+nei.options.tools.dump.item=物品
+nei.options.tools.dump.items=物品
+nei.options.tools.dump.block=方块
+nei.options.tools.dump.blocks=方块
+nei.options.tools.dump.potion=药水
+nei.options.tools.dump.potions=药水
+nei.options.tools.dump.enchantment=附魔
+nei.options.tools.dump.enchantments=附魔
+nei.options.tools.dump.biome=生物群系
+nei.options.tools.dump.biomes=生物群系
+nei.options.tools.dump.itempanel=物品分类
+nei.options.tools.dump.itempanel.dumped=Item Panel contents were dumped to %s
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+
 layoutstyle.minecraft=Minecraft风格
 layoutstyle.oldtmi=老式TMI风格
 
