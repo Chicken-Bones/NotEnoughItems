@@ -66,7 +66,7 @@ public class SearchField extends TextField implements ItemFilterProvider
     @Override
     public void onTextChange(String oldText) {
         NEIClientConfig.setSearchExpression(text());
-        ItemList.updateFilter();
+        ItemList.updateFilter.restart();
     }
 
     @Override

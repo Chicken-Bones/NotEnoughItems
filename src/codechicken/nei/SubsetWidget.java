@@ -2,7 +2,6 @@ package codechicken.nei;
 
 import codechicken.core.gui.GuiScrollSlot;
 import codechicken.lib.gui.GuiDraw;
-import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.ItemList.ItemsLoadedCallback;
 import codechicken.nei.ItemList.NothingItemFilter;
@@ -20,6 +19,7 @@ import net.minecraft.util.EnumChatFormatting;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoadedCallback, ISearchProvider
 {
@@ -373,7 +373,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
      * All operations on this variable should be synchronised.
      */
     private static final ItemStackSet hiddenItems = new ItemStackSet();
-    private static boolean hiddenItemsDirty = false;
+    private static final AtomicReference<NBTTagList> dirtyHiddenItems = new AtomicReference<NBTTagList>();
 
     public static SubsetState getState(SubsetTag tag) {
         SubsetState state = subsetState.get(tag.fullname);
@@ -381,9 +381,10 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     }
 
     public static void addTag(SubsetTag tag) {
+        updateState.stop();
         synchronized (root) {
             root.addTag(tag);
-            updateState(true);
+            updateState.reallocate();
         }
     }
 
@@ -409,7 +410,6 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
             hiddenItems.add(item);
         else
             hiddenItems.remove(item);
-        hiddenItemsDirty = true;
     }
 
     public static void showOnly(SubsetTag tag) {
@@ -423,22 +423,167 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     public static void setHidden(SubsetTag tag, boolean hidden) {
         synchronized (hiddenItems) {
             _setHidden(tag, hidden);
-            updateState(false);
+            updateHiddenItems();
         }
     }
 
     public static void setHidden(ItemStack item, boolean hidden) {
         synchronized (hiddenItems) {
             _setHidden(item, hidden);
-            updateState(false);
+            updateHiddenItems();
         }
     }
 
     public static void unhideAll() {
         synchronized (hiddenItems) {
             hiddenItems.clear();
-            hiddenItemsDirty = true;
-            updateState(false);
+            updateHiddenItems();
+        }
+    }
+
+    private static void updateHiddenItems() {
+        prepareDirtyHiddenItems.restart();
+        updateState.restart();
+    }
+
+    public static void loadHidden() {
+        synchronized (hiddenItems) {
+            hiddenItems.clear();
+        }
+
+        List<ItemStack> itemList = new LinkedList<ItemStack>();
+        try {
+            NBTTagList list = NEIClientConfig.world.nbt.getTagList("hiddenItems", 10);
+            for(int i = 0; i < list.tagCount(); i++)
+                itemList.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
+        }
+        catch (Exception e) {
+            NEIClientConfig.logger.error("Error loading hiddenItems", e);
+            return;
+        }
+
+        synchronized (hiddenItems) {
+            for(ItemStack item : itemList)
+                hiddenItems.add(item);
+        }
+        updateState.restart();
+    }
+
+    private static void saveHidden() {
+        NBTTagList list = dirtyHiddenItems.getAndSet(null);
+        if(list != null) {
+            NEIClientConfig.world.nbt.setTag("hiddenItems", list);
+            NEIClientConfig.world.saveNBT();
+        }
+    }
+
+    private static final RestartableTask prepareDirtyHiddenItems = new RestartableTask("NEI Subset Save Thread")
+    {
+        private List<ItemStack> getList() {
+            synchronized (hiddenItems) {
+                return hiddenItems.values();
+            }
+        }
+
+        @Override
+        public void execute() {
+            NBTTagList list = new NBTTagList();
+            for(ItemStack item : getList()) {
+                if(interrupted()) return;
+                NBTTagCompound tag = new NBTTagCompound();
+                item.writeToNBT(tag);
+                list.appendTag(tag);
+            }
+            dirtyHiddenItems.set(list);
+        }
+    };
+
+    private static final UpdateStateTask updateState = new UpdateStateTask();
+    private static class UpdateStateTask extends RestartableTask
+    {
+        private volatile boolean reallocate;
+
+        public UpdateStateTask() {
+            super("NEI Subset Item Allocation");
+        }
+
+        @Override
+        public void clearTasks() {
+            super.clearTasks();
+            reallocate = false;
+        }
+
+        public synchronized void reallocate() {
+            reallocate = true;
+            restart();
+        }
+
+        @Override
+        public void execute() {
+            HashMap<String, SubsetState> state = new HashMap<String, SubsetState>();
+            List<SubsetTag> tags = new LinkedList<SubsetTag>();
+            synchronized (root) {
+                cloneStates(root, tags, state);
+                if(interrupted()) return;
+            }
+
+            if(reallocate) {
+                for (ItemStack item : ItemList.items) {
+                    if(interrupted()) return;
+                    for (SubsetTag tag : tags)
+                        if (tag.filter.matches(item))
+                            state.get(tag.fullname).items.add(item);
+                }
+            }
+
+            synchronized (root) {
+                calculateVisibility(root, state);
+                if(interrupted()) return;
+            }
+
+            subsetState = state;
+            ItemList.updateFilter.restart();
+        }
+
+        private void cloneStates(SubsetTag tag, List<SubsetTag> tags, HashMap<String, SubsetState> state) {
+            for(SubsetTag child : tag.sorted) {
+                if(interrupted()) return;
+                cloneStates(child, tags, state);
+            }
+
+            tags.add(tag);
+            SubsetState sstate = new SubsetState();
+            if(!reallocate)
+                sstate.items = SubsetWidget.getState(tag).items;
+            state.put(tag.fullname, sstate);
+        }
+
+        private void calculateVisibility(SubsetTag tag, Map<String, SubsetState> state) {
+            SubsetState sstate = state.get(tag.fullname);
+            int hidden = 0;
+            for(SubsetTag child : tag.sorted) {
+                if(interrupted()) return;
+                calculateVisibility(child, state);
+                int cstate = state.get(child.fullname).state;
+                if(cstate == 1)
+                    sstate.state = 1;
+                else if(cstate == 0)
+                    hidden++;
+            }
+
+            if(sstate.state == 1) return;
+
+            List<ItemStack> items = sstate.items;
+            for(ItemStack item : items) {
+                if(interrupted()) return;
+                if (isHidden(item))
+                    hidden++;
+            }
+
+            if(hidden == tag.sorted.size()+items.size())
+                sstate.state = 0;
+            else if(hidden > 0)
+                sstate.state = 1;
         }
     }
 
@@ -568,133 +713,6 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
 
     @Override
     public void itemsLoaded() {
-        updateState(true);
-    }
-
-    private static boolean updatingState;
-    private static boolean reupdate;
-    private static boolean reallocate;
-
-    private static class ThreadSubsetItems extends Thread
-    {
-        public ThreadSubsetItems() {
-            super("NEI Subset Item Allocation");
-        }
-
-        @Override
-        public void run() {
-            restart:
-            do {
-                reupdate = false;
-                HashMap<String, SubsetState> state = new HashMap<String, SubsetState>();
-                List<SubsetTag> tags = new LinkedList<SubsetTag>();
-                synchronized (root) {
-                    cloneStates(root, tags, state);
-                }
-
-                if(reallocate) {
-                    for (ItemStack item : ItemList.items) {
-                        if (reupdate)
-                            continue restart;
-
-                        for (SubsetTag tag : tags)
-                            if (tag.filter.matches(item))
-                                state.get(tag.fullname).items.add(item);
-                    }
-                }
-
-                synchronized (root) {
-                    if (reupdate)
-                        continue;
-                    reallocate = false;
-
-                    calculateVisibility(root, state);
-                }
-
-                subsetState = state;
-            }
-            while(reupdate);
-            updatingState = false;
-        }
-
-        private void cloneStates(SubsetTag tag, List<SubsetTag> tags, HashMap<String, SubsetState> state) {
-            for(SubsetTag child : tag.sorted)
-                cloneStates(child, tags, state);
-
-            tags.add(tag);
-            SubsetState sstate = new SubsetState();
-            if(!reallocate)
-                sstate.items = SubsetWidget.getState(tag).items;
-            state.put(tag.fullname, sstate);
-        }
-
-        private void calculateVisibility(SubsetTag tag, Map<String, SubsetState> state) {
-            SubsetState sstate = state.get(tag.fullname);
-            int hidden = 0;
-            for(SubsetTag child : tag.sorted) {
-                calculateVisibility(child, state);
-                int cstate = state.get(child.fullname).state;
-                if(cstate == 1)
-                    sstate.state = 1;
-                else if(cstate == 0)
-                    hidden++;
-            }
-
-            if(sstate.state == 1)
-                return;
-
-            List<ItemStack> items = sstate.items;
-            for(ItemStack item : items)
-                if(isHidden(item))
-                    hidden++;
-            if(hidden == tag.sorted.size()+items.size())
-                sstate.state = 0;
-            else if(hidden > 0)
-                sstate.state = 1;
-        }
-    }
-
-    public static void updateState(boolean reallocate) {
-        SubsetWidget.reallocate = reallocate;
-        if (updatingState)
-            reupdate = true;
-        else {
-            updatingState = true;
-            new ThreadSubsetItems().start();
-        }
-        ItemList.updateFilter();
-    }
-
-    public static void loadHidden() {
-        synchronized (hiddenItems) {
-            hiddenItems.clear();
-            try {
-                NBTTagList list = NEIClientConfig.world.nbt.getTagList("hiddenItems", 10);
-                for(int i = 0; i < list.tagCount(); i++)
-                    hiddenItems.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
-            }
-            catch (Exception e) {
-                hiddenItems.clear();
-                NEIClientConfig.logger.error("Error loading hiddenItems", e);
-            }
-        }
-    }
-
-    private static void saveHidden() {
-        if(!hiddenItemsDirty)
-            return;
-
-        synchronized (hiddenItems) {
-            NBTTagList list = new NBTTagList();
-            for(ItemStack item : hiddenItems.values()) {
-                NBTTagCompound tag = new NBTTagCompound();
-                item.writeToNBT(tag);
-                list.appendTag(tag);
-            }
-            NEIClientConfig.world.nbt.setTag("hiddenItems", list);
-            NEIClientConfig.world.saveNBT();
-
-            hiddenItemsDirty = false;
-        }
+        updateState.reallocate();
     }
 }
