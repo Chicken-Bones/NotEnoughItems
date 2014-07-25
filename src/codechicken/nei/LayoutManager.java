@@ -272,7 +272,7 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
             @Override
             public boolean onButtonPress(boolean rightclick) {
                 if (!rightclick) {
-                    getOptionList().showGui(getGuiContainer());
+                    getOptionList().openGui(getGuiContainer(), false);
                     return true;
                 }
                 return false;

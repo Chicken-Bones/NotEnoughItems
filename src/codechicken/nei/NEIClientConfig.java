@@ -9,6 +9,7 @@ import codechicken.nei.config.*;
 import codechicken.nei.recipe.RecipeInfo;
 import codechicken.obfuscator.ObfuscationRun;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -151,16 +152,26 @@ public class NEIClientConfig
     }
 
     private static void linkOptionList() {
-        getOptionList().bindConfig(new IConfigSetHolder()
+        OptionList.setOptionList(new OptionList("nei.options")
         {
+            @Override
+            public ConfigSet globalConfigSet() {
+                return global;
+            }
+
             @Override
             public ConfigSet worldConfigSet() {
                 return world;
             }
 
             @Override
-            public ConfigSet globalConfigSet() {
-                return global;
+            public OptionList configBase() {
+                return this;
+            }
+
+            @Override
+            public GuiOptionList getGui(GuiScreen parent, OptionList list, boolean world) {
+                return new GuiNEIOptionList(parent, list, world);
             }
         });
     }

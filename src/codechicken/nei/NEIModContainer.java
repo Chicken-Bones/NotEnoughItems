@@ -28,7 +28,7 @@ public class NEIModContainer extends DummyModContainer
 
     public NEIModContainer() {
         super(MetadataCollection.from(MetadataCollection.class.getResourceAsStream("/neimod.info"), "NotEnoughItems").getMetadataForId("NotEnoughItems", null));
-        getMetadata();
+        loadMetadata();
     }
 
     @Override
@@ -43,24 +43,29 @@ public class NEIModContainer extends DummyModContainer
         return new LinkedList<ArtifactVersion>(getRequirements());
     }
 
+    private String description;
+    private void loadMetadata() {
+        description = super.getMetadata().description;
+    }
+
     @Override
     public ModMetadata getMetadata() {
-        ModMetadata meta = super.getMetadata();
-        meta.description = "Recipe Viewer, Inventory Manager, Item Spawner, Cheats and more.\n"+ EnumChatFormatting.WHITE+"\n";
-
+        String s_plugins = "";
         if (plugins.size() == 0) {
-            meta.description += EnumChatFormatting.RED+"No installed plugins.";
+            s_plugins += EnumChatFormatting.RED+"No installed plugins.";
         } else {
-            meta.description += EnumChatFormatting.GREEN+"Installed plugins: ";
+            s_plugins += EnumChatFormatting.GREEN+"Installed plugins: ";
             for (int i = 0; i < plugins.size(); i++) {
                 if (i > 0)
-                    meta.description += ", ";
+                    s_plugins += ", ";
                 IConfigureNEI plugin = plugins.get(i);
-                meta.description += plugin.getName() + " " + plugin.getVersion();
+                s_plugins += plugin.getName() + " " + plugin.getVersion();
             }
-            meta.description += ".";
+            s_plugins += ".";
         }
 
+        ModMetadata meta = super.getMetadata();
+        meta.description = description.replace("$plugins", s_plugins);
         return meta;
     }
 

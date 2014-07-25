@@ -12,7 +12,7 @@ public class NEIInfo
 
     public static void load(World world) {
         OptionCycled modeOption = (OptionCycled) NEIClientConfig.getOptionList().getOption("inventory.cheatmode");
-        modeOption.parent.synthesizeEnvironment();
+        modeOption.parent.synthesizeEnvironment(false);
         if(!modeOption.optionValid(modeOption.value())) {
             modeOption.copyGlobals();
             modeOption.cycle();

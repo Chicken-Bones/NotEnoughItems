@@ -45,16 +45,21 @@ public abstract class Option
         return 20;
     }
 
+    private <T> T assertParentOverride(T elem) {
+        if(elem == null) throw new IllegalStateException("Option "+fullName()+" does not have a defined parent list. Use OptionList.setOptionList to insert a parent");
+        return elem;
+    }
+
     public ConfigSet globalConfigSet() {
-        return parent.globalConfigSet();
+        return assertParentOverride(parent.globalConfigSet());
     }
 
     public ConfigSet worldConfigSet() {
-        return parent.worldConfigSet();
+        return assertParentOverride(parent.worldConfigSet());
     }
 
     public OptionList configBase() {
-        return parent.configBase();
+        return assertParentOverride(parent.configBase());
     }
 
     /**

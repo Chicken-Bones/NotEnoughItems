@@ -17,6 +17,9 @@ import static codechicken.lib.gui.GuiDraw.drawRect;
 
 public class ItemPanel extends Widget
 {
+    /**
+     * Should not be externally modified, use updateItemList
+     */
     public static ArrayList<ItemStack> items = new ArrayList<ItemStack>();
     /**
      * Swapped into visible items on update

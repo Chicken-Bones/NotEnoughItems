@@ -22,22 +22,16 @@ public class ItemList
     /**
      * Fields are replaced atomically and contents never modified.
      */
-    public static List<ItemStack> items = new ArrayList<ItemStack>();
+    public static volatile List<ItemStack> items = new ArrayList<ItemStack>();
     /**
      * Fields are replaced atomically and contents never modified.
      */
-    public static ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
+    public static volatile ListMultimap<Item, ItemStack> itemMap = ArrayListMultimap.create();
     /**
      * Updates to this should be synchronised on this
      */
     public static final List<ItemFilterProvider> itemFilterers = new LinkedList<ItemFilterProvider>();
     public static final List<ItemsLoadedCallback> loadCallbacks = new LinkedList<ItemsLoadedCallback>();
-
-    private static boolean loading = false;
-    private static boolean reload = false;
-
-    private static boolean filtering = false;
-    private static boolean refilter = false;
 
     private static HashSet<Item> erroredItems = new HashSet<Item>();
     private static HashSet<String> stackTraces = new HashSet<String>();

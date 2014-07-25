@@ -193,7 +193,7 @@ public class NEIServerConfig
                     continue;
                 int delim = s.lastIndexOf('=');
                 if(delim < 0) {
-                    System.err.println("line "+line+": Missing =");
+                    logger.error("line "+line+": Missing =");
                     continue;
                 }
                 try {
@@ -203,7 +203,7 @@ public class NEIServerConfig
                         values.add(s2.trim());
                     bannedItems.put(InventoryUtils.loadPersistant(key), values);
                 } catch (Exception e) {
-                    System.err.println("line "+line+": "+e.getMessage());
+                    logger.error("line "+line+": "+e.getMessage());
                 }
             }
             r.close();

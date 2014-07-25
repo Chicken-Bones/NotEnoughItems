@@ -6,10 +6,13 @@ import codechicken.core.gui.GuiScrollSlot;
 import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.LayoutManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNoCallback;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -173,13 +176,13 @@ public class GuiOptionList extends GuiScreenWidget
         }
     }
 
-    private final GuiScreen parent;
-    private final OptionList optionList;
-    private boolean world;
+    protected final GuiScreen parent;
+    protected final OptionList optionList;
+    protected boolean world;
 
-    private OptionScrollSlot slot;
-    private GuiCCButton backButton;
-    private GuiCCButton worldButton;
+    protected OptionScrollSlot slot;
+    protected GuiCCButton backButton;
+    protected GuiCCButton worldButton;
 
     public GuiOptionList(GuiScreen parent, OptionList optionList, boolean world) {
         this.parent = parent;
@@ -193,14 +196,16 @@ public class GuiOptionList extends GuiScreenWidget
         ySize = height;
         super.initGui();
 
-        if (slot != null) {
-            slot.resize();
-            backButton.width = Math.min(200, width - 40);
-            backButton.x = (width - backButton.width) / 2;
-            backButton.y = height - 25;
-            worldButton.width = 60;
-            worldButton.x = width - worldButton.width - 15;
-        }
+    }
+
+    @Override
+    public void resize() {
+        slot.resize();
+        backButton.width = Math.min(200, width - 40);
+        backButton.x = (width - backButton.width) / 2;
+        backButton.y = height - 25;
+        worldButton.width = 60;
+        worldButton.x = width - worldButton.width - 15;
     }
 
     @Override
@@ -208,7 +213,6 @@ public class GuiOptionList extends GuiScreenWidget
         add(slot = new OptionScrollSlot());
         add(backButton = new GuiCCButton(0, 0, 0, 20, translateToLocal("nei.options.back")).setActionCommand("back"));
         add(worldButton = new GuiCCButton(0, 2, 0, 16, worldButtonName()).setActionCommand("world"));
-        initGui();
     }
 
     private String worldButtonName() {

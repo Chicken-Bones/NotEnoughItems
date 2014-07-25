@@ -1,13 +1,17 @@
-[
+﻿[
 {
   "modid": "NotEnoughItems",
   "name": "Not Enough Items",
   "version": "${version}",
   "mcversion": "${mc_version}",
-  "description": "Recipe Viewer, Inventory Manager, Item Spawner, Cheats and more.",
+  "description": "Recipe Viewer, Inventory Manager, Item Spawner, Cheats and more.
+
+$plugins
+
+§bSupporters:",
   "url": "http://www.minecraftforum.net/topic/909223",
-  "credits": "Alexandria - Original Idea",
-  "authors": [ "ChickenBones" ],
+  "credits": "Alexandria - original idea",
+  "authorList": [ "ChickenBones" ],
   "dependencies": [
      "CodeChickenCore"
   ]
