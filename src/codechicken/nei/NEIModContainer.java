@@ -65,7 +65,7 @@ public class NEIModContainer extends DummyModContainer
         }
 
         ModMetadata meta = super.getMetadata();
-        meta.description = description.replace("$plugins", s_plugins);
+        meta.description = description.replace("<plugins>", s_plugins);
         return meta;
     }
 

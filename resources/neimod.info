@@ -6,7 +6,7 @@
   "mcversion": "${mc_version}",
   "description": "Recipe Viewer, Inventory Manager, Item Spawner, Cheats and more.
 
-$plugins
+<plugins>
 
 §bSupporters:",
   "url": "http://www.minecraftforum.net/topic/909223",
