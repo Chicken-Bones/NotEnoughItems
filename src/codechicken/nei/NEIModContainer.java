@@ -45,7 +45,7 @@ public class NEIModContainer extends DummyModContainer
 
     private String description;
     private void loadMetadata() {
-        description = super.getMetadata().description;
+        description = super.getMetadata().description.replace("Supporters:", EnumChatFormatting.AQUA+"Supporters:");
     }
 
     @Override
