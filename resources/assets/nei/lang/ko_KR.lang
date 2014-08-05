@@ -1,0 +1,183 @@
+nei.load=불러오기
+nei.save=저장
+
+nei.enchant=인첸트
+nei.enchant.level=레벨
+nei.enchant.locked=잠금
+nei.enchant.unlocked=잠금해제
+
+nei.inventory.options=옵션
+nei.inventory.prev=이전
+nei.inventory.next=다음
+nei.inventory.item_subsets=아이템 하위집합
+nei.inventory.delete.all=현재의 화면에 있는 모든 항목을 삭제
+nei.inventory.delete.one=%s 삭제
+nei.inventory.delete.all=%s 모두삭제
+nei.inventory.delete.enable=삭제모드 활성화
+nei.inventory.delete.1=삭제모드 켜짐
+nei.inventory.delete.0=삭제모드 꺼짐
+nei.inventory.rain.enable=비 활성화
+nei.inventory.rain.1=비가 옴
+nei.inventory.rain.0=비가 멈춤
+nei.inventory.magnet.enable=자석모드 활성화
+nei.inventory.magnet.1=자석모드 켜짐
+nei.inventory.magnet.0=자석모드 꺼짐
+nei.inventory.dawn.enable=여명 활성화
+nei.inventory.dawn.set=시간이 여명시간대로 바뀌었습니다
+nei.inventory.noon.enable=낮 활성화
+nei.inventory.noon.set=시간이 낮시간대로 바뀌었습니다
+nei.inventory.dusk.enable=저녁 활성화
+nei.inventory.dusk.set=시간이 저녁시간대로 바뀌었습니다
+nei.inventory.midnight.enable=밤 활성화
+nei.inventory.midnight.set=시간이 밤시간대로 바뀌었습니다
+nei.inventory.heal=플레이어의 채력과허기를 채워줍니다
+nei.inventory.gamemode.0=게임모드가 서바이벌로 변경됩니다
+nei.inventory.gamemode.1=게임모드가 크리에이티브모드로 변경됩니다
+nei.inventory.gamemode.2=게임모드가 크리에이티브+모드로 변경됩니다
+nei.inventory.gamemode.3=게임모드가 어드벤처로 변경됩니다
+
+nei.chat.gamemode.0=당신은 현재 서바이벌모드입니다.
+nei.chat.gamemode.1=당신은 현재 크리에이티브모드입니다.
+nei.chat.gamemode.2=당신은 현재 크리에이티브모드+입니다.
+nei.chat.gamemode.3=당신은 현재 어드벤쳐모드입니다.
+nei.chat.rain.on=비 on
+nei.chat.rain.off=비 off
+nei.chat.time=%d번째 날. %d시 정각
+nei.chat.give.noitem=항목이 없습니다.
+
+nei.options=NEI 옵션
+nei.options.back=뒤로
+nei.options.world=월드
+nei.options.global=글로벌
+nei.options.global.tip.0= 모든세계의 NEI의 옵션을 적용합니다
+nei.options.global.tip.1= 월드의 설정을 재정의 하려면 w를 클릭
+nei.options.wbutton.tip.0=글로벌로 세팅
+nei.options.wbutton.tip.1=전역 설정
+
+nei.options.keys=키 바인딩
+nei.options.keys.gui=인벤토리
+nei.options.keys.gui.recipe=레시피
+nei.options.keys.gui.usage=사용법
+nei.options.keys.gui.nei.enchant=인첸트
+nei.options.keys.gui.potion=포션
+nei.options.keys.gui.back=이전 레시피
+nei.options.keys.gui.prev=이전 페이지
+nei.options.keys.gui.next=다음 페이지
+nei.options.keys.gui.hide=NEI 활성/비활성화
+nei.options.keys.gui.search=빠른 검색
+nei.options.keys.world=월드
+nei.options.keys.world.chunkoverlay=청크경계 확인
+nei.options.keys.world.moboverlay=몹스폰 확인
+nei.options.keys.world.highlight_tips=하이라이트 툴팁
+nei.options.keys.world.dawn=여명
+nei.options.keys.world.noon=낮
+nei.options.keys.world.dusk=저녁
+nei.options.keys.world.midnight=밤
+nei.options.keys.world.rain=비
+nei.options.keys.world.heal=회복
+nei.options.keys.world.creative=게임모드
+nei.options.keys.world.creative.tip=게임모드 주기
+
+nei.options.inventory=인벤토리
+nei.options.inventory.widgetsenabled.true=NEI 활성화
+nei.options.inventory.widgetsenabled.false=NEI 비활성화
+nei.options.inventory.cheatmode.0=레시피모드
+nei.options.inventory.cheatmode.1=유틸리티모드
+nei.options.inventory.cheatmode.2=치트모드
+nei.options.inventory.layoutstyle=레이아웃 스타일
+nei.options.inventory.profileRecipes=프로파일 레시피
+nei.options.inventory.profileRecipes.true=설정
+nei.options.inventory.profileRecipes.false=비설정
+nei.options.inventory.itemsort=아이템 정렬
+nei.options.inventory.itemIDs=아이템 ID
+nei.options.inventory.itemIDs.0= 숨기기
+nei.options.inventory.itemIDs.1=자동
+nei.options.inventory.itemIDs.2=보이기
+nei.options.inventory.searchmode=검색모드
+nei.options.inventory.searchmode.0=모두
+nei.options.inventory.searchmode.1=확장
+nei.options.inventory.searchmode.2=정규표현식
+nei.options.inventory.utilities=유틸리티
+nei.options.inventory.utilities.tip=유틸리티 모드기능을 선택
+nei.options.inventory.utilities.time=시간
+nei.options.inventory.utilities.rain=비
+nei.options.inventory.utilities.heal=회복
+nei.options.inventory.utilities.delete=삭제
+nei.options.inventory.utilities.magnet=자석
+nei.options.inventory.utilities.gamemode=게임모드
+nei.options.inventory.utilities.nei.enchant=인첸트
+nei.options.inventory.utilities.potion=포션
+nei.options.inventory.utilities.item=아이템
+nei.options.inventory.gamemodes=게임모드
+nei.options.inventory.gamemodes.tip=순환하려는 게임모드를 선택
+nei.options.inventory.gamemodes.creative=크리에이티브
+nei.options.inventory.gamemodes.creative+=크리에이티브+
+nei.options.inventory.gamemodes.adventure=어드벤처
+
+nei.options.command=커맨드
+nei.options.command.creative=게임모드
+nei.options.command.creative.tip={0} = 1는 크리에이티브, 0 는 서바이벌, {1} = 플레이어
+nei.options.command.item=아이템
+nei.options.command.item.tip={0} =플레이어, {1} = 아이템ID, {2} = 수량, {3} = 아이템 데미지
+nei.options.command.time=시간
+nei.options.command.time.tip={0} = 월드타임
+nei.options.command.rain=비
+nei.options.command.rain.tip={0} = 1 는 온, 0 는 오프
+nei.options.command.heal=회복
+nei.options.command.heal.tip={0} = 플레이어
+
+nei.options.world.highlight_tips=하이라이트 툴팁
+nei.options.world.highlight_tips.hide=숨기기
+nei.options.world.highlight_tips.show=보이기
+
+nei.options.tools=도구
+nei.options.tools.dump=데이터 덤프
+nei.options.tools.dump.dump=덤프
+nei.options.tools.dump.dumped=%s ID를 덤프했습니다 %s
+nei.options.tools.dump.mode.0=사용 공간
+nei.options.tools.dump.mode.1=잔여 공간
+nei.options.tools.dump.mode.2=모두
+nei.options.tools.dump.item=아이템
+nei.options.tools.dump.items=아이템
+nei.options.tools.dump.block=블럭
+nei.options.tools.dump.blocks=블럭
+nei.options.tools.dump.potion=포션
+nei.options.tools.dump.potions=포션
+nei.options.tools.dump.nei.enchantment=인첸트
+nei.options.tools.dump.nei.enchantments=인첸트
+nei.options.tools.dump.biome=바이옴
+nei.options.tools.dump.biomes=바이옴
+nei.options.tools.dump.itempanel=아이템 패널
+nei.options.tools.dump.itempanel.dumped=아이템 패널이 %s로 덤프되었습니다
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+
+layoutstyle.minecraft=마인크래프트
+layoutstyle.oldtmi=투매니 아이템
+
+nei.recipe.page=%s/%s 페이지
+nei.recipe.shaped=고정된 레시피
+nei.recipe.shapeless=자유로운 레시피
+nei.recipe.furnace=굽기
+nei.recipe.fuel=연료
+nei.recipe.fuel.required=%s 개
+nei.recipe.fuel.processed=%s 개
+nei.recipe.fuel.produced=%s 개
+nei.recipe.firework=폭죽
+nei.recipe.firework.tooltip0=염료는 색상을 추가시킵니다.
+nei.recipe.firework.tooltip1=색깔을 변경할 수 있음
+nei.recipe.firework.tooltip2=여러개를 색깔을 가진 하나의 로켓을 스폰시킬수 있음
+nei.recipe.brewing=양조
+nei.recipe.profiler.crafting=프로파일제작
+nei.recipe.profiler.usage=사용 프로파일
+
+nei.itemsort.minecraft=마인크래프트
+nei.itemsort.minecraft.tip=바닐라 마인크래프트의 아이템을 맨위에 표시
+nei.itemsort.mod=모드
+nei.itemsort.mod.tip=모드의 이름대로 분류
+nei.itemsort.id=아이템 id
+nei.itemsort.default=기본
+nei.itemsort.default.tip=변경 되지않은 아이템들의 순서를 변경
+nei.itemsort.damage=아이템 데미지
+nei.itemsort.name=표시이름
