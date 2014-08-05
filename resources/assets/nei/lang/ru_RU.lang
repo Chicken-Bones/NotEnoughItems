@@ -64,10 +64,10 @@ nei.options.keys.gui.back=Предыдущий рецепт
 nei.options.keys.gui.prev=Предыдущая страница
 nei.options.keys.gui.next=Следующая страница
 nei.options.keys.gui.hide=Переключить видимость NEI
-nei.options.keys.gui.search=Сфокусироваться на панель поиска
+nei.options.keys.gui.search=Сфокусироваться на панели поиска
 nei.options.keys.world=Мир
-nei.options.keys.world.chunkoverlay=Chunk Boundary Overlay
-nei.options.keys.world.moboverlay=Mob Spawn Overlay
+nei.options.keys.world.chunkoverlay=Наложение границ чанков
+nei.options.keys.world.moboverlay=Наложение появления мобов
 nei.options.keys.world.highlight_tips=Подсвечивать всплывающие подсказки
 nei.options.keys.world.dawn=Рассвет
 nei.options.keys.world.noon=Полдень
@@ -88,10 +88,15 @@ nei.options.inventory.layoutstyle=Стиль расположения
 nei.options.inventory.profileRecipes=Рецепты профиля
 nei.options.inventory.profileRecipes.true=Да
 nei.options.inventory.profileRecipes.false=Нет
+nei.options.inventory.itemsort=Панель сортировки предметов
 nei.options.inventory.itemIDs=ID предметов
 nei.options.inventory.itemIDs.0=Спрятаны
 nei.options.inventory.itemIDs.1=Авто
 nei.options.inventory.itemIDs.2=Показаны
+nei.options.inventory.searchmode=Режим поиска
+nei.options.inventory.searchmode.0=Обычный
+nei.options.inventory.searchmode.1=Расширенный
+nei.options.inventory.searchmode.2=Регулярный
 nei.options.inventory.utilities=Полезности
 nei.options.inventory.utilities.tip=Выберете особенности для режима полезностей
 nei.options.inventory.utilities.time=Время
@@ -110,15 +115,15 @@ nei.options.inventory.gamemodes.creative+=Творческий+
 nei.options.inventory.gamemodes.adventure=Приключение
 
 nei.options.command=Команды
-nei.options.command.creative=Gamemode
+nei.options.command.creative=Игровой режим
 nei.options.command.creative.tip={0} = 1 для творческого, 0 для выживания, {1} = игрок
-nei.options.command.item=Item
+nei.options.command.item=Предмет
 nei.options.command.item.tip={0} = игрок, {1} = ID предмета, {2} = количество, {3} = itemDamage
-nei.options.command.time=Time
+nei.options.command.time=Время
 nei.options.command.time.tip={0} = мировое время
-nei.options.command.rain=Rain
+nei.options.command.rain=Дождь
 nei.options.command.rain.tip={0} = 1 для включения, 0 для выключения
-nei.options.command.heal=Heal
+nei.options.command.heal=Исцеление
 nei.options.command.heal.tip={0} = игрок
 
 nei.options.world.highlight_tips=Всплывающие подсказки
@@ -166,3 +171,13 @@ nei.recipe.firework.tooltip2=Multiple charges can be spawned from one rocket
 nei.recipe.brewing=Зельеварение
 nei.recipe.profiler.crafting=Профилирование создания
 nei.recipe.profiler.usage=Использование профилирования
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Сортирует предметы сначало из оригинального Minecraft
+nei.itemsort.mod=Мод
+nei.itemsort.mod.tip=Группирует предметы в один мод, на основе имени мода
+nei.itemsort.id=ID предмета
+nei.itemsort.default=По-умолчанию
+nei.itemsort.default.tip=Оставляет обычный порядок каждого предмета
+nei.itemsort.damage=Повреждение предмета
+nei.itemsort.name=Отображаемое имя
