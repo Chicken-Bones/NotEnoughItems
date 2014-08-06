@@ -6,7 +6,6 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -255,7 +254,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
     {
         for(Slot slot : (List<Slot>)gui.inventorySlots.inventorySlots)//work out how much we have to go round
         {
-            if(slot.getHasStack() && slot.inventory instanceof InventoryPlayer)
+            if(slot.getHasStack() && canMoveFrom(slot))
             {
                 ItemStack pstack = slot.getStack();
                 DistributedIngred istack = findIngred(ingredStacks, pstack);
@@ -279,6 +278,10 @@ public class DefaultOverlayHandler implements IOverlayHandler
             }
         }
         return ingredStacks;
+    }
+
+    public boolean canMoveFrom(Slot slot) {
+        return slot.inventory instanceof InventoryPlayer;
     }
 
     @SuppressWarnings("unchecked")
