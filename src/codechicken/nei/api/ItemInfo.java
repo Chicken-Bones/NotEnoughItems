@@ -340,17 +340,21 @@ public class ItemInfo
         ItemStackSet food = new ItemStackSet();
         ItemStackSet potioningredients = new ItemStackSet();
 
-        ItemStackSet[] creativeTabRanges = new ItemStackSet[CreativeTabs.creativeTabArray.length];
-        for (CreativeTabs tab : CreativeTabs.creativeTabArray)
-            creativeTabRanges[tab.getTabIndex()] = new ItemStackSet();
+        ArrayList<ItemStackSet> creativeTabRanges = new ArrayList<ItemStackSet>(CreativeTabs.creativeTabArray.length);
 
         for (Item item : (Iterable<Item>) Item.itemRegistry) {
             if (item == null)
                 continue;
 
             CreativeTabs itemTab = item.getCreativeTab();
-            if (itemTab != null)
-                creativeTabRanges[itemTab.getTabIndex()].with(item);
+            if (itemTab != null) {
+                while(itemTab.getTabIndex() >= creativeTabRanges.size())
+                    creativeTabRanges.add(null);
+                ItemStackSet set = creativeTabRanges.get(itemTab.getTabIndex());
+                if(set == null)
+                    creativeTabRanges.set(itemTab.getTabIndex(), set = new ItemStackSet());
+                set.with(item);
+            }
 
             if (item.isDamageable()) {
                 tools.with(item);
@@ -416,9 +420,11 @@ public class ItemInfo
         API.addSubset("Items.Food", food);
         API.addSubset("Items.Potions.Ingredients", potioningredients);
 
-        for (CreativeTabs tab : CreativeTabs.creativeTabArray)
-            if (!creativeTabRanges[tab.getTabIndex()].isEmpty())
-                API.addSubset("CreativeTabs." + I18n.format(tab.getTranslatedTabLabel()), creativeTabRanges[tab.getTabIndex()]);
+        for (CreativeTabs tab : CreativeTabs.creativeTabArray) {
+            ItemStackSet set = creativeTabRanges.get(tab.getTabIndex());
+            if (set != null && !set.isEmpty())
+                API.addSubset("CreativeTabs." + I18n.format(tab.getTranslatedTabLabel()), set);
+        }
 
         BrewingRecipeHandler.searchPotions();
     }
