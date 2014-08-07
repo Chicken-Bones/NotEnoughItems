@@ -108,7 +108,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
             
             for(Slot slot : (List<Slot>)gui.inventorySlots.inventorySlots)
             {
-                if(!slot.getHasStack() || !(slot.inventory instanceof InventoryPlayer))
+                if(!slot.getHasStack() || !canMoveFrom(slot, gui))
                     continue;
                 
                 ItemStack stack = slot.getStack();
@@ -254,7 +254,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
     {
         for(Slot slot : (List<Slot>)gui.inventorySlots.inventorySlots)//work out how much we have to go round
         {
-            if(slot.getHasStack() && canMoveFrom(slot))
+            if(slot.getHasStack() && canMoveFrom(slot, gui))
             {
                 ItemStack pstack = slot.getStack();
                 DistributedIngred istack = findIngred(ingredStacks, pstack);
@@ -280,7 +280,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
         return ingredStacks;
     }
 
-    public boolean canMoveFrom(Slot slot) {
+    public boolean canMoveFrom(Slot slot, GuiContainer gui) {
         return slot.inventory instanceof InventoryPlayer;
     }
 
