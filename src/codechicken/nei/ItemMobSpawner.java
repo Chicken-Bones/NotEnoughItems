@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -16,8 +17,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class ItemMobSpawner extends ItemBlock
 {
@@ -84,7 +87,10 @@ public class ItemMobSpawner extends ItemBlock
             try {
                 e = (EntityLiving) clazz.getConstructor(new Class[]{World.class}).newInstance(world);
             } catch (Throwable t) {
-                NEIClientConfig.logger.error("Error creating instance of entity: " + clazz.getName(), t);
+                if(clazz == null)
+                    NEIClientConfig.logger.error("Null class for entity ("+ID+", "+IDtoNameMap.get(ID));
+                else
+                    NEIClientConfig.logger.error("Error creating instance of entity: " + clazz.getName(), t);
                 e = getEntity(idPig);
             }
             entityHashMap.put(ID, e);
@@ -121,6 +127,12 @@ public class ItemMobSpawner extends ItemBlock
                     idPig = id;
             } catch (Throwable ignored) {
             }
+        }
+
+        for(Iterator<Entry<Integer, String>> it = IDtoNameMap.entrySet().iterator(); it.hasNext();) {
+            Entry<Integer, String> e = it.next();
+            if(getEntity(e.getKey()).getClass() == EntityPig.class && !e.getValue().equals("Pig"))
+                it.remove();
         }
     }
 
