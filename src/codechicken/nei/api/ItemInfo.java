@@ -421,6 +421,7 @@ public class ItemInfo
         API.addSubset("Items.Potions.Ingredients", potioningredients);
 
         for (CreativeTabs tab : CreativeTabs.creativeTabArray) {
+            if(tab.getTabIndex() >= creativeTabRanges.size()) continue;
             ItemStackSet set = creativeTabRanges.get(tab.getTabIndex());
             if (set != null && !set.isEmpty())
                 API.addSubset("CreativeTabs." + I18n.format(tab.getTranslatedTabLabel()), set);
