@@ -324,7 +324,11 @@ public class FastTransferManager
         clickSlot(window, -999);
 
         generateSlotMap(window.inventorySlots, held);
-        for (int slotIndex : slotZones.get(slotZoneMap.get(pickedUpFromSlot))) {
+        Integer zone = slotZoneMap.get(pickedUpFromSlot);
+        if(zone == null) //something went wrong and we can't work out where the item was picked up from
+            return;
+
+        for (int slotIndex : slotZones.get(zone)) {
             Slot slot = window.inventorySlots.getSlot(slotIndex);
             if (areStacksSameType(held, slot.getStack())) {
                 clickSlot(window, slotIndex);
