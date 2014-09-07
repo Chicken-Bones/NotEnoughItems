@@ -63,6 +63,9 @@ public class ItemPanel extends Widget
         marginTop = y + (h % 18) / 2;
         columns = w / 18;
         rows = h / 18;
+        //sometimes width and height can be negative with certain resizing
+        if(rows < 0) rows = 0;
+        if(columns < 0) columns = 0;
 
         calculatePage();
         updateValidSlots();
