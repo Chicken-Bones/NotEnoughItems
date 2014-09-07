@@ -14,37 +14,30 @@ import java.util.List;
 public class DefaultHighlightHandler implements IHighlightHandler
 {
     @Override
-    public List<String> handleTextData(ItemStack stack, World world, EntityPlayer player, MovingObjectPosition mop, List<String> currenttip, ItemInfo.Layout layout)
-    {
+    public List<String> handleTextData(ItemStack stack, World world, EntityPlayer player, MovingObjectPosition mop, List<String> currenttip, ItemInfo.Layout layout) {
         String name = null;
-        try
-        {
+        try {
             String s = GuiContainerManager.itemDisplayNameShort(stack);
-            if(s != null && !s.endsWith("Unnamed"))
+            if (s != null && !s.endsWith("Unnamed"))
                 name = s;
 
-            if(name != null)
+            if (name != null)
                 currenttip.add(name);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception ignored) {}
+
+        if (name != null && stack.getItem() == Items.redstone) {
+            int md = world.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ);
+            String s = "" + md;
+            if (s.length() < 2)
+                s = " " + s;
+            currenttip.set(currenttip.size() - 1, name + " " + s);
         }
 
-        if(stack.getItem() == Items.redstone)
-        {
-            int md = world.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ);
-            String s = ""+md;
-            if(s.length() < 2)
-                s=" "+s;
-            currenttip.set(currenttip.size()-1, name+" "+s);
-        }
-        
         return currenttip;
     }
 
     @Override
-    public ItemStack identifyHighlight(World world, EntityPlayer player, MovingObjectPosition mop)
-    {
+    public ItemStack identifyHighlight(World world, EntityPlayer player, MovingObjectPosition mop) {
         return null;
     }
 }

@@ -57,6 +57,9 @@ public class HUDRenderer implements IKeyStateTracker
     }
 
     public static void renderOverlay(ItemStack stack, List<String> textData, Point pos) {
+        if((stack == null || stack.getItem() == null) && textData.isEmpty())
+            return;
+
         int w = 0;
         for (String s : textData)
             w = Math.max(w, getStringWidth(s) + 29);
@@ -80,7 +83,7 @@ public class HUDRenderer implements IKeyStateTracker
         RenderHelper.enableGUIStandardItemLighting();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
-        if (stack.getItem() != null)
+        if (stack != null && stack.getItem() != null)
             GuiContainerManager.drawItem(x + 5, y + h / 2 - 8, stack);
     }
 
