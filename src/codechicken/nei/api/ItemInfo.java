@@ -313,7 +313,13 @@ public class ItemInfo
     }
 
     private static void addDefaultDropDowns() {
-        API.addSubset("Items", new EverythingItemFilter());
+        API.addSubset("Items", new ItemFilter()
+        {
+            @Override
+            public boolean matches(ItemStack item) {
+                return Block.getBlockFromItem(item.getItem()) == Blocks.air;
+            }
+        });
         API.addSubset("Blocks", new ItemFilter()
         {
             @Override
