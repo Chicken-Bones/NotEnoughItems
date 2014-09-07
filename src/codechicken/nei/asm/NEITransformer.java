@@ -24,12 +24,12 @@ public class NEITransformer implements IClassTransformer
     private Map<String, ASMBlock> asmblocks = ASMReader.loadResource("/assets/nei/asm/blocks.asm");
 
     public NEITransformer() {
-        //Generates method to set the placed position of a mob spawner for the item callback. More portable than copying vanilla placement code
-        transformer.add(new MethodWriter(ACC_PUBLIC,
-                new ObfMapping("net/minecraft/block/BlockMobSpawner", "func_149689_a", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V"),
-                asmblocks.get("spawnerPlaced")));
-
         if(FMLLaunchHandler.side().isClient()) {
+            //Generates method to set the placed position of a mob spawner for the item callback. More portable than copying vanilla placement code
+            transformer.add(new MethodWriter(ACC_PUBLIC,
+                    new ObfMapping("net/minecraft/block/BlockMobSpawner", "func_149689_a", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V"),
+                    asmblocks.get("spawnerPlaced")));
+
             //Make MobSpawnerBaseLogic use getSpawnerWorld when creating new entities
             transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/tileentity/MobSpawnerBaseLogic", "func_98281_h", "()Lnet/minecraft/entity/Entity;"),
                     asmblocks.get("d_spawnerWorld"), asmblocks.get("spawnerWorld")));
