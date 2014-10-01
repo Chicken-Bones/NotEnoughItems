@@ -55,9 +55,8 @@ public class NEIServerConfig
     private static void loadWorld(World world) {
         try {
             File file = new File(getSaveDir(CommonUtils.getDimension(world)), "world.dat");
-            NBTTagCompound tag = CompressedStreamTools.read(file);
-            if(tag == null)
-                tag = new NBTTagCompound();
+            NBTTagCompound tag = NEIServerUtils.readNBT(file);
+            if(tag == null) tag = new NBTTagCompound();
             dimTags.put(CommonUtils.getDimension(world), tag);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -103,7 +102,7 @@ public class NEIServerConfig
     private static void saveWorld(int dim) {
         try {
             File file = new File(getSaveDir(dim), "world.dat");
-            CompressedStreamTools.write(dimTags.get(dim), file);
+            NEIServerUtils.writeNBT(dimTags.get(dim), file);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

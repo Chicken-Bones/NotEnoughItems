@@ -13,6 +13,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
@@ -24,9 +25,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.*;
+import java.util.zip.ZipException;
 
 public class NEIServerUtils
 {
@@ -376,5 +377,27 @@ public class NEIServerUtils
             NEIServerConfig.logger.error(message, t);
             stackTraces.add(stackTrace);
         }
+    }
+
+    public static NBTTagCompound readNBT(File file) throws IOException {
+        if(!file.exists()) return null;
+        FileInputStream in = new FileInputStream(file);
+        NBTTagCompound tag;
+        try {
+            tag = CompressedStreamTools.readCompressed(in);
+        } catch(ZipException e) {
+            if(e.getMessage().equals("Not in GZIP format"))
+                tag = CompressedStreamTools.read(file);
+            else
+                throw e;
+        }
+        in.close();
+        return tag;
+    }
+
+    public static void writeNBT(NBTTagCompound tag, File file) throws IOException {
+        FileOutputStream out = new FileOutputStream(file);
+        CompressedStreamTools.writeCompressed(tag, out);
+        out.close();
     }
 }

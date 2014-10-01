@@ -39,7 +39,7 @@ public class PlayerSave
             if (!saveFile.exists())
                 saveFile.createNewFile();
             if (saveFile.length() > 0)
-                nbt = CompressedStreamTools.read(saveFile);
+                nbt = NEIServerUtils.readNBT(saveFile);
         } catch (Exception e) {
             NEIClientConfig.logger.error("Error loading player save: "+username, e);
         }
@@ -62,7 +62,7 @@ public class PlayerSave
             saveCreativeInv();
 
         try {
-            CompressedStreamTools.write(nbt, saveFile);
+            NEIServerUtils.writeNBT(nbt, saveFile);
             isDirty = false;
         } catch (Exception e) {
             NEIClientConfig.logger.error("Error saving player: "+username, e);

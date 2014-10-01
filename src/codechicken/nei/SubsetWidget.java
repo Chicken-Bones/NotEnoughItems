@@ -55,7 +55,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
                     SubsetTag tag = sorted.get(slot);
                     if (NEIClientUtils.shiftKey())
                         LayoutManager.searchField.setText("@" + tag.fullname);
-                    else if (count >= 2)
+                    else if (button == 0 && count >= 2)
                         SubsetWidget.showOnly(tag);
                     else
                         SubsetWidget.setHidden(tag, button == 1);

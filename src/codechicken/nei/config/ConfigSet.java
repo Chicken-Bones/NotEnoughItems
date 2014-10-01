@@ -1,6 +1,7 @@
 package codechicken.nei.config;
 
 import codechicken.lib.config.ConfigTagParent;
+import codechicken.nei.NEIServerUtils;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,7 +27,7 @@ public class ConfigSet
             if (!nbtFile.exists())
                 nbtFile.createNewFile();
             if (nbtFile.length() > 0)
-                nbt = CompressedStreamTools.read(nbtFile);
+                nbt = NEIServerUtils.readNBT(nbtFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +35,7 @@ public class ConfigSet
 
     public void saveNBT() {
         try {
-            CompressedStreamTools.write(nbt, nbtFile);
+            NEIServerUtils.writeNBT(nbt, nbtFile);
         } catch (Exception e) {
             e.printStackTrace();
         }

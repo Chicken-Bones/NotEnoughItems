@@ -347,19 +347,24 @@ public class ItemInfo
         ItemStackSet potioningredients = new ItemStackSet();
 
         ArrayList<ItemStackSet> creativeTabRanges = new ArrayList<ItemStackSet>(CreativeTabs.creativeTabArray.length);
+        List<ItemStack> stackList = new LinkedList<ItemStack>();
 
         for (Item item : (Iterable<Item>) Item.itemRegistry) {
             if (item == null)
                 continue;
 
-            CreativeTabs itemTab = item.getCreativeTab();
-            if (itemTab != null) {
-                while(itemTab.getTabIndex() >= creativeTabRanges.size())
-                    creativeTabRanges.add(null);
-                ItemStackSet set = creativeTabRanges.get(itemTab.getTabIndex());
-                if(set == null)
-                    creativeTabRanges.set(itemTab.getTabIndex(), set = new ItemStackSet());
-                set.with(item);
+            for(CreativeTabs itemTab : item.getCreativeTabs()) {
+                if (itemTab != null) {
+                    while (itemTab.getTabIndex() >= creativeTabRanges.size())
+                        creativeTabRanges.add(null);
+                    ItemStackSet set = creativeTabRanges.get(itemTab.getTabIndex());
+                    if (set == null)
+                        creativeTabRanges.set(itemTab.getTabIndex(), set = new ItemStackSet());
+                    stackList.clear();
+                    item.getSubItems(item, itemTab, stackList);
+                    for(ItemStack stack : stackList)
+                        set.add(stack);
+                }
             }
 
             if (item.isDamageable()) {

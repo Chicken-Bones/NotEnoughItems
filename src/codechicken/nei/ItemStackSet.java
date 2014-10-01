@@ -5,12 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
-public class ItemStackSet implements ItemFilter
+public class ItemStackSet extends ItemStackMap<ItemStack> implements ItemFilter
 {
-    ItemStackMap<Object> underlying = new ItemStackMap<Object>();
-
     public ItemStackSet with(ItemStack... items) {
         for(ItemStack item : items)
             add(item);
@@ -30,40 +26,20 @@ public class ItemStackSet implements ItemFilter
     }
 
     public void add(ItemStack item) {
-        underlying.put(item, new Object());
-    }
-
-    public boolean remove(ItemStack item) {
-        return underlying.remove(item) != null;
+        put(item, item);
     }
 
     public boolean contains(ItemStack item) {
-        return underlying.get(item) != null;
+        return get(item) != null;
     }
 
     public boolean containsAll(Item item) {
-        return underlying.get(ItemStackMap.wildcard(item)) != null;
-    }
-
-    public List<ItemStack> values() {
-        return underlying.keys();
-    }
-
-    public void clear() {
-        underlying.clear();
+        return get(ItemStackMap.wildcard(item)) != null;
     }
 
     @Override
     public boolean matches(ItemStack item) {
         return contains(item);
-    }
-
-    public int size() {
-        return underlying.size();
-    }
-
-    public boolean isEmpty() {
-        return underlying.isEmpty();
     }
 
     public static ItemStackSet of(Block... blocks) {
