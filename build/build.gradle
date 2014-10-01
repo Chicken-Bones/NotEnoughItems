@@ -73,16 +73,15 @@ processResources {
         include '*.info'
         expand 'version':project.version,'mc_version':config.mc_version
     }
-    // Copy everything else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'assets/**/*.*'
-    }
+
+    // Move access transformer to META-INF
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 version = "${project.minecraft.version}-${project.version}"
 def commonManifest = {
     attributes 'FMLCorePlugin': 'codechicken.nei.asm.NEICorePlugin'
-    attributes 'AccessTransformer': 'nei_at.cfg'
+    attributes 'FMLAT': 'nei_at.cfg'
 }
 
 jar {
