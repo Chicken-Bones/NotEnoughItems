@@ -11,7 +11,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -37,18 +36,6 @@ public class GuiContainerManager
     public static final LinkedList<IContainerDrawHandler> drawHandlers = new LinkedList<IContainerDrawHandler>();
     public static final LinkedList<IContainerObjectHandler> objectHandlers = new LinkedList<IContainerObjectHandler>();
     public static final LinkedList<IContainerSlotClickHandler> slotClickHandlers = new LinkedList<IContainerSlotClickHandler>();
-
-    // Check the version of LWGJL, if it is 2.9.0, then it solves the multi input problem by itself
-    private static boolean multiInputLWJGL;
-
-    static {
-        try {
-            multiInputLWJGL = "2.9.0".equals(Sys.getVersion());
-        } catch (Throwable t) {
-            System.err.println(String.format("Error getting lwjgl version: %s", t.toString()));
-            multiInputLWJGL = false;
-        }
-    }
 
     static {
         addSlotClickHandler(new DefaultSlotClickHandler());
@@ -468,34 +455,13 @@ public class GuiContainerManager
             handler.afterSlotClick(window, slotIndex, button, slot, modifier);
     }
 
-    // Enable inputting Chinese characters
+    // Support inputting Chinese characters
     public void handleKeyboardInput() {
-        // if it's LWGJL 2.9.0
-        if (multiInputLWJGL) {
-            int k = Keyboard.getEventKey();
-            char c = Keyboard.getEventCharacter();
-            if (k == 0 && Character.isDefined(c) || Keyboard.getEventKeyState())
-                keyTyped(c, k);
-        }
-        // if it isn't LWJGL 2.9.0, then make the Chinese input method to split the characters
-        else if (Keyboard.getEventKeyState()) {
-            int k = Keyboard.getEventKey();
-            char c = Keyboard.getEventCharacter();
-
-            if (c > 0x7F && c <= 0xFF && Keyboard.next()) {
-                int k2 = Keyboard.getEventKey();
-                char c2 = Keyboard.getEventCharacter();
-                try {
-                    c2 = new String(new byte[]{(byte) c, (byte) c2}).charAt(0);
-                    keyTyped(c2, k);
-                } catch (Throwable t) {
-                    keyTyped(c, k);
-                    keyTyped(c2, k2);
-                }
-            } else {
-                keyTyped(c, k);
-            }
-        }
+        // Support for LWGJL 2.9.0 or later
+        int k = Keyboard.getEventKey();
+        char c = Keyboard.getEventCharacter();
+        if (Keyboard.getEventKeyState() || (k == 0 && Character.isDefined(c)))
+            keyTyped(c, k);
 
         window.mc.func_152348_aa();
     }
