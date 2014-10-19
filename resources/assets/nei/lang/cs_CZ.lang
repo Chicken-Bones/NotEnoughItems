@@ -1,0 +1,183 @@
+nei.load=Načíst
+nei.save=Uložit
+
+nei.enchant=Očarování
+nei.enchant.level=Úroveň
+nei.enchant.locked=Uzamčeno
+nei.enchant.unlocked=Odemčeno
+
+nei.inventory.options=Volby
+nei.inventory.prev=Předchozí
+nei.inventory.next=Další
+nei.inventory.item_subsets=Podskupiny předmětů
+nei.inventory.delete.inv=SMAŽE VŠECHNY PŘEDMĚTY z obrazovky inventáře
+nei.inventory.delete.one=Smaže %s
+nei.inventory.delete.all=Smaže VŠECHNY %s
+nei.inventory.delete.enable=Zapne mazací mód
+nei.inventory.delete.1=Zapnout mazací mód
+nei.inventory.delete.0=Vypnout mazací mód
+nei.inventory.rain.enable=Zapne déšt
+nei.inventory.rain.1=Zapnout déšť
+nei.inventory.rain.0=Vypnout déšť
+nei.inventory.magnet.enable=Zapne mód magnetu
+nei.inventory.magnet.1=Zapnout mód magnetu
+nei.inventory.magnet.0=Vypnout mód magnetu
+nei.inventory.dawn.enable=Nastaví svítání
+nei.inventory.dawn.set=Nastavit čas na svítání
+nei.inventory.noon.enable=Nastaví poledne
+nei.inventory.noon.set=Nastavit čas na poledne
+nei.inventory.dusk.enable=Nastaví soumrak
+nei.inventory.dusk.set=Nastavit čas na soumrak
+nei.inventory.midnight.enable=Nastaví půlnoc
+nei.inventory.midnight.set=Nastavit čas na půlnoc
+nei.inventory.heal=Uzdraví hráče
+nei.inventory.gamemode.0=Nastavit herní režim na přežití
+nei.inventory.gamemode.1=Nastavit herní režim na kreativní
+nei.inventory.gamemode.2=Nastavit herní režim na kreativní+
+nei.inventory.gamemode.3=Nastavit herní režim na adventuru
+
+nei.chat.gamemode.0=Nyní hraješ režim přežití
+nei.chat.gamemode.1=Nyní hraješ kreativní režim
+nei.chat.gamemode.2=Nyní hraješ kreativní+ režim
+nei.chat.gamemode.3=Nyní hraješ režim adventury
+nei.chat.rain.on=Déšť zapnut
+nei.chat.rain.off=Déšť vypnut
+nei.chat.time=Den %d. %d:00
+nei.chat.give.noitem=Nemáš žádný takový předmět.
+
+nei.options=NEI volby
+nei.options.back=Zpět
+nei.options.world=Svět
+nei.options.global=Globální
+nei.options.global.tip.0=Nastavení se aplikuje pro všechny světy
+nei.options.global.tip.1=Klikni na W vedle :option pro povolení :override pro tento svět
+nei.options.wbutton.tip.0=Používám globální nastavení
+nei.options.wbutton.tip.1=Přepisuji globální nastavení
+
+nei.options.keys=Nastavení kláves
+nei.options.keys.gui=Inventář
+nei.options.keys.gui.recipe=Recept
+nei.options.keys.gui.usage=Použití
+nei.options.keys.gui.enchant=Očarování
+nei.options.keys.gui.potion=Lektvary
+nei.options.keys.gui.back=Předchozí recept
+nei.options.keys.gui.prev=Předchozí stránka
+nei.options.keys.gui.next=Další stránka
+nei.options.keys.gui.hide=Přepnout viditelnost NEI
+nei.options.keys.gui.search=Zaměřit vyhledávací pole
+nei.options.keys.world=Svět
+nei.options.keys.world.chunkoverlay=Ohraničení chunku
+nei.options.keys.world.moboverlay=Označení míst spawnu monster
+nei.options.keys.world.highlight_tips=Informace o bloku
+nei.options.keys.world.dawn=Svítání
+nei.options.keys.world.noon=Poledne
+nei.options.keys.world.dusk=Soumrak
+nei.options.keys.world.midnight=Půlnoc
+nei.options.keys.world.rain=Déšť
+nei.options.keys.world.heal=Uzdravení
+nei.options.keys.world.creative=Herní reřim
+nei.options.keys.world.creative.tip=Střídat herní režim
+
+nei.options.inventory=Inventář
+nei.options.inventory.widgetsenabled.true=NEI povoleno
+nei.options.inventory.widgetsenabled.false=NEI zakázáno
+nei.options.inventory.cheatmode.0=Mód receptů
+nei.options.inventory.cheatmode.1=Užitný mód
+nei.options.inventory.cheatmode.2=Cheatovací mód
+nei.options.inventory.layoutstyle=Styl vzhledu
+nei.options.inventory.profileRecipes=Profilové recepty
+nei.options.inventory.profileRecipes.true=Povoleny
+nei.options.inventory.profileRecipes.false=Nepovoleny
+nei.options.inventory.itemsort=Řazení panelu předmětů
+nei.options.inventory.itemIDs=IDčka předmětů
+nei.options.inventory.itemIDs.0=Skryté
+nei.options.inventory.itemIDs.1=Automatické
+nei.options.inventory.itemIDs.2=Zobrazené
+nei.options.inventory.searchmode=Vyhledavací mód
+nei.options.inventory.searchmode.0=Prostý
+nei.options.inventory.searchmode.1=Rozšířený
+nei.options.inventory.searchmode.2=Regexy
+nei.options.inventory.utilities=Nástroje
+nei.options.inventory.utilities.tip=Vyber doplňky pro mód nástrojů
+nei.options.inventory.utilities.time=Čas
+nei.options.inventory.utilities.rain=Déšť
+nei.options.inventory.utilities.heal=Uzdravení
+nei.options.inventory.utilities.delete=Smazat
+nei.options.inventory.utilities.magnet=Magnet
+nei.options.inventory.utilities.gamemode=Herní režim
+nei.options.inventory.utilities.enchant=Očarování
+nei.options.inventory.utilities.potion=Lektvary
+nei.options.inventory.utilities.item=Předměty
+nei.options.inventory.gamemodes=Herní režimy
+nei.options.inventory.gamemodes.tip=Vyber herní režimy pro střídání
+nei.options.inventory.gamemodes.creative=Kreativní
+nei.options.inventory.gamemodes.creative+=Kreativní+
+nei.options.inventory.gamemodes.adventure=Adventura
+
+nei.options.command=Příkazy
+nei.options.command.creative=Herní režim
+nei.options.command.creative.tip={0} = 1 pro kreativní, 0 pro přeživší, {1} = hráč
+nei.options.command.item=Předmět
+nei.options.command.item.tip={0} = hráč, {1} = id, {2} = množství, {3} = poškození, {4} = nbt, {5} = jméno
+nei.options.command.time=Čas
+nei.options.command.time.tip={0} = světový čas
+nei.options.command.rain=Déšť
+nei.options.command.rain.tip={0} = 1 pro zapnutí, 0 pro vypnutí
+nei.options.command.heal=Uzdravení
+nei.options.command.heal.tip={0} = hráč
+
+nei.options.world.highlight_tips=Informace o bloku
+nei.options.world.highlight_tips.hide=Skryté
+nei.options.world.highlight_tips.show=Zobrazené
+
+nei.options.tools=Nástroje
+nei.options.tools.dump=Výpisy dat
+nei.options.tools.dump.dump=Výpis
+nei.options.tools.dump.dumped=%s IDčka vypsány do %s
+nei.options.tools.dump.mode.0=Využito
+nei.options.tools.dump.mode.1=Volné
+nei.options.tools.dump.mode.2=Vše
+nei.options.tools.dump.item=Předmět
+nei.options.tools.dump.items=Předměty
+nei.options.tools.dump.block=Blok
+nei.options.tools.dump.blocks=Bloky
+nei.options.tools.dump.potion=Lektvar
+nei.options.tools.dump.potions=Lektvary
+nei.options.tools.dump.enchantment=Očarování
+nei.options.tools.dump.enchantments=Očarování
+nei.options.tools.dump.biome=Biom
+nei.options.tools.dump.biomes=Biomy
+nei.options.tools.dump.itempanel=Panel předmětů
+nei.options.tools.dump.itempanel.dumped=Obsahy panelu předmětů byli vypsány do %s
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+
+nei.layoutstyle.minecraft=Minecraft
+nei.layoutstyle.oldtmi=Staré TMI
+
+nei.recipe.page=Strana %s/%s
+nei.recipe.shaped=Výhodná výroba
+nei.recipe.shapeless=Nevýhodná výroba
+nei.recipe.furnace=Pečení
+nei.recipe.fuel=Palivo
+nei.recipe.fuel.required=%s potřebné
+nei.recipe.fuel.processed=%s zpracované
+nei.recipe.fuel.produced=%s vyprodukované
+nei.recipe.firework=Ohňostroje
+nei.recipe.firework.tooltip0=Obarvení přidávají barvy do ohňostrojů
+nei.recipe.firework.tooltip1=Přebarvení způsobuje vyblednutí barev v ohňostrojích
+nei.recipe.firework.tooltip2=Několik ohňostrojů může být vypáleno z rakety
+nei.recipe.brewing=Vaření
+nei.recipe.profiler.crafting=Profilování výroby
+nei.recipe.profiler.usage=Využití profilování
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Řadí prvně předměty z vanilla minecraftu
+nei.itemsort.mod=Mód
+nei.itemsort.mod.tip=Seskupuje předměty ze stejného módu, řazeno podle jména
+nei.itemsort.id=ID předmětu
+nei.itemsort.default=Výchozí
+nei.itemsort.default.tip=Zanechá přirodní řazení každého nezměněného předmětu
+nei.itemsort.damage=Poškození předmětu
+nei.itemsort.name=Zobrazené jméno
