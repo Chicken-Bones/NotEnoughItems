@@ -37,6 +37,8 @@ public class NEICorePlugin implements IFMLLoadingPlugin, IFMLCallHook
     @Override
     public void injectData(Map<String, Object> data) {
         location = (File) data.get("coremodLocation");
+        if (location == null)
+            location = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
     }
 
     @Override
