@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -76,7 +77,7 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public TemplateRecipeHandler newInstance() {
-        if (afuels == null)
+        if (afuels == null || afuels.isEmpty())
             findFuels();
         return super.newInstance();
     }
