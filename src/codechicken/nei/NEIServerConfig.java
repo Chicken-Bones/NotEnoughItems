@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -48,13 +47,13 @@ public class NEIServerConfig
         loadWorld(world);
     }
 
-    public static File getSaveDir(int dim) {
-        return new File(CommonUtils.getSaveLocation(dim), "NEI");
+    public static File getSaveDir(World world) {
+        return new File(CommonUtils.getSaveLocation(world), "NEI");
     }
 
     private static void loadWorld(World world) {
         try {
-            File file = new File(getSaveDir(CommonUtils.getDimension(world)), "world.dat");
+            File file = new File(getSaveDir(world), "world.dat");
             NBTTagCompound tag = NEIServerUtils.readNBT(file);
             if(tag == null) tag = new NBTTagCompound();
             dimTags.put(CommonUtils.getDimension(world), tag);
@@ -101,7 +100,7 @@ public class NEIServerConfig
 
     private static void saveWorld(int dim) {
         try {
-            File file = new File(getSaveDir(dim), "world.dat");
+            File file = new File(getSaveDir(DimensionManager.getWorld(dim)), "world.dat");
             NEIServerUtils.writeNBT(dimTags.get(dim), file);
         } catch (Exception e) {
             throw new RuntimeException(e);
