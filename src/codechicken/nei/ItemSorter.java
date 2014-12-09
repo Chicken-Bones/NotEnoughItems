@@ -43,7 +43,11 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
     public HashMap<ItemStack, Integer> ordering = null;
 
     public static void sort(ArrayList<ItemStack> items) {
-        Collections.sort(items, instance);
+        try {
+            Collections.sort(items, instance);
+        } catch (Exception e) {
+            NEIClientConfig.logger.error("Exception sorting item list", e);
+        }
     }
 
     @Override

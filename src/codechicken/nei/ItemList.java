@@ -71,16 +71,21 @@ public class ItemList
         public void itemsLoaded();
     }
 
-    public static boolean itemMatches(ItemStack item, List<ItemFilter> filters) {
-        for(ItemFilter filter : filters)
-            if(!filter.matches(item))
-                return false;
+    public static boolean itemMatchesAll(ItemStack item, List<ItemFilter> filters) {
+        for(ItemFilter filter : filters) {
+            try {
+                if (!filter.matches(item))
+                    return false;
+            } catch (Exception e) {
+                NEIClientConfig.logger.error("Exception filtering "+item+" with "+filter, e);
+            }
+        }
 
         return true;
     }
 
     public static boolean itemMatches(ItemStack item) {
-        return itemMatches(item, getItemFilters());
+        return itemMatchesAll(item, getItemFilters());
     }
 
     public static List<ItemFilter> getItemFilters() {
@@ -170,7 +175,7 @@ public class ItemList
             for(ItemStack item : items) {
                 if (interrupted()) return;
 
-                if(itemMatches(item, filters))
+                if(itemMatchesAll(item, filters))
                     filtered.add(item);
             }
 
