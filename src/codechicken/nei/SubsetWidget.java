@@ -3,6 +3,7 @@ package codechicken.nei;
 import codechicken.core.gui.GuiScrollSlot;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.lib.vec.Rectangle4i;
+import codechicken.nei.ItemList.AnyMultiItemFilter;
 import codechicken.nei.ItemList.ItemsLoadedCallback;
 import codechicken.nei.ItemList.NothingItemFilter;
 import codechicken.nei.SearchField.ISearchProvider;
@@ -21,6 +22,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
 
 public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoadedCallback, ISearchProvider
 {
@@ -203,25 +205,20 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
                 tag.cacheState();
         }
 
-        public ItemFilter compositeFilter() {
-            final List<ItemFilter> filters = new LinkedList<ItemFilter>();
+        public void addFilters(List<ItemFilter> filters) {
             if(filter != null)
                 filters.add(filter);
 
             for(SubsetTag child : sorted)
-                filters.add(child.compositeFilter());
+                child.addFilters(filters);
+        }
 
-            return new ItemFilter()
-            {
-                @Override
-                public boolean matches(ItemStack item) {
-                    for(ItemFilter filter : filters)
-                        if(filter.matches(item))
-                            return true;
-
-                    return false;
-                }
-            };
+        public void search(List<SubsetTag> tags, Pattern p) {
+            if(fullname != null && p.matcher(fullname.toLowerCase()).find())
+                tags.add(this);
+            else
+                for(SubsetTag child : sorted)
+                    child.search(tags, p);
         }
 
         public void updateVisiblity(int mx, int my) {
@@ -709,8 +706,22 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         if(!searchText.startsWith("@"))
             return null;
 
-        SubsetTag tag = getTag(searchText.substring(1));
-        return tag != null ? tag.compositeFilter() : null;
+        searchText = searchText.substring(1);
+        AnyMultiItemFilter filter = new AnyMultiItemFilter();
+        SubsetTag tag = getTag(searchText);
+        if(tag != null)
+            tag.addFilters(filter.filters);
+        else {
+            Pattern p = SearchField.getPattern(searchText);
+            if(p == null) return null;
+
+            List<SubsetTag> matching = new LinkedList<SubsetTag>();
+            root.search(matching, p);
+            if(matching.isEmpty()) return null;
+            for(SubsetTag tag2 : matching)
+                tag2.addFilters(filter.filters);
+        }
+        return filter;
     }
 
     @Override

@@ -54,7 +54,7 @@ public class ItemList
 
     public static class PatternItemFilter implements ItemFilter
     {
-        Pattern pattern;
+        public Pattern pattern;
 
         public PatternItemFilter(Pattern pattern) {
             this.pattern = pattern;
@@ -63,6 +63,56 @@ public class ItemList
         @Override
         public boolean matches(ItemStack item) {
             return pattern.matcher(ItemInfo.getSearchName(item)).find();
+        }
+    }
+
+    public static class AllMultiItemFilter implements ItemFilter
+    {
+        public List<ItemFilter> filters = new LinkedList<ItemFilter>();
+
+        public AllMultiItemFilter(List<ItemFilter> filters) {
+            this.filters = filters;
+        }
+
+        public AllMultiItemFilter() {
+            this(new LinkedList<ItemFilter>());
+        }
+
+        @Override
+        public boolean matches(ItemStack item) {
+            for(ItemFilter filter : filters)
+                try {
+                    if (!filter.matches(item)) return false;
+                } catch (Exception e) {
+                    NEIClientConfig.logger.error("Exception filtering "+item+" with "+filter, e);
+                }
+
+            return true;
+        }
+    }
+
+    public static class AnyMultiItemFilter implements ItemFilter
+    {
+        public List<ItemFilter> filters = new LinkedList<ItemFilter>();
+
+        public AnyMultiItemFilter(List<ItemFilter> filters) {
+            this.filters = filters;
+        }
+
+        public AnyMultiItemFilter() {
+            this(new LinkedList<ItemFilter>());
+        }
+
+        @Override
+        public boolean matches(ItemStack item) {
+            for(ItemFilter filter : filters)
+                try {
+                    if (filter.matches(item)) return true;
+                } catch (Exception e) {
+                    NEIClientConfig.logger.error("Exception filtering "+item+" with "+filter, e);
+                }
+
+            return false;
         }
     }
 
@@ -84,8 +134,16 @@ public class ItemList
         return true;
     }
 
+    /**
+     * @deprecated  use getItemListFilter().matches(item)
+     */
+    @Deprecated
     public static boolean itemMatches(ItemStack item) {
-        return itemMatchesAll(item, getItemFilters());
+        return getItemListFilter().matches(item);
+    }
+
+    public static ItemFilter getItemListFilter() {
+        return new AllMultiItemFilter(getItemFilters());
     }
 
     public static List<ItemFilter> getItemFilters() {
@@ -171,11 +229,11 @@ public class ItemList
         @Override
         public void execute() {
             ArrayList<ItemStack> filtered = new ArrayList<ItemStack>();
-            List<ItemFilter> filters = getItemFilters();
+            ItemFilter filter = getItemListFilter();
             for(ItemStack item : items) {
                 if (interrupted()) return;
 
-                if(itemMatchesAll(item, filters))
+                if(filter.matches(item))
                     filtered.add(item);
             }
 

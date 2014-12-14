@@ -80,6 +80,26 @@ public class SearchField extends TextField implements ItemFilterProvider
         return EnumChatFormatting.getTextWithoutFormattingCodes(s);
     }
 
+    public static Pattern getPattern(String search) {
+        switch(NEIClientConfig.getIntSetting("inventory.searchmode")) {
+            case 0://plain
+                search = "\\Q"+search+"\\E";
+                break;
+            case 1:
+                search = search
+                        .replace(".", "")
+                        .replace("?", ".")
+                        .replace("*", ".+?");
+                break;
+        }
+
+        Pattern pattern = null;
+        try {
+            pattern = Pattern.compile(search);
+        } catch (PatternSyntaxException ignored) {}
+        return pattern == null || pattern.toString().length() == 0 ? null : pattern;
+    }
+
     @Override
     public ItemFilter getFilter() {
         String s_filter = text().toLowerCase();
@@ -90,25 +110,7 @@ public class SearchField extends TextField implements ItemFilterProvider
                 return filter;
         }
 
-        switch(NEIClientConfig.getIntSetting("inventory.searchmode")) {
-            case 0://plain
-                s_filter = "\\Q"+s_filter+"\\E";
-                break;
-            case 1:
-                s_filter = s_filter
-                        .replace(".", "")
-                        .replace("?", ".")
-                        .replace("*", ".+?");
-                break;
-        }
-
-        Pattern pattern = null;
-        try {
-            pattern = Pattern.compile(s_filter);
-        } catch (PatternSyntaxException ignored) {}
-        if (pattern == null || pattern.toString().equals(""))
-            return new EverythingItemFilter();
-
-        return new PatternItemFilter(pattern);
+        Pattern pattern = getPattern(s_filter);
+        return pattern == null ? new EverythingItemFilter() : new PatternItemFilter(pattern);
     }
 }

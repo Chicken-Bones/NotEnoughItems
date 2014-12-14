@@ -79,8 +79,7 @@ public class GuiItemIconDumper extends GuiScreen
         try {
             drawItems();
             exportItems();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             NEIClientConfig.logger.error("Error dumping item icons", e);
         }
     }
