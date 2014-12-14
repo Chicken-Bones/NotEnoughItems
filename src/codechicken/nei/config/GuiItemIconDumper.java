@@ -10,8 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.item.ItemStack;
@@ -189,30 +187,5 @@ public class GuiItemIconDumper extends GuiScreen
         }
 
         return img;
-    }
-
-    public static void renderGlint(RenderItem r, int p_77018_2_, int p_77018_3_, int p_77018_4_, int p_77018_5_) {
-        for (int j1 = 0; j1 < 1; ++j1)
-        {
-            OpenGlHelper.glBlendFunc(772, 1, 0, 1);
-            float f = 0.00390625F;
-            float f1 = 0.00390625F;
-            float f2 = (float)(Minecraft.getSystemTime() % (long)(3000 + j1 * 1873)) / (3000.0F + (float)(j1 * 1873)) * 256.0F;
-            float f3 = 0.0F;
-            Tessellator tessellator = Tessellator.instance;
-            float f4 = 4.0F;
-
-            if (j1 == 1)
-            {
-                f4 = -1.0F;
-            }
-
-            tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV((double)(p_77018_2_ + 0), (double)(p_77018_3_ + p_77018_5_), (double)r.zLevel, (double)((f2 + (float)p_77018_5_ * f4) * f), (double)((f3 + (float)p_77018_5_) * f1));
-            tessellator.addVertexWithUV((double)(p_77018_2_ + p_77018_4_), (double)(p_77018_3_ + p_77018_5_), (double)r.zLevel, (double)((f2 + (float)p_77018_4_ + (float)p_77018_5_ * f4) * f), (double)((f3 + (float)p_77018_5_) * f1));
-            tessellator.addVertexWithUV((double)(p_77018_2_ + p_77018_4_), (double)(p_77018_3_ + 0), (double)r.zLevel, (double)((f2 + (float)p_77018_4_) * f), (double)((f3 + 0.0F) * f1));
-            tessellator.addVertexWithUV((double)(p_77018_2_ + 0), (double)(p_77018_3_ + 0), (double)r.zLevel, (double)((f2 + 0.0F) * f), (double)((f3 + 0.0F) * f1));
-            tessellator.draw();
-        }
     }
 }
