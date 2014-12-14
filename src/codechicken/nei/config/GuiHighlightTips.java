@@ -54,7 +54,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     private boolean show() {
-        return opt.getTag(name).getBooleanValue();
+        return opt.renderTag(name).getBooleanValue();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     public Point getPos() {
-        return new Point(opt.getTag(name + ".x").getIntValue(), opt.getTag(name + ".y").getIntValue());
+        return new Point(opt.renderTag(name + ".x").getIntValue(), opt.renderTag(name + ".y").getIntValue());
     }
 
     public Dimension sampleSize()//copied from HUDManager when running with the sample for this gui
@@ -143,6 +143,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     private void setPos(Point p) {
+        opt.getTag(name).setBooleanValue(show());//duplicates global tag for the option gui if in world mode
         opt.getTag(name + ".x").setIntValue(p.x);
         opt.getTag(name + ".y").setIntValue(p.y);
     }

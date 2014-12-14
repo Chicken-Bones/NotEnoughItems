@@ -68,16 +68,6 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
         ordering = newMap;
     }
 
-    public static String getSaveString() {
-        StringBuilder sb = new StringBuilder();
-        for(SortEntry e : list) {
-            if(sb.length() > 0)
-                sb.append(',');
-            sb.append(e.name);
-        }
-        return sb.toString();
-    }
-
     public static SortEntry find(String name) {
         for(SortEntry e : entries)
             if(e.name.equals(name))
@@ -158,26 +148,45 @@ public class ItemSorter implements Comparator<ItemStack>, ItemsLoadedCallback
                 return name1.compareTo(name2);
             }
         });
-        tag.getTag("inventory.itemsort").setDefaultValue(getSaveString());
-        API.addOption(new OptionOpenGui("inventory.itemsort", GuiItemSorter.class));
+        tag.getTag("inventory.itemsort").setDefaultValue(getSaveString(list));
+        API.addOption(new OptionOpenGui("inventory.itemsort", GuiItemSorter.class) {
+            @Override
+            public void useGlobals() {
+                super.useGlobals();
+                list = fromSaveString(activeTag().getValue());
+            }
+        });
         ItemList.loadCallbacks.add(instance);
     }
 
-    public static void loadConfig() {
-        String s = NEIClientConfig.getStringSetting("inventory.itemsort");
-        if(s == null)
-            list = new ArrayList<SortEntry>(entries);
-        else {
-            ArrayList<SortEntry> nlist = new ArrayList<SortEntry>();
-            for(String s2 : s.split(",")) {
-                SortEntry e = find(s2.trim());
-                if(e != null)
-                    nlist.add(e);
-            }
-            for(SortEntry e : entries)
-                if(!nlist.contains(e))
-                    nlist.add(e);
-            list = nlist;
+    public static String getSaveString(List<SortEntry> list) {
+        StringBuilder sb = new StringBuilder();
+        for(SortEntry e : list) {
+            if(sb.length() > 0)
+                sb.append(',');
+            sb.append(e.name);
         }
+        return sb.toString();
+    }
+
+    public static ArrayList<SortEntry> fromSaveString(String s) {
+        if(s == null)
+            return new ArrayList<SortEntry>(entries);
+
+        ArrayList<SortEntry> list = new ArrayList<SortEntry>();
+        for(String s2 : s.split(",")) {
+            SortEntry e = find(s2.trim());
+            if(e != null)
+                list.add(e);
+        }
+        for(SortEntry e : entries)
+            if(!list.contains(e))
+                list.add(e);
+
+        return list;
+    }
+
+    public static void loadConfig() {
+        list = fromSaveString(NEIClientConfig.getStringSetting("inventory.itemsort"));
     }
 }

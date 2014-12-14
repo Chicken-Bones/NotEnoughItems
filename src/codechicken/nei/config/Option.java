@@ -73,7 +73,8 @@ public abstract class Option
      * @return true if the world config contains a tag with this name
      */
     public boolean worldSpecific(String s) {
-        return worldConfigSet().config.containsTag(s);
+        ConfigTag tag = worldConfigSet().config.getTag(s, false);
+        return tag != null && tag.value != null;
     }
 
     /**
@@ -109,6 +110,20 @@ public abstract class Option
      */
     public ConfigTag getTag(String s) {
         return configSet().config.getTag(s);
+    }
+
+    /**
+     * @return The tag currently being used ingame, world if a world override exists, otherwise global
+     */
+    public ConfigTag activeTag() {
+        return activeTag(configName());
+    }
+
+    /**
+     * @return The tag currently being used ingame, world if a world override exists, otherwise global
+     */
+    public ConfigTag activeTag(String s) {
+        return (worldSpecific() ? worldConfigSet() : globalConfigSet()).config.getTag(s);
     }
 
     /**
@@ -151,7 +166,7 @@ public abstract class Option
      * Called when world specific is activated for this option. Should copy the global value into a world specific override
      */
     public void copyGlobals() {
-        copyGlobal(configName());
+        copyGlobal(configName(), true);
     }
 
     /**

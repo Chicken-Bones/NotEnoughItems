@@ -63,9 +63,6 @@ public abstract class OptionStringSet extends Option
 
     @Override
     public void mouseClicked(int x, int y, int button) {
-        if (defaulting())
-            return;
-
         if (clickButton(x, y, button))
             playClickSound();
     }

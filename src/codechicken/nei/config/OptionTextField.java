@@ -22,7 +22,8 @@ public class OptionTextField extends Option
         @Override
         public void onTextChange(String oldText) {
             if(focused() && isValidValue(text()))
-                getTag().setValue(text());
+                if(!defaulting() || !text().equals(getTag().getValue()))//don't override global if text hasn't changed
+                    getTag().setValue(text());
         }
 
         @Override
@@ -32,11 +33,8 @@ public class OptionTextField extends Option
 
         @Override
         public void setFocus(boolean focus) {
-            if (focus && defaulting())
-                return;
-
             if (!focus && !isValidValue(text()))
-                setText(getTag().getValue());
+                setText(renderTag().getValue());
 
             focused = focus;
         }

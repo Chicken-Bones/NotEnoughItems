@@ -106,7 +106,7 @@ public class NEIClientConfig
 
                 Collections.sort(list);
 
-                int nextLayout = getTag().getIntValue();
+                int nextLayout = renderTag().getIntValue();
                 if (nextLayout == list.getLast())//loop list
                     nextLayout = -1;
                 for (Integer i : list) {
@@ -292,7 +292,9 @@ public class NEIClientConfig
     }
 
     public static boolean isWorldSpecific(String setting) {
-        return world != null && world.config.containsTag(setting);
+        if(world == null) return false;
+        ConfigTag tag = world.config.getTag(setting, false);
+        return tag != null && tag.value != null;
     }
 
     public static boolean isStateSaved(int i) {

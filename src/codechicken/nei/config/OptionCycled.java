@@ -31,9 +31,6 @@ public class OptionCycled extends OptionButton
 
     @Override
     public boolean onClick(int button) {
-        if (defaulting())
-            return false;
-
         return cycle();
     }
 

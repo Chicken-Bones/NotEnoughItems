@@ -86,8 +86,8 @@ public abstract class DataDumper extends Option
     public void draw(int mousex, int mousey, float frame) {
         drawPrefix();
         if(modeCount() > 1)
-            drawModeButton(mousex, mousey);
-        drawDumpButton(mousex, mousey);
+            drawButton(mousex, mousey, modeButtonSize(), modeButtonText());
+        drawButton(mousex, mousey, dumpButtonSize(), dumpButtonText());
     }
 
     public void drawPrefix() {
@@ -101,7 +101,7 @@ public abstract class DataDumper extends Option
 
     public Rectangle4i modeButtonSize() {
         int width = 60;
-        return new Rectangle4i(slot.slotWidth() - width - 10 - dumpButtonSize().w, 0, width, 20);
+        return new Rectangle4i(dumpButtonSize().x - width - 6, 0, width, 20);
     }
 
     public String dumpButtonText() {
@@ -113,23 +113,14 @@ public abstract class DataDumper extends Option
     }
 
     public int getMode() {
-        return getTag().getIntValue(0);
+        return renderTag().getIntValue(0);
     }
 
-    public void drawModeButton(int mousex, int mousey) {
+    public void drawButton(int mousex, int mousey, Rectangle4i b, String text) {
         GL11.glColor4f(1, 1, 1, 1);
-        Rectangle4i b = modeButtonSize();
         boolean hover = b.contains(mousex, mousey);
         LayoutManager.drawButtonBackground(b.x, b.y, b.w, b.h, true, getButtonTex(hover));
-        drawStringC(modeButtonText(), b.x, b.y, b.w, b.h, getTextColour(hover));
-    }
-
-    public void drawDumpButton(int mousex, int mousey) {
-        GL11.glColor4f(1, 1, 1, 1);
-        Rectangle4i b = dumpButtonSize();
-        boolean hover = b.contains(mousex, mousey);
-        LayoutManager.drawButtonBackground(b.x, b.y, b.w, b.h, true, getButtonTex(hover));
-        drawStringC(dumpButtonText(), b.x, b.y, b.w, b.h, getTextColour(hover));
+        drawStringC(text, b.x, b.y, b.w, b.h, getTextColour(hover));
     }
 
     public int getButtonTex(boolean hover) {

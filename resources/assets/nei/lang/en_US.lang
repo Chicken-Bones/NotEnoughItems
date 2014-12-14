@@ -152,6 +152,9 @@ nei.options.tools.dump.itempanel.dumped=Item Panel contents were dumped to %s
 nei.options.tools.dump.itempanel.mode.0=CSV
 nei.options.tools.dump.itempanel.mode.1=NBT
 nei.options.tools.dump.itempanel.mode.2=Json
+nei.options.tools.dump.itempanel.mode.3=PNG
+nei.options.tools.dump.itempanel.icon.dumped=Item Panel icons were dumped to %s
+nei.options.tools.dump.itempanel.icon.cancelled=Dump cancelled
 
 nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Old TMI

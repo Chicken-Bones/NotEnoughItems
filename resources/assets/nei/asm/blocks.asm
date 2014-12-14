@@ -51,6 +51,25 @@ ACONST_NULL
 ARETURN
 LCONT
 
+list d_glintAlphaFix
+ICONST_2
+IF_ICMPGE LBREAK
+SIPUSH 772
+ICONST_1
+ICONST_0
+ICONST_0
+INVOKESTATIC net/minecraft/client/renderer/OpenGlHelper.func_148821_a (IIII)V
+
+list glintAlphaFix
+ICONST_1 #only do one loop. Normally the first one wipes the alpha, and the second one multiplies by the wiped alpha (0) and is redundant
+IF_ICMPGE LBREAK
+SIPUSH 772
+ICONST_1
+ICONST_0
+ICONST_1 #keep the destination alpha
+INVOKESTATIC net/minecraft/client/renderer/OpenGlHelper.func_148821_a (IIII)V
+
+
 #begin GuiContainer patches
 
 list m_getManager

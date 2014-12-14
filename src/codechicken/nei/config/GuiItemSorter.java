@@ -28,7 +28,7 @@ public class GuiItemSorter extends GuiOptionPane
         }
 
         public int slotY() {
-            return GuiItemSorter.this.slotY(ItemSorter.list.indexOf(e));
+            return GuiItemSorter.this.slotY(list.indexOf(e));
         }
 
         public void update(int my) {
@@ -47,6 +47,7 @@ public class GuiItemSorter extends GuiOptionPane
 
     public Option opt;
     public List<SortItem> slots = new ArrayList<SortItem>();
+    public List<SortEntry> list;
 
     boolean dragging;
     public SortItem dragged;
@@ -55,7 +56,8 @@ public class GuiItemSorter extends GuiOptionPane
 
     public GuiItemSorter(Option opt) {
         this.opt = opt;
-        for(SortEntry e : ItemSorter.list)
+        list = ItemSorter.fromSaveString(opt.renderTag().getValue());
+        for(SortEntry e : list)
             slots.add(new SortItem(e));
     }
 
@@ -65,7 +67,7 @@ public class GuiItemSorter extends GuiOptionPane
 
     @Override
     public int contentHeight() {
-        return ItemSorter.list.size()*24;
+        return slots.size()*24;
     }
 
     @Override
@@ -113,12 +115,12 @@ public class GuiItemSorter extends GuiOptionPane
 
         if(dragging) {
             int nslot = (int)MathHelper.clip((dragged.y-(2-12))/24, 0, slots.size()-1);
-            if(nslot != ItemSorter.list.indexOf(dragged.e)) {
-                ArrayList<SortEntry> list = new ArrayList<SortEntry>(ItemSorter.list);
+            if(nslot != list.indexOf(dragged.e)) {
                 list.remove(dragged.e);
                 list.add(nslot, dragged.e);
-                ItemSorter.list = list;//just to be safe with concurrency
-                opt.getTag().setValue(ItemSorter.getSaveString());
+                opt.getTag().setValue(ItemSorter.getSaveString(list));
+                if(opt.activeTag() == opt.getTag())
+                    ItemSorter.list = new ArrayList<SortEntry>(list);
             }
         }
     }

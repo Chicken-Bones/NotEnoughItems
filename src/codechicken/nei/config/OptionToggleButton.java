@@ -28,9 +28,6 @@ public class OptionToggleButton extends OptionButton
 
     @Override
     public boolean onClick(int button) {
-        if (defaulting())
-            return false;
-
         getTag().setBooleanValue(!state());
         return true;
     }

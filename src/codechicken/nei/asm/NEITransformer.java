@@ -52,6 +52,10 @@ public class NEITransformer implements IClassTransformer
             }
         });
 
+        //put glint alpha into the buffer correctly for exporting
+        transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/client/renderer/entity/RenderItem", "func_77018_a", "(IIIII)V"),
+                asmblocks.get("d_glintAlphaFix"), asmblocks.get("glintAlphaFix")));
+
 
         String GuiContainer = "net/minecraft/client/gui/inventory/GuiContainer";
         //add manager field
