@@ -105,7 +105,7 @@ public class API
 
     /**
      * Hide an item from the item panel
-     * Damage values of OreDictionary.WILDCARD_VALUE and null NBT tags function as wildcards for their respective variables
+     * Damage values of OreDictionary.WILDCARD_VALUE and ItemStackMap.WILDCARD_TAG tags function as wildcards for their respective variables
      */
     public static void hideItem(ItemStack item) {
         ItemInfo.hiddenItems.add(item);
