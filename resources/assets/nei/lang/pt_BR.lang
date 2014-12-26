@@ -157,8 +157,8 @@ nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Velho TMI
 
 nei.recipe.page=Página %s/%s
-nei.recipe.shaped=Crafting Exato
-nei.recipe.shapeless=Crafting Sem Forma
+nei.recipe.shaped=Receita Exata
+nei.recipe.shapeless=Receita Sem Forma
 nei.recipe.furnace=Cozimento
 nei.recipe.fuel=Combustível
 nei.recipe.fuel.required=%s requerido
