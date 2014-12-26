@@ -702,6 +702,11 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
     }
 
     @Override
+    public boolean isPrimary() {
+        return true;
+    }
+
+    @Override
     public ItemFilter getFilter(String searchText) {
         if(!searchText.startsWith("@"))
             return null;
