@@ -50,10 +50,13 @@ public class WorldOverlayRenderer implements IKeyStateTracker
         if (mobOverlay == 0)
             return;
 
+        boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(GL11.GL_LIGHTING);
+        if(lighting)
+            GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glLineWidth(1.5F);
         GL11.glBegin(GL11.GL_LINES);
 
@@ -93,7 +96,8 @@ public class WorldOverlayRenderer implements IKeyStateTracker
             }
 
         GL11.glEnd();
-        GL11.glEnable(GL11.GL_LIGHTING);
+        if(lighting)
+            GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
     }
@@ -125,10 +129,13 @@ public class WorldOverlayRenderer implements IKeyStateTracker
         if (chunkOverlay == 0)
             return;
 
+        boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(GL11.GL_LIGHTING);
+        if(lighting)
+            GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glLineWidth(1.5F);
         GL11.glBegin(GL11.GL_LINES);
 
@@ -211,7 +218,8 @@ public class WorldOverlayRenderer implements IKeyStateTracker
             }
 
         GL11.glEnd();
-        GL11.glEnable(GL11.GL_LIGHTING);
+        if(lighting)
+            GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
     }
