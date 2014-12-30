@@ -177,11 +177,11 @@ public class NEIClientUtils extends NEIServerUtils
                 int qty = Math.min(stack.stackSize - given, stack.getMaxStackSize());
                 sendCommand(getStringSetting("command.item"),
                         mc().thePlayer.getName(),
-                        Item.getIdFromItem(stack.getItem()),
+                        Item.itemRegistry.getNameForObject(stack.getItem()),
                         qty,
                         stack.getItemDamage(),
                         stack.hasTagCompound() ? stack.getTagCompound().toString() : "",
-                        Item.itemRegistry.getNameForObject(stack.getItem()));
+                        Item.getIdFromItem(stack.getItem()));
                 given += qty;
             }
         }

@@ -118,7 +118,7 @@ nei.options.command=Commands
 nei.options.command.creative=Gamemode
 nei.options.command.creative.tip={0} = 1 for creative, 0 for survival, {1} = player
 nei.options.command.item=Item
-nei.options.command.item.tip={0} = player, {1} = id, {2} = amount, {3} = damage, {4} = nbt, {5} = name
+nei.options.command.item.tip={0} = player, {1} = name, {2} = amount, {3} = damage, {4} = nbt, {5} = id
 nei.options.command.time=Time
 nei.options.command.time.tip={0} = worldtime
 nei.options.command.rain=Rain
