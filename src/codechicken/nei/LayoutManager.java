@@ -618,7 +618,7 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
             addWidget(searchField);
         }
 
-        if (canPerformAction("item") && visiblity.showStateButtons) {
+        if (canPerformAction("item") && hasSMPCounterPart() && visiblity.showStateButtons) {
             for (int i = 0; i < 7; i++) {
                 addWidget(stateButtons[i]);
                 if (isStateSaved(i))
