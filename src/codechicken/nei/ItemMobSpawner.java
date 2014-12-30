@@ -48,9 +48,12 @@ public class ItemMobSpawner extends ItemBlock
     }
 
     /**
-     * Called from BlockMobSpawner via asm generated onBlockPlacedBy
+     * Called from BlockMobSpawner on the client via asm generated onBlockPlacedBy
      */
     public static void onBlockPlaced(World world, BlockPos pos, ItemStack stack) {
+        if(!NEIClientConfig.hasSMPCounterPart())
+            return;
+
         TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(pos);
         if (tileentitymobspawner != null) {
             setDefaultTag(stack);

@@ -1,6 +1,8 @@
 package codechicken.nei;
 
 import codechicken.lib.packet.PacketCustom;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -28,6 +30,7 @@ public class ServerHandler
         FMLCommonHandler.instance().bus().register(instance);
         MinecraftForge.EVENT_BUS.register(instance);
 
+        Item.getItemFromBlock(Blocks.mob_spawner).setHasSubtypes(true);
         NEIActions.init();
     }
 
