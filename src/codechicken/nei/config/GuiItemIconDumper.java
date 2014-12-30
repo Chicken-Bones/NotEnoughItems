@@ -8,6 +8,7 @@ import codechicken.nei.NEIClientUtils;
 import codechicken.nei.guihook.GuiContainerManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -64,7 +65,7 @@ public class GuiItemIconDumper extends GuiScreen
     }
 
     @Override
-    protected void keyTyped(char c, int keycode) {
+    protected void keyTyped(char c, int keycode) throws IOException {
         if (keycode == Keyboard.KEY_ESCAPE || keycode == Keyboard.KEY_BACK) {
             returnScreen(new ChatComponentTranslation(opt.fullName()+".icon.cancelled"));
             return;
@@ -85,20 +86,20 @@ public class GuiItemIconDumper extends GuiScreen
     private void drawItems() {
         Dimension d = GuiDraw.displayRes();
 
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, d.width*16D/iconSize, d.height*16D/iconSize, 0.0D, 1000.0D, 3000.0D);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glClearColor(0, 0, 0, 0);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
+        GlStateManager.loadIdentity();
+        GlStateManager.ortho(0, d.width*16D/iconSize, d.height*16D/iconSize, 0, 1000, 3000);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        GlStateManager.clearColor(0, 0, 0, 0);
+        GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
         int rows = d.height / boxSize;
         int cols = d.width / boxSize;
         int fit = rows*cols;
 
         RenderHelper.enableGUIStandardItemLighting();
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.color(1, 1, 1, 1);
 
         for(int i = 0; drawIndex < ItemPanel.items.size() && i < fit; drawIndex++, i++) {
             int x = i%cols * 18;
@@ -167,14 +168,14 @@ public class GuiItemIconDumper extends GuiScreen
         pixelBuffer.clear();
 
         if (OpenGlHelper.isFramebufferEnabled()) {
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, fb.framebufferTexture);
+            GlStateManager.bindTexture(fb.framebufferTexture);
             GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixelBuffer);
         } else {
             GL11.glReadPixels(0, 0, texSize.width, texSize.height, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixelBuffer);
         }
 
         pixelBuffer.get(pixelValues);
-        TextureUtil.func_147953_a(pixelValues, texSize.width, texSize.height);
+        TextureUtil.processPixelValues(pixelValues, texSize.width, texSize.height);
 
         BufferedImage img = new BufferedImage(mcSize.width, mcSize.height, BufferedImage.TYPE_INT_ARGB);
         if (OpenGlHelper.isFramebufferEnabled()) {

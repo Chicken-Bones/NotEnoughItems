@@ -1,15 +1,14 @@
 package codechicken.nei;
 
-import codechicken.core.CommonUtils;
 import codechicken.lib.packet.PacketCustom;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
@@ -22,7 +21,7 @@ public class ServerHandler
 {
     private static ServerHandler instance;
 
-    public static void load() {
+    public static void init() {
         instance = new ServerHandler();
 
         PacketCustom.assignHandler(NEICPH.channel, new NEISPH());
@@ -35,7 +34,7 @@ public class ServerHandler
     @SubscribeEvent
     public void tickEvent(TickEvent.WorldTickEvent event) {
         if (event.phase == Phase.START && !event.world.isRemote &&
-                NEIServerConfig.dimTags.containsKey(CommonUtils.getDimension(event.world)))//fake worlds that don't call Load
+                NEIServerConfig.dimTags.containsKey(event.world.provider.getDimensionId()))//fake worlds that don't call Load
             processDisabledProperties(event.world);
     }
 
@@ -49,18 +48,18 @@ public class ServerHandler
     public void tickEvent(TickEvent.PlayerTickEvent event) {
         if (event.phase == Phase.START && event.player instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.player;
-            PlayerSave save = NEIServerConfig.forPlayer(player.getCommandSenderName());
+            PlayerSave save = NEIServerConfig.forPlayer(player.getName());
             if (save == null)
                 return;
             updateMagneticPlayer(player, save);
-            save.updateOpChange(player);
+            save.updateOpChange();
             save.save();
         }
     }
 
     private void processDisabledProperties(World world) {
         NEIServerUtils.advanceDisabledTimes(world);
-        if (NEIServerUtils.isRaining(world) && NEIServerConfig.isActionDisabled(CommonUtils.getDimension(world), "rain"))
+        if (NEIServerUtils.isRaining(world) && NEIServerConfig.isActionDisabled(world.provider.getDimensionId(), "rain"))
             NEIServerUtils.toggleRaining(world, false);
     }
 
@@ -74,34 +73,31 @@ public class ServerHandler
         double maxspeedy = 0.5;
         double speedxz = 0.05;
         double speedy = 0.07;
-        List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(distancexz, distancey, distancexz));
+        List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, player.getEntityBoundingBox().expand(distancexz, distancey, distancexz));
         for (EntityItem item : items) {
-            if (item.delayBeforeCanPickup > 0) continue;
+            if (item.cannotPickup()) continue;
             if (!NEIServerUtils.canItemFitInInventory(player, item.getEntityItem())) continue;
-            if (item.delayBeforeCanPickup == 0) {
+            if (save.magneticItems.add(item))
                 NEISPH.sendAddMagneticItemTo(player, item);
-            }
 
             double dx = player.posX - item.posX;
             double dy = player.posY + player.getEyeHeight() - item.posY;
             double dz = player.posZ - item.posZ;
             double absxz = Math.sqrt(dx * dx + dz * dz);
             double absy = Math.abs(dy);
-            if (absxz > distancexz) {
+            if (absxz > distancexz)
                 continue;
-            }
-            if (absxz < 1) {
+
+            if (absxz < 1)
                 item.onCollideWithPlayer(player);
-            }
 
             if (absxz > 1) {
                 dx /= absxz;
                 dz /= absxz;
             }
 
-            if (absy > 1) {
+            if (absy > 1)
                 dy /= absy;
-            }
 
             double vx = item.motionX + speedxz * dx;
             double vy = item.motionY + speedy * dy;
@@ -117,9 +113,8 @@ public class ServerHandler
             }
 
             double rationspeedy = absvy / maxspeedy;
-            if (rationspeedy > 1) {
+            if (absvy > 1)
                 vy /= rationspeedy;
-            }
 
             item.motionX = vx;
             item.motionY = vy;
@@ -140,11 +135,11 @@ public class ServerHandler
 
     @SubscribeEvent
     public void dimChangeEvent(PlayerChangedDimensionEvent event) {
-        NEISPH.sendHasServerSideTo((EntityPlayerMP) event.player);
+        NEIServerConfig.forPlayer(event.player.getName()).onWorldReload();
     }
 
     @SubscribeEvent
     public void loginEvent(PlayerRespawnEvent event) {
-        NEISPH.sendHasServerSideTo((EntityPlayerMP) event.player);
+        NEIServerConfig.forPlayer(event.player.getName()).onWorldReload();
     }
 }

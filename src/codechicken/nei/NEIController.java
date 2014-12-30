@@ -4,6 +4,7 @@ import codechicken.nei.api.*;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerInputHandler;
 import codechicken.nei.guihook.IContainerSlotClickHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -49,7 +50,7 @@ public class NEIController implements IContainerSlotClickHandler, IContainerInpu
     }
 
     public static boolean isSpreading(GuiContainer gui) {
-        return gui.field_147007_t && gui.field_147008_s.size() > 1;
+        return gui.dragSplitting && gui.dragSplittingSlots.size() > 1;
     }
 
     public static void updateUnlimitedItems(InventoryPlayer inventory) {
@@ -170,7 +171,7 @@ public class NEIController implements IContainerSlotClickHandler, IContainerInpu
             pickedUpFromSlot = slotIndex;
 
         if (NEIClientConfig.canPerformAction("item") && NEIClientConfig.hasSMPCounterPart()) {
-            if (heldStackInfinite != null && slot != null && slot.inventory == NEIClientUtils.mc().thePlayer.inventory) {
+            if (heldStackInfinite != null && slot != null && slot.inventory == Minecraft.getMinecraft().thePlayer.inventory) {
                 ItemStack stack = slot.getStack();
                 if (stack != null) {
                     heldStackInfinite.onPlaceInfinite(stack);
@@ -207,7 +208,7 @@ public class NEIController implements IContainerSlotClickHandler, IContainerInpu
 
         int slotIndex = slot.slotNumber;
 
-        if (keyCode == NEIClientUtils.mc().gameSettings.keyBindDrop.getKeyCode() && NEIClientUtils.shiftKey()) {
+        if (keyCode == Minecraft.getMinecraft().gameSettings.keyBindDrop.getKeyCode() && NEIClientUtils.shiftKey()) {
             FastTransferManager.clickSlot(gui, slotIndex);
             fastTransferManager.throwAll(gui, slotIndex);
             FastTransferManager.clickSlot(gui, slotIndex);

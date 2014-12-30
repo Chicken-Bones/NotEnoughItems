@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -198,8 +199,8 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
                 options.draw(mousex, mousey);
             }
 
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GlStateManager.enableLighting();
+            GlStateManager.disableDepth();
         }
     }
 
@@ -717,21 +718,21 @@ public class LayoutManager implements IContainerInputHandler, IContainerTooltipH
     public void renderSlotOverlay(GuiContainer window, Slot slot) {
         ItemStack item = slot.getStack();
         if (world.nbt.getBoolean("searchinventories") && (item == null ? !getSearchExpression().equals("") : !ItemList.itemMatches(item))) {
-            GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glTranslatef(0, 0, 150);
+            GlStateManager.disableLighting();
+            GlStateManager.translate(0, 0, 150);
             drawRect(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, 0x80000000);
-            GL11.glTranslatef(0, 0, -150);
-            GL11.glEnable(GL11.GL_LIGHTING);
+            GlStateManager.translate(0, 0, -150);
+            GlStateManager.enableLighting();
         }
     }
 
     public static void drawIcon(int x, int y, Image image) {
         changeTexture("nei:textures/nei_sprites.png");
-        GL11.glColor4f(1, 1, 1, 1);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.color(1, 1, 1, 1);
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         drawTexturedModalRect(x, y, image.x, image.y, image.width, image.height);
-        GL11.glDisable(GL11.GL_BLEND);
+        GlStateManager.disableBlend();
     }
 
     public static void drawButtonBackground(int x, int y, int w, int h, boolean edges, int type) {

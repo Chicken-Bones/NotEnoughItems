@@ -34,7 +34,7 @@ public class GuiNEIOptionList extends GuiOptionList implements GuiYesNoCallback
     public void actionPerformed(String ident, Object... params) {
         if (ident.equals("patreon")) {
             GuiConfirmOpenLink gui = new GuiConfirmOpenLink(this, "patreon.com/cb", 0, true);
-            gui.func_146358_g();
+            gui.disableSecurityWarning();
             mc.displayGuiScreen(gui);
         } else
             super.actionPerformed(ident, params);

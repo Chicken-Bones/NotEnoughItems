@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IChatComponent;
 
 public class ContainerRecipe extends Container
 {
@@ -42,25 +43,12 @@ public class ContainerRecipe extends Container
         }
 
         @Override
-        public String getInventoryName() {
-            return null;
-        }
-
-        @Override
         public int getInventoryStackLimit() {
             return 1;
         }
 
         @Override
         public void markDirty() {
-        }
-
-        @Override
-        public void openInventory() {
-        }
-
-        @Override
-        public void closeInventory() {
         }
 
         @Override
@@ -74,8 +62,44 @@ public class ContainerRecipe extends Container
         }
 
         @Override
-        public boolean hasCustomInventoryName() {
+        public void openInventory(EntityPlayer player) {
+        }
+
+        @Override
+        public void closeInventory(EntityPlayer player) {
+        }
+
+        @Override
+        public int getField(int id) {
+            return 0;
+        }
+
+        @Override
+        public void setField(int id, int value) {
+        }
+
+        @Override
+        public int getFieldCount() {
+            return 0;
+        }
+
+        @Override
+        public void clear() {
+        }
+
+        @Override
+        public String getName() {
+            return null;
+        }
+
+        @Override
+        public boolean hasCustomName() {
             return false;
+        }
+
+        @Override
+        public IChatComponent getDisplayName() {
+            return null;
         }
     }
     

@@ -38,10 +38,10 @@ public class ItemPanelDumper extends DataDumper
         LinkedList<String[]> list = new LinkedList<String[]>();
         for (ItemStack stack : ItemPanel.items)
             list.add(new String[]{
-                    Item.itemRegistry.getNameForObject(stack.getItem()),
+                    Item.itemRegistry.getNameForObject(stack.getItem()).toString(),
                     Integer.toString(Item.getIdFromItem(stack.getItem())),
                     Integer.toString(InventoryUtils.actualDamage(stack)),
-                    stack.stackTagCompound == null ? "false" : "true",
+                    stack.getTagCompound() == null ? "false" : "true",
                     EnumChatFormatting.getTextWithoutFormattingCodes(GuiContainerManager.itemDisplayNameShort(stack))
             });
 

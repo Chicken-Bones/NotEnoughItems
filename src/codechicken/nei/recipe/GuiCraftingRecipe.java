@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GuiCraftingRecipe extends GuiRecipe
 {
     public static boolean openRecipeGui(String outputId, Object... results) {
-        Minecraft mc = NEIClientUtils.mc();
+        Minecraft mc = Minecraft.getMinecraft();
         GuiContainer prevscreen = mc.currentScreen instanceof GuiContainer ? (GuiContainer) mc.currentScreen : null;
 
         TaskProfiler profiler = ProfilerRecipeHandler.getProfiler();

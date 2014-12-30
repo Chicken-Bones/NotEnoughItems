@@ -2,7 +2,7 @@ package codechicken.nei.asm;
 
 import codechicken.lib.asm.*;
 import codechicken.lib.asm.ModularASMTransformer.*;
-import cpw.mods.fml.relauncher.FMLLaunchHandler;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
@@ -16,10 +16,6 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class NEITransformer implements IClassTransformer
 {
-    static {
-        ASMInit.init();
-    }
-
     private ModularASMTransformer transformer = new ModularASMTransformer();
     private Map<String, ASMBlock> asmblocks = ASMReader.loadResource("/assets/nei/asm/blocks.asm");
 
@@ -27,12 +23,9 @@ public class NEITransformer implements IClassTransformer
         if(FMLLaunchHandler.side().isClient()) {
             //Generates method to set the placed position of a mob spawner for the item callback. More portable than copying vanilla placement code
             transformer.add(new MethodWriter(ACC_PUBLIC,
-                    new ObfMapping("net/minecraft/block/BlockMobSpawner", "func_149689_a", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V"),
+                    new ObfMapping("net/minecraft/block/BlockMobSpawner", "func_180633_a",
+                    "(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V"),
                     asmblocks.get("spawnerPlaced")));
-
-            //Make MobSpawnerBaseLogic use getSpawnerWorld when creating new entities
-            transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/tileentity/MobSpawnerBaseLogic", "func_98281_h", "()Lnet/minecraft/entity/Entity;"),
-                    asmblocks.get("d_spawnerWorld"), asmblocks.get("spawnerWorld")));
         }
 
         //Removes trailing seperators from NBTTagList/Compound.toString because OCD
@@ -51,10 +44,6 @@ public class NEITransformer implements IClassTransformer
                 key.insertBefore(asmblocks.get("workbenchFix").rawListCopy());
             }
         });
-
-        //put glint alpha into the buffer correctly for exporting
-        transformer.add(new MethodReplacer(new ObfMapping("net/minecraft/client/renderer/entity/RenderItem", "func_77018_a", "(IIIII)V"),
-                asmblocks.get("d_glintAlphaFix"), asmblocks.get("glintAlphaFix")));
 
 
         String GuiContainer = "net/minecraft/client/gui/inventory/GuiContainer";
@@ -115,7 +104,7 @@ public class NEITransformer implements IClassTransformer
         //Replace general handleMouseClicked call with delegate
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_73864_a", "(III)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//mouseClicked
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_146273_a", "(IIIJ)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//mouseClickMove
-        transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_146286_b", "(III)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//mouseMovedOrUp
+        transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_146286_b", "(III)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//mouseReleased
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_73869_a", "(CI)V"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//keyTyped
         transformer.add(new MethodReplacer(new ObfMapping(GuiContainer, "func_146983_a", "(I)Z"), asmblocks.get("d_handleMouseClick"), asmblocks.get("handleMouseClick")));//checkHotbarKeys
 
@@ -125,10 +114,10 @@ public class NEITransformer implements IClassTransformer
         //Inject mouseDragged hook after super call in mouseDragged
         transformer.add(new MethodInjector(new ObfMapping(GuiContainer, "func_146273_a", "(IIIJ)V"), asmblocks.get("n_mouseDragged"), asmblocks.get("mouseDragged"), false));
 
-        //Inject overrideMouseUp at the start of mouseMovedOrUp
+        //Inject overrideMouseUp at the start of mouseReleased
         transformer.add(new MethodInjector(new ObfMapping(GuiContainer, "func_146286_b", "(III)V"), asmblocks.get("overrideMouseUp"), true));
 
-        //Inject mouseUp at the end of main elseif chain in mouseMovedOrUp
+        //Inject mouseUp at the end of main elseif chain in mouseReleased
         transformer.add(new MethodTransformer(new ObfMapping(GuiContainer, "func_146286_b", "(III)V"))
         {
             @Override

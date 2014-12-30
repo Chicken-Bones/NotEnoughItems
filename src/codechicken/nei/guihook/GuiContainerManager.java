@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.init.Blocks;
@@ -30,7 +31,7 @@ public class GuiContainerManager
 {
     public GuiContainer window;
 
-    public static RenderItem drawItems = new RenderItem();
+    public static RenderItem drawItems = Minecraft.getMinecraft().getRenderItem();
     public static final LinkedList<IContainerTooltipHandler> tooltipHandlers = new LinkedList<IContainerTooltipHandler>();
     public static final LinkedList<IContainerInputHandler> inputHandlers = new LinkedList<IContainerInputHandler>();
     public static final LinkedList<IContainerDrawHandler> drawHandlers = new LinkedList<IContainerDrawHandler>();
@@ -184,12 +185,12 @@ public class GuiContainerManager
         enable3DRender();
         float zLevel = drawItems.zLevel += 100F;
         try {
-            drawItems.renderItemAndEffectIntoGUI(fontRenderer, renderEngine, itemstack, i, j);
-            drawItems.renderItemOverlayIntoGUI(fontRenderer, renderEngine, itemstack, i, j);
+            drawItems.renderItemAndEffectIntoGUI(itemstack, i, j);
+            drawItems.renderItemOverlays(fontRenderer, itemstack, i, j);
 
             if (!checkMatrixStack())
                 throw new IllegalStateException("Modelview matrix stack too deep");
-            if (Tessellator.instance.isDrawing)
+            if (Tessellator.getInstance().getWorldRenderer().isDrawing)
                 throw new IllegalStateException("Still drawing");
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
@@ -202,11 +203,11 @@ public class GuiContainerManager
             }
 
             restoreMatrixStack();
-            if (Tessellator.instance.isDrawing)
-                Tessellator.instance.draw();
+            if (Tessellator.getInstance().getWorldRenderer().isDrawing)
+                Tessellator.getInstance().draw();
 
             drawItems.zLevel = zLevel;
-            drawItems.renderItemIntoGUI(fontRenderer, renderEngine, new ItemStack(Blocks.fire), i, j);
+            drawItems.renderItemIntoGUI(new ItemStack(Blocks.fire), i, j);
         }
 
         enable2DRender();
@@ -228,21 +229,21 @@ public class GuiContainerManager
     public static void restoreMatrixStack() {
         if (modelviewDepth >= 0)
             for (int i = GL11.glGetInteger(GL11.GL_MODELVIEW_STACK_DEPTH); i > modelviewDepth; i--)
-                GL11.glPopMatrix();
+                GlStateManager.popMatrix();
     }
 
-    public static void setColouredItemRender(boolean enable) {
-        drawItems.renderWithColor = !enable;
+    public static void setItemRenderColour(int colour) {
+        //ASM implemented
     }
 
     public static void enable3DRender() {
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GlStateManager.enableLighting();
+        GlStateManager.enableDepth();
     }
 
     public static void enable2DRender() {
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GlStateManager.disableLighting();
+        GlStateManager.disableDepth();
     }
 
     private int clickHandled = 0;
@@ -349,7 +350,7 @@ public class GuiContainerManager
     }
 
     /**
-     * Override for mouseMovedOrUp
+     * Override for mouseReleased
      */
     public boolean overrideMouseUp(int mousex, int mousey, int button) {
         if (button >= 0 && (clickHandled & 1 << button) != 0) {
@@ -382,13 +383,16 @@ public class GuiContainerManager
     }
 
     public void renderObjects(int mousex, int mousey) {
-        GL11.glTranslatef(-window.guiLeft, -window.guiTop, 200F);
+        GlStateManager.translate(-window.guiLeft, -window.guiTop, 200F);
+
         for (IContainerDrawHandler drawHandler : drawHandlers)
             drawHandler.renderObjects(window, mousex, mousey);
 
         for (IContainerDrawHandler drawHandler : drawHandlers)
             drawHandler.postRenderObjects(window, mousex, mousey);
-        GL11.glTranslatef(window.guiLeft, window.guiTop, -200F);
+
+        GlStateManager.translate(window.guiLeft, window.guiTop, -200F);
+        enable3DRender();
     }
 
     public void renderToolTips(int mousex, int mousey) {
@@ -402,7 +406,6 @@ public class GuiContainerManager
             ItemStack stack = getStackMouseOver(window);
             if (stack != null)
                 tooltip = itemDisplayNameMultiline(stack, window, true);
-
 
             for (IContainerTooltipHandler handler : instanceTooltipHandlers)
                 tooltip = handler.handleItemTooltip(window, stack, mousex, mousey, tooltip);
@@ -429,7 +432,7 @@ public class GuiContainerManager
     public void renderSlotOverlay(Slot slot) {
         for (IContainerDrawHandler drawHandler : drawHandlers)
             drawHandler.renderSlotOverlay(window, slot);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GlStateManager.enableAlpha();
     }
 
     /**
@@ -463,7 +466,7 @@ public class GuiContainerManager
         if (Keyboard.getEventKeyState() || (k == 0 && Character.isDefined(c)))
             keyTyped(c, k);
 
-        window.mc.func_152348_aa();
+        window.mc.dispatchKeypresses();
     }
 
 
@@ -485,8 +488,8 @@ public class GuiContainerManager
         if(window instanceof IGuiSlotDraw)
             ((IGuiSlotDraw)window).drawSlotItem(slot, stack, x, y, quantity);
         else {
-            drawItems.renderItemAndEffectIntoGUI(fontRenderer, window.mc.getTextureManager(), stack, x, y);
-            drawItems.renderItemOverlayIntoGUI(fontRenderer, window.mc.getTextureManager(), stack, x, y, quantity);
+            drawItems.renderItemAndEffectIntoGUI(stack, x, y);
+            drawItems.renderItemOverlayIntoGUI(fontRenderer, stack, x, y, quantity);
         }
     }
 

@@ -16,7 +16,7 @@ public abstract class RegistryDumper <T> extends DataDumper
         RegistryNamespaced registry = registry();
 
         for(T obj : (Iterable<T>)registry)
-            list.add(dump(obj, registry.getIDForObject(obj), registry.getNameForObject(obj)));
+            list.add(dump(obj, registry.getIDForObject(obj), (String)registry.getNameForObject(obj)));
 
         return list;
     }

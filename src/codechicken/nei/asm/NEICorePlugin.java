@@ -1,22 +1,17 @@
 package codechicken.nei.asm;
 
 import codechicken.core.launch.CodeChickenCorePlugin;
-import codechicken.lib.asm.ASMInit;
-import cpw.mods.fml.relauncher.IFMLCallHook;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
+import net.minecraftforge.fml.relauncher.IFMLCallHook;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import java.io.File;
 import java.util.Map;
 
-@TransformerExclusions(value = {"codechicken.nei.asm"})
+@TransformerExclusions({"codechicken.nei.asm"})
 public class NEICorePlugin implements IFMLLoadingPlugin, IFMLCallHook
 {
     public static File location;
-
-    public NEICorePlugin() {
-        ASMInit.init();
-    }
 
     @Override
     public String[] getASMTransformerClass() {

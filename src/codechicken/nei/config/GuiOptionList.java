@@ -6,13 +6,11 @@ import codechicken.core.gui.GuiScrollSlot;
 import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.LayoutManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiYesNoCallback;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
-import java.net.URI;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -43,15 +41,15 @@ public class GuiOptionList extends GuiScreenWidget
 
         @Override
         public int getSlotHeight(int slot) {
-            return options.get(slot).getHeight()+4;
+            return options.get(slot).getHeight() + 4;
         }
 
         public int slotWidth() {
-            return windowBounds().width-24;
+            return windowBounds().width - 24;
         }
 
         private Rectangle slotBounds(int slot) {
-            return new Rectangle(24, 2, slotWidth(), getSlotHeight(slot)-4);
+            return new Rectangle(24, 2, slotWidth(), getSlotHeight(slot) - 4);
         }
 
         @Override
@@ -62,12 +60,12 @@ public class GuiOptionList extends GuiScreenWidget
         @Override
         protected void drawSlot(int slot, int x, int y, int mx, int my, float frame) {
             Option o = options.get(slot);
-            GL11.glTranslatef(x, y, 0);
+            GlStateManager.translate(x, y, 0);
             if (o.showWorldSelector() && world)
                 drawWorldSelector(o, mx, my);
-            GL11.glTranslatef(24, 2, 0);
-            o.draw(mx-24, my-2, frame);
-            GL11.glTranslatef(-x-24, -y-2, 0);
+            GlStateManager.translate(24, 2, 0);
+            o.draw(mx - 24, my - 2, frame);
+            GlStateManager.translate(-x - 24, -y - 2, 0);
         }
 
         public Rectangle4i worldButtonSize() {
@@ -78,7 +76,7 @@ public class GuiOptionList extends GuiScreenWidget
             Rectangle4i b = worldButtonSize();
             boolean set = o.hasWorldOverride();
             boolean mouseover = b.contains(mousex, mousey);
-            GL11.glColor4f(1, 1, 1, 1);
+            GlStateManager.color(1, 1, 1, 1);
             LayoutManager.drawButtonBackground(b.x, b.y, b.w, b.h, true, !set ? 0 : mouseover ? 2 : 1);
             drawStringC("W", b.x, b.y, b.w, b.h, -1);
         }
@@ -124,9 +122,8 @@ public class GuiOptionList extends GuiScreenWidget
                     o.copyGlobals();
                     Option.playClickSound();
                 }
-            }
-            else if(slotBounds(slot).contains(mx, my))
-                options.get(slot).mouseClicked(mx-24, my-2, button);
+            } else if (slotBounds(slot).contains(mx, my))
+                options.get(slot).mouseClicked(mx - 24, my - 2, button);
         }
 
         @Override
@@ -159,10 +156,10 @@ public class GuiOptionList extends GuiScreenWidget
         }
 
         public List<String> handleTooltip(int mx, int my, List<String> tooltip) {
-            int sy = my-y+scrolledPixels();
+            int sy = my - y + scrolledPixels();
             int slot = getSlot(sy);
-            if(slot >= 0)
-                tooltip = handleTooltip(slot, mx - x, sy-getSlotY(slot), tooltip);
+            if (slot >= 0)
+                tooltip = handleTooltip(slot, mx - x, sy - getSlotY(slot), tooltip);
             return tooltip;
         }
 
@@ -170,8 +167,8 @@ public class GuiOptionList extends GuiScreenWidget
             Option o = options.get(slot);
             if (world && o.showWorldSelector() && worldButtonSize().contains(mx, my))
                 tooltip.add(translateToLocal("nei.options.wbutton.tip." + (o.hasWorldOverride() ? "1" : "0")));
-            if(slotBounds(slot).contains(mx, my))
-                return o.handleTooltip(mx-24, my-2, tooltip);
+            if (slotBounds(slot).contains(mx, my))
+                return o.handleTooltip(mx - 24, my - 2, tooltip);
             return tooltip;
         }
     }
@@ -258,9 +255,8 @@ public class GuiOptionList extends GuiScreenWidget
     }
 
     @Override
-    public void keyTyped(char c, int keycode) {
-        if (keycode == 1)//esc
-        {
+    public void keyTyped(char c, int keycode) throws IOException {
+        if (keycode == 1) {//esc
             GuiScreen p = parent;
             while (p instanceof GuiOptionList)
                 p = ((GuiOptionList) p).parent;

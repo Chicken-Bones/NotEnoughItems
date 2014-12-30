@@ -3,8 +3,8 @@ package codechicken.nei;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GuiNEIButton extends GuiButton
 {
@@ -20,9 +20,9 @@ public class GuiNEIButton extends GuiButton
         if(!visible)
             return;
 
-        FontRenderer fontrenderer = minecraft.fontRenderer;
+        FontRenderer fontrenderer = minecraft.fontRendererObj;
         minecraft.renderEngine.bindTexture(guiTex);
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         boolean flag = i >= xPosition && j >= yPosition && i < xPosition + width && j < yPosition + height;
         int k = getHoverState(flag);
         drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2, height / 2);//top left

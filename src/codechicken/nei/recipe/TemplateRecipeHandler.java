@@ -12,10 +12,10 @@ import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerInputHandler;
 import codechicken.nei.guihook.IContainerTooltipHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.*;
@@ -477,14 +477,14 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
     }
 
     public void drawBackground(int recipe) {
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         changeTexture(getGuiTexture());
         drawTexturedModalRect(0, 0, 5, 11, 166, 65);
     }
 
     public void drawForeground(int recipe) {
-        GL11.glColor4f(1, 1, 1, 1);
-        GL11.glDisable(GL11.GL_LIGHTING);
+        GlStateManager.color(1, 1, 1, 1);
+        GlStateManager.disableLighting();
         changeTexture(getGuiTexture());
         drawExtras(recipe);
     }

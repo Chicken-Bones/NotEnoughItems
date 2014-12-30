@@ -1,8 +1,8 @@
 package codechicken.nei.config;
 
 import codechicken.nei.LayoutManager;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.List;
@@ -44,7 +44,7 @@ public abstract class OptionButton extends Option
     @Override
     public void draw(int mx, int my, float frame) {
         changeTexture(guiTex);
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         drawPrefix();
         drawButton(mx, my);
     }

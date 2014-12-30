@@ -13,11 +13,12 @@ import codechicken.nei.guihook.IGuiClientSide;
 import codechicken.nei.guihook.IGuiHandleMouseWheel;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public abstract class GuiRecipe extends GuiContainer implements IGuiContainerOve
     }
 
     @Override
-    protected void mouseClicked(int par1, int par2, int par3) {
+    protected void mouseClicked(int par1, int par2, int par3) throws IOException {
         IRecipeHandler recipehandler = currenthandlers.get(recipetype);
         for (int recipe = page * recipehandler.recipiesPerPage(); recipe < recipehandler.numRecipes() && recipe < (page + 1) * recipehandler.recipiesPerPage(); recipe++)
             if (recipehandler.mouseClicked(this, par3, recipe))
@@ -103,7 +104,7 @@ public abstract class GuiRecipe extends GuiContainer implements IGuiContainerOve
     }
 
     @Override
-    protected void actionPerformed(GuiButton guibutton) {
+    protected void actionPerformed(GuiButton guibutton) throws IOException {
         super.actionPerformed(guibutton);
         switch (guibutton.id) {
             case 0:
@@ -245,31 +246,31 @@ public abstract class GuiRecipe extends GuiContainer implements IGuiContainerOve
         s = NEIClientUtils.translate("recipe.page", page + 1, (currenthandlers.get(recipetype).numRecipes() - 1) / recipehandler.recipiesPerPage() + 1);
         fontRendererObj.drawString(s, (xSize - fontRendererObj.getStringWidth(s)) / 2, ySize - 16, 0x404040);
 
-        GL11.glPushMatrix();
-        GL11.glTranslatef(5, 16, 0);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(5, 16, 0);
         for (int i = page * recipehandler.recipiesPerPage(); i < recipehandler.numRecipes() && i < (page + 1) * recipehandler.recipiesPerPage(); i++) {
             recipehandler.drawForeground(i);
-            GL11.glTranslatef(0, 65, 0);
+            GlStateManager.translate(0, 65, 0);
         }
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int mx, int my) {
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         CCRenderState.changeTexture("nei:textures/gui/recipebg.png");
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
 
-        GL11.glPushMatrix();
-        GL11.glTranslatef(j + 5, k + 16, 0);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(j + 5, k + 16, 0);
         IRecipeHandler recipehandler = currenthandlers.get(recipetype);
         for (int i = page * recipehandler.recipiesPerPage(); i < recipehandler.numRecipes() && i < (page + 1) * recipehandler.recipiesPerPage(); i++) {
             recipehandler.drawBackground(i);
-            GL11.glTranslatef(0, 65, 0);
+            GlStateManager.translate(0, 65, 0);
         }
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
     }
 
     @Override

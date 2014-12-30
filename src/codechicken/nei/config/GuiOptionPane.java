@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public abstract class GuiOptionPane extends GuiScreenWidget
     }
 
     @Override
-    public void keyTyped(char c, int keycode) {
+    public void keyTyped(char c, int keycode) throws IOException {
         if (keycode == Keyboard.KEY_ESCAPE || keycode == Keyboard.KEY_BACK) {
             Minecraft.getMinecraft().displayGuiScreen(getParentScreen());
             return;

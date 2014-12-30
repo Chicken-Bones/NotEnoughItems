@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Option
 {
     public static void playClickSound() {
-        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
     }
 
     public OptionScrollSlot slot;

@@ -1,6 +1,7 @@
 package codechicken.nei;
 
 import codechicken.nei.guihook.GuiContainerManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -132,7 +133,7 @@ public class FastTransferManager
         slot.putStack(stack.copy());
 
         LinkedList<ItemStack> compareBefore = saveContainer(container);
-        container.slotClick(fromSlot, 0, 1, NEIClientUtils.mc().thePlayer);
+        container.slotClick(fromSlot, 0, 1, Minecraft.getMinecraft().thePlayer);
         LinkedList<ItemStack> compareAfter = saveContainer(container);
 
         try {
@@ -171,7 +172,7 @@ public class FastTransferManager
             container.getSlot(i).putStack(items.get(i));
         }
 
-        container.slotClick(-999, 0, 0, NEIClientUtils.mc().thePlayer);
+        container.slotClick(-999, 0, 0, Minecraft.getMinecraft().thePlayer);
     }
 
     public void transferItem(GuiContainer window, int fromSlot) {

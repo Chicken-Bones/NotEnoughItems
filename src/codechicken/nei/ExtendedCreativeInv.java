@@ -1,6 +1,7 @@
 package codechicken.nei;
 
-import cpw.mods.fml.relauncher.Side;
+import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -33,15 +34,14 @@ public class ExtendedCreativeInv implements IInventory
 
         if (item != null) {
             if (item.stackSize <= size) {
-                ItemStack itemstack = item;
                 setInventorySlotContents(slot, null);
                 markDirty();
-                return itemstack;
+                return item;
             }
             ItemStack itemstack1 = item.splitStack(size);
-            if (item.stackSize == 0) {
+            if (item.stackSize == 0)
                 setInventorySlotContents(slot, null);
-            }
+
             markDirty();
             return itemstack1;
         }
@@ -68,11 +68,6 @@ public class ExtendedCreativeInv implements IInventory
     }
 
     @Override
-    public String getInventoryName() {
-        return "Extended Creative";
-    }
-
-    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -89,21 +84,46 @@ public class ExtendedCreativeInv implements IInventory
     }
 
     @Override
-    public void openInventory() {
-    }
-
-    @Override
-    public void closeInventory() {
-    }
-
-    @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return true;
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return true;
+    public void openInventory(EntityPlayer player) {
     }
 
+    @Override
+    public void closeInventory(EntityPlayer player) {
+    }
+
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {}
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {}
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
+    }
 }

@@ -5,9 +5,10 @@ import codechicken.nei.*;
 import codechicken.nei.ItemSorter.SortEntry;
 import codechicken.nei.LayoutManager;
 import net.minecraft.client.gui.GuiScreen;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,15 +85,15 @@ public class GuiItemSorter extends GuiOptionPane
 
     public void drawItem(Rectangle w, SortItem item, int mx, int my, float frame) {
         double y = MathHelper.interpolate(item.ya, item.y, frame);
-        GL11.glTranslated(0, y, 0);
+        GlStateManager.translate(0, y, 0);
         Rectangle b = new Rectangle(w.x, w.y, w.width, 20);
         boolean mouseOver = itemAt(w.x+mx, w.y+my) == item;
 
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         LayoutManager.drawButtonBackground(b.x, b.y, b.width, b.height, true, mouseOver ? 2 : 1);
         drawStringC(item.e.getLocalisedName(), b.x, b.y, b.width, b.height, mouseOver ? 0xFFFFFFA0 : 0xFFE0E0E0);
 
-        GL11.glTranslated(0, -y, 0);
+        GlStateManager.translate(0, -y, 0);
     }
 
     @Override
@@ -140,7 +141,7 @@ public class GuiItemSorter extends GuiOptionPane
     }
 
     @Override
-    protected void mouseClicked(int x, int y, int button) {
+    protected void mouseClicked(int x, int y, int button) throws IOException {
         super.mouseClicked(x, y, button);
 
         if(!dragging && button == 0) {
@@ -155,7 +156,7 @@ public class GuiItemSorter extends GuiOptionPane
     }
 
     @Override
-    protected void mouseMovedOrUp(int x, int y, int button) {
+    protected void mouseReleased(int x, int y, int button) {
         if(button == 0)
             dragging = false;
     }

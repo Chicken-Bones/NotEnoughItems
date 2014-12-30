@@ -5,9 +5,9 @@ import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.LayoutManager;
 import codechicken.nei.NEIClientConfig;
 import codechicken.nei.NEIClientUtils;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
-import org.lwjgl.opengl.GL11;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,7 +117,7 @@ public abstract class DataDumper extends Option
     }
 
     public void drawButton(int mousex, int mousey, Rectangle4i b, String text) {
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         boolean hover = b.contains(mousex, mousey);
         LayoutManager.drawButtonBackground(b.x, b.y, b.w, b.h, true, getButtonTex(hover));
         drawStringC(text, b.x, b.y, b.w, b.h, getTextColour(hover));

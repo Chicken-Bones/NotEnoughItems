@@ -249,7 +249,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
 
         public void setHidden() {
             visible = 0;
-            slot.mouseMovedOrUp(0, 0, 0);//cancel any scrolling
+            slot.mouseReleased(0, 0, 0);//cancel any scrolling
             if(selectedChild != null) {
                 selectedChild.setHidden();
                 selectedChild = null;
@@ -302,7 +302,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         }
 
         protected int nameWidth() {
-            return Minecraft.getMinecraft().fontRenderer.getStringWidth(displayName());
+            return Minecraft.getMinecraft().fontRendererObj.getStringWidth(displayName());
         }
 
         public boolean isVisible() {
@@ -334,7 +334,7 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         }
 
         public void mouseUp(int mx, int my, int button) {
-            slot.mouseMovedOrUp(mx, my, button);
+            slot.mouseReleased(mx, my, button);
             if(selectedChild != null)
                 selectedChild.mouseUp(mx, my, button);
         }

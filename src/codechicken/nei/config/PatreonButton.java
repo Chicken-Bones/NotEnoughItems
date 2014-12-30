@@ -2,7 +2,7 @@ package codechicken.nei.config;
 
 import codechicken.core.gui.GuiCCButton;
 import codechicken.lib.render.CCRenderState;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class PatreonButton extends GuiCCButton
 {
@@ -14,10 +14,10 @@ public class PatreonButton extends GuiCCButton
     public void drawButtonTex(int mousex, int mousey) {
         super.drawButtonTex(mousex, mousey);
 
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.color(1, 1, 1, 1);
         CCRenderState.changeTexture("nei:textures/patreonNeon.png");
         int texh = height-4;
         int texw = texh*4;
-        func_146110_a(x+width/2-texw/2, y+height/2-texh/2, 0, 0, texw, texh, texw, texh);
+        drawModalRectWithCustomSizedTexture(x+width/2-texw/2, y+height/2-texh/2, 0, 0, texw, texh, texw, texh);
     }
 }

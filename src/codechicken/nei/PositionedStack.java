@@ -61,7 +61,7 @@ public class PositionedStack
                 else
                 {
                     ItemStack base = new ItemStack(item.getItem(), item.stackSize);
-                    base.stackTagCompound = item.stackTagCompound;
+                    base.setTagCompound(item.getTagCompound());
                     stacks.add(base);
                 }
                 continue;

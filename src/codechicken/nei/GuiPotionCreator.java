@@ -6,13 +6,13 @@ import codechicken.core.gui.GuiScrollSlot;
 import codechicken.core.inventory.GuiContainerWidget;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.FontUtils;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class GuiPotionCreator extends GuiContainerWidget
 
         @Override
         protected void drawSlot(int slot, int x, int y, int mx, int my, float frame) {
-            GL11.glColor4f(1, 1, 1, 1);
+            GlStateManager.color(1, 1, 1, 1);
             Potion potion = validPotions.get(slot);
             PotionEffect effect = getEffect(potion.id);
             boolean blank = effect == null;

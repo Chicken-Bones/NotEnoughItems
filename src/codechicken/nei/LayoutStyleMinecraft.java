@@ -1,6 +1,6 @@
 package codechicken.nei;
 
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 
 import static codechicken.lib.gui.GuiDraw.drawStringC;
 import static codechicken.nei.LayoutManager.*;
@@ -54,8 +54,8 @@ public class LayoutStyleMinecraft extends LayoutStyleDefault
 
     @Override
     public void drawButton(Button b, int mousex, int mousey) {
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glColor4f(1, 1, 1, 1);
+        GlStateManager.disableLighting();
+        GlStateManager.color(1, 1, 1, 1);
 
         int tex;
         if ((b.state & 0x3) == 2)
@@ -74,7 +74,7 @@ public class LayoutStyleMinecraft extends LayoutStyleDefault
 
             drawStringC(b.getRenderLabel(), b.x + b.w / 2, b.y + (b.h - 8) / 2, colour);
         } else {
-            GL11.glColor4f(1, 1, 1, 1);
+            GlStateManager.color(1, 1, 1, 1);
 
             int iconx = b.x + (b.w - icon.width) / 2;
             int icony = b.y + (b.h - icon.height) / 2;
@@ -85,9 +85,9 @@ public class LayoutStyleMinecraft extends LayoutStyleDefault
     @Override
     public void drawSubsetTag(String text, int x, int y, int w, int h, int state, boolean mouseover) {
         if(state == 1)
-            GL11.glColor4f(0.65F, 0.65F, 0.65F, 1.0F);
+            GlStateManager.color(0.65F, 0.65F, 0.65F, 1.0F);
         else
-            GL11.glColor4f(1, 1, 1, 1);
+            GlStateManager.color(1, 1, 1, 1);
         LayoutManager.drawButtonBackground(x, y, w, h, false, state == 0 ? 0 : 1);
         if(text != null)
             drawStringC(text, x, y, w, h, state == 2 ? 0xFFE0E0E0 : 0xFFA0A0A0);

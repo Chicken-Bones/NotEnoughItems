@@ -12,10 +12,12 @@ import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.recipe.BrewingRecipeHandler;
 import codechicken.nei.recipe.RecipeItemInputHandler;
 import com.google.common.collect.ArrayListMultimap;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.UniqueIdentifier;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -88,7 +90,11 @@ public class ItemInfo
     }
 
     public static void preInit() {
-        addMobSpawnerItem();
+        ItemMobSpawner.register();
+    }
+
+    public static void init() {
+        ItemMobSpawner.initRender();
     }
 
     public static void load(World world) {
@@ -103,6 +109,11 @@ public class ItemInfo
         addIDDumps();
         addHiddenItemFilter();
         addSearchOptimisation();
+    }
+
+    private static void addVanillaBlockProperties() {
+        API.hideItem(new ItemStack(Blocks.farmland));
+        API.hideItem(new ItemStack(Blocks.lit_furnace));
     }
 
     private static void addSearchOptimisation() {
@@ -240,11 +251,11 @@ public class ItemInfo
                 return new String[]{
                         Integer.toString(id),
                         biome.biomeName,
-                        Float.toString(biome.getFloatTemperature(0, 0, 0)),
+                        Float.toString(biome.getFloatTemperature(BlockPos.ORIGIN)),
                         Float.toString(biome.getFloatRainfall()),
                         Float.toString(biome.getSpawningChance()),
-                        Float.toString(biome.rootHeight),
-                        Float.toString(biome.heightVariation),
+                        Float.toString(biome.minHeight),
+                        Float.toString(biome.maxHeight),
                         s_types.toString(),
                         biome.getClass().getCanonicalName()
                 };
@@ -289,27 +300,9 @@ public class ItemInfo
         GuiContainerManager.addInputHandler(new PopupInputHandler());
     }
 
-    private static void addMobSpawnerItem() {
-        GameDataManipulator.replaceItem(Block.getIdFromBlock(Blocks.mob_spawner), new ItemMobSpawner());
-    }
-
     private static void addInfiniteHandlers() {
         API.addInfiniteItemHandler(new InfiniteStackSizeHandler());
         API.addInfiniteItemHandler(new InfiniteToolHandler());
-    }
-
-    private static void addVanillaBlockProperties() {
-        API.setOverrideName(new ItemStack(Blocks.flowing_water), "Water Source");
-        API.setOverrideName(new ItemStack(Blocks.water), "Water Still");
-        API.setOverrideName(new ItemStack(Blocks.flowing_lava), "Lava Source");
-        API.setOverrideName(new ItemStack(Blocks.lava), "Lava Still");
-        API.setOverrideName(new ItemStack(Blocks.end_portal), "End Portal");
-        API.setOverrideName(new ItemStack(Blocks.end_portal_frame), "End Portal Frame");
-        API.hideItem(new ItemStack(Blocks.double_stone_slab, 1, OreDictionary.WILDCARD_VALUE));
-        API.hideItem(new ItemStack(Blocks.double_wooden_slab, 1, OreDictionary.WILDCARD_VALUE));
-        API.hideItem(new ItemStack(Blocks.carrots));
-        API.hideItem(new ItemStack(Blocks.potatoes));
-        API.hideItem(new ItemStack(Blocks.cocoa));
     }
 
     private static void addDefaultDropDowns() {
@@ -453,18 +446,17 @@ public class ItemInfo
     }
 
     public static ArrayList<ItemStack> getIdentifierItems(World world, EntityPlayer player, MovingObjectPosition hit) {
-        int x = hit.blockX;
-        int y = hit.blockY;
-        int z = hit.blockZ;
-        Block mouseoverBlock = world.getBlock(x, y, z);
+        BlockPos pos = hit.getBlockPos();
+        IBlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
 
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 
         ArrayList<IHighlightHandler> handlers = new ArrayList<IHighlightHandler>();
         if (highlightIdentifiers.containsKey(null))
             handlers.addAll(highlightIdentifiers.get(null));
-        if (highlightIdentifiers.containsKey(mouseoverBlock))
-            handlers.addAll(highlightIdentifiers.get(mouseoverBlock));
+        if (highlightIdentifiers.containsKey(block))
+            handlers.addAll(highlightIdentifiers.get(block));
         for (IHighlightHandler ident : handlers) {
             ItemStack item = ident.identifyHighlight(world, player, hit);
             if (item != null)
@@ -474,21 +466,21 @@ public class ItemInfo
         if (items.size() > 0)
             return items;
 
-        ItemStack pick = mouseoverBlock.getPickBlock(hit, world, x, y, z);
+        ItemStack pick = block.getPickBlock(hit, world, pos);
         if (pick != null)
             items.add(pick);
 
         try {
-            items.addAll(mouseoverBlock.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0));
+            items.addAll(block.getDrops(world, pos, state, 0));
         } catch (Exception ignored) {}
-        if (mouseoverBlock instanceof IShearable) {
-            IShearable shearable = (IShearable) mouseoverBlock;
-            if (shearable.isShearable(new ItemStack(Items.shears), world, x, y, z))
-                items.addAll(shearable.onSheared(new ItemStack(Items.shears), world, x, y, z, 0));
+        if (block instanceof IShearable) {
+            IShearable shearable = (IShearable) block;
+            if (shearable.isShearable(new ItemStack(Items.shears), world, pos))
+                items.addAll(shearable.onSheared(new ItemStack(Items.shears), world, pos, 0));
         }
 
         if (items.size() == 0)
-            items.add(0, new ItemStack(mouseoverBlock, 1, world.getBlockMetadata(x, y, z)));
+            items.add(0, new ItemStack(block, 1, block.getMetaFromState(state)));
 
         return items;
     }

@@ -30,7 +30,7 @@ public class NEIClientUtils extends NEIServerUtils
 {
     public static LangProxy lang = new LangProxy("nei");
 
-    public static Minecraft mc() {
+    private static Minecraft mc() {
         return Minecraft.getMinecraft();
     }
 
@@ -176,7 +176,7 @@ public class NEIClientUtils extends NEIServerUtils
             for (int given = 0; given < stack.stackSize; ) {
                 int qty = Math.min(stack.stackSize - given, stack.getMaxStackSize());
                 sendCommand(getStringSetting("command.item"),
-                        mc().thePlayer.getCommandSenderName(),
+                        mc().thePlayer.getName(),
                         Item.getIdFromItem(stack.getItem()),
                         qty,
                         stack.getItemDamage(),
@@ -236,7 +236,7 @@ public class NEIClientUtils extends NEIServerUtils
         if (hasSMPCounterPart())
             NEICPH.sendGamemode(nmode);
         else
-            sendCommand(getStringSetting("command.creative"), getGameType(nmode), mc().thePlayer.getCommandSenderName());
+            sendCommand(getStringSetting("command.creative"), getGameType(nmode), mc().thePlayer.getName());
     }
 
     public static long getTime() {
@@ -286,7 +286,7 @@ public class NEIClientUtils extends NEIServerUtils
         if (hasSMPCounterPart())
             NEICPH.sendHeal();
         else
-            sendCommand(getStringSetting("command.heal"), mc().thePlayer.getCommandSenderName());
+            sendCommand(getStringSetting("command.heal"), mc().thePlayer.getName());
     }
 
     public static void toggleMagnetMode() {
@@ -351,6 +351,6 @@ public class NEIClientUtils extends NEIServerUtils
     }
 
     public static void playClickSound() {
-        mc().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+        mc().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
     }
 }

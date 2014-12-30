@@ -6,17 +6,17 @@ import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.asm.NEICorePlugin;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import cpw.mods.fml.client.FMLFileResourcePack;
-import cpw.mods.fml.client.FMLFolderResourcePack;
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.LoadController;
-import cpw.mods.fml.common.MetadataCollection;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.versioning.ArtifactVersion;
-import cpw.mods.fml.common.versioning.VersionParser;
-import cpw.mods.fml.common.versioning.VersionRange;
+import net.minecraftforge.fml.client.FMLFileResourcePack;
+import net.minecraftforge.fml.client.FMLFolderResourcePack;
+import net.minecraftforge.fml.common.DummyModContainer;
+import net.minecraftforge.fml.common.LoadController;
+import net.minecraftforge.fml.common.MetadataCollection;
+import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.versioning.ArtifactVersion;
+import net.minecraftforge.fml.common.versioning.VersionParser;
+import net.minecraftforge.fml.common.versioning.VersionRange;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.io.File;
@@ -84,9 +84,9 @@ public class NEIModContainer extends DummyModContainer
     @Subscribe
     public void init(FMLInitializationEvent event) {
         if (CommonUtils.isClient())
-            ClientHandler.load();
+            ClientHandler.init();
 
-        ServerHandler.load();
+        ServerHandler.init();
     }
 
     @Override

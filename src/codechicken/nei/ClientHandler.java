@@ -5,11 +5,11 @@ import codechicken.core.GuiModListScroll;
 import codechicken.lib.packet.PacketCustom;
 import codechicken.nei.api.API;
 import codechicken.nei.api.ItemInfo;
-import cpw.mods.fml.client.CustomModLoadingErrorDisplayException;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.*;
@@ -33,12 +33,9 @@ public class ClientHandler
     private GuiScreen lastGui;
 
     public void addSMPMagneticItem(int i, World world) {
-        WorldClient cworld = (WorldClient) world;
-        Entity e = cworld.getEntityByID(i);
-        if (e == null || !(e instanceof EntityItem)) {
-            return;
-        }
-        SMPmagneticItems.add((EntityItem) e);
+        Entity e = world.getEntityByID(i);
+        if (e instanceof EntityItem)
+            SMPmagneticItems.add((EntityItem) e);
     }
 
     private void updateMagnetMode(World world, EntityPlayerSP player) {
@@ -51,18 +48,11 @@ public class ClientHandler
         double speedxz = 0.05;
         double speedy = 0.07;
 
-        List<EntityItem> items;
-        if (world.isRemote) {
-            items = SMPmagneticItems;
-        } else {
-            items = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.expand(distancexz, distancey, distancexz));
-        }
-        for (Iterator<EntityItem> iterator = items.iterator(); iterator.hasNext(); ) {
+        for (Iterator<EntityItem> iterator = SMPmagneticItems.iterator(); iterator.hasNext(); ) {
             EntityItem item = iterator.next();
 
-            if (item.delayBeforeCanPickup > 0) continue;
-            if (item.isDead && world.isRemote) iterator.remove();
-
+            if (item.cannotPickup()) continue;
+            if (item.isDead) iterator.remove();
             if (!NEIClientUtils.canItemFitInInventory(player, item.getEntityItem())) continue;
 
             double dx = player.posX - item.posX;
@@ -70,9 +60,8 @@ public class ClientHandler
             double dz = player.posZ - item.posZ;
             double absxz = Math.sqrt(dx * dx + dz * dz);
             double absy = Math.abs(dy);
-            if (absxz > distancexz) {
+            if (absxz > distancexz || absy > distancey)
                 continue;
-            }
 
             if (absxz > 1) {
                 dx /= absxz;
@@ -97,13 +86,11 @@ public class ClientHandler
             }
 
             double rationspeedy = absvy / maxspeedy;
-            if (rationspeedy > 1) {
+            if (rationspeedy > 1)
                 vy /= rationspeedy;
-            }
 
-            if (absvxz < 0.2 && absxz < 0.2 && world.isRemote) {
+            if (absvxz < 0.2 && absxz < 0.2)
                 item.setDead();
-            }
 
             item.setVelocity(vx, vy, vz);
         }
@@ -113,7 +100,7 @@ public class ClientHandler
         ItemInfo.preInit();
     }
 
-    public static void load() {
+    public static void init() {
         instance = new ClientHandler();
 
         GuiModListScroll.register("NotEnoughItems");
@@ -121,6 +108,7 @@ public class ClientHandler
         FMLCommonHandler.instance().bus().register(instance);
         MinecraftForge.EVENT_BUS.register(instance);
 
+        ItemInfo.init();
         API.registerHighlightHandler(new DefaultHighlightHandler(), ItemInfo.Layout.HEADER);
         HUDRenderer.load();
         WorldOverlayRenderer.load();
@@ -133,7 +121,13 @@ public class ClientHandler
 
         Minecraft mc = Minecraft.getMinecraft();
         if(mc.theWorld != null) {
-            loadWorld(mc.theWorld, false);
+            if(loadWorld(mc.theWorld)) {
+                NEIClientConfig.setHasSMPCounterPart(false);
+                NEIClientConfig.setInternalEnabled(false);
+
+                if (!Minecraft.getMinecraft().isSingleplayer())//wait for server to initiate in singleplayer
+                    NEIClientConfig.loadWorld("remote/" + ClientUtils.getServerIP().replace(':', '~'));
+            }
 
             if (!NEIClientConfig.isEnabled())
                 return;
@@ -171,21 +165,14 @@ public class ClientHandler
     }
 
 
-    public void loadWorld(World world, boolean fromServer) {
+    public boolean loadWorld(World world) {
         if (world != lastworld) {
             SMPmagneticItems.clear();
             WorldOverlayRenderer.reset();
-
-            if (!fromServer) {
-                NEIClientConfig.setHasSMPCounterPart(false);
-                NEIClientConfig.setInternalEnabled(false);
-
-                if (!Minecraft.getMinecraft().isSingleplayer())//wait for server to initiate in singleplayer
-                    NEIClientConfig.loadWorld("remote/" + ClientUtils.getServerIP().replace(':', '~'));
-            }
-
             lastworld = world;
+            return true;
         }
+        return false;
     }
 
     public static ClientHandler instance() {

@@ -7,9 +7,9 @@ import codechicken.nei.api.ItemInfo;
 import codechicken.nei.guihook.GuiContainerManager;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -161,13 +161,13 @@ public class ItemList
             HashSet<String> damageIconSet = new HashSet<String>();
             for (int damage = 0; damage < 16; damage++)
                 try {
-                    ItemStack itemstack = new ItemStack(item, 1, damage);
-                    IIcon icon = item.getIconIndex(itemstack);
-                    String name = GuiContainerManager.concatenatedDisplayName(itemstack, false);
-                    String s = name + "@" + (icon == null ? 0 : icon.hashCode());
+                    ItemStack stack = new ItemStack(item, 1, damage);
+                    IBakedModel model = GuiContainerManager.drawItems.getItemModelMesher().getItemModel(stack);
+                    String name = GuiContainerManager.concatenatedDisplayName(stack, false);
+                    String s = name + "@" + (model == null ? 0 : model.hashCode());
                     if (!damageIconSet.contains(s)) {
                         damageIconSet.add(s);
-                        permutations.add(itemstack);
+                        permutations.add(stack);
                     }
                 }
                 catch(TimeoutException t) {
@@ -243,20 +243,4 @@ public class ItemList
             ItemPanel.updateItemList(filtered);
         }
     };
-
-    /**
-     * @deprecated Use updateFilter.restart()
-     */
-    @Deprecated
-    public static void updateFilter() {
-        updateFilter.restart();
-    }
-
-    /**
-     * @deprecated Use loadItems.restart()
-     */
-    @Deprecated
-    public static void loadItems() {
-        loadItems.restart();
-    }
 }

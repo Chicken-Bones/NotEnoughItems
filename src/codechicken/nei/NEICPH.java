@@ -4,7 +4,7 @@ import codechicken.core.ClientUtils;
 import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.packet.PacketCustom.IClientPacketHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class NEICPH implements IClientPacketHandler
                 handleGamemode(mc, packet.readUByte());
                 break;
             case 21:
-                ClientUtils.openSMPGui(packet.readUByte(), new GuiEnchantmentModifier(mc.thePlayer.inventory, mc.theWorld, 0, 0, 0));
+                ClientUtils.openSMPGui(packet.readUByte(), new GuiEnchantmentModifier(mc.thePlayer.inventory, mc.theWorld));
                 break;
             case 23:
                 if (packet.readBoolean())
@@ -104,7 +104,7 @@ public class NEICPH implements IClientPacketHandler
             NEIClientUtils.printChatMessage(new ChatComponentTranslation("nei.chat.mismatch.server"));
         } else {
             try {
-                ClientHandler.instance().loadWorld(world, true);
+                ClientHandler.instance().loadWorld(world);
                 NEIClientConfig.setHasSMPCounterPart(true);
                 NEIClientConfig.loadWorld(getSaveName(worldName));
                 sendRequestLoginInfo();
@@ -123,7 +123,7 @@ public class NEICPH implements IClientPacketHandler
 
     public static void sendGiveItem(ItemStack spawnstack, boolean infinite, boolean doSpawn) {
         PacketCustom packet = new PacketCustom(channel, 1);
-        packet.writeItemStack(spawnstack, true);
+        packet.writeItemStack(spawnstack);
         packet.writeBoolean(infinite);
         packet.writeBoolean(doSpawn);
         packet.sendToServer();
@@ -243,7 +243,7 @@ public class NEICPH implements IClientPacketHandler
     public static void sendDummySlotSet(int slotNumber, ItemStack stack) {
         PacketCustom packet = new PacketCustom(channel, 25);
         packet.writeShort(slotNumber);
-        packet.writeItemStack(stack, true);
+        packet.writeItemStack(stack);
         packet.sendToServer();
     }
 }

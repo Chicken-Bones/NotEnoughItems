@@ -13,6 +13,7 @@ import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Arrays;
 
 import static codechicken.lib.gui.GuiDraw.displaySize;
@@ -58,7 +59,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     @Override
-    public void keyTyped(char c, int keycode) {
+    public void keyTyped(char c, int keycode) throws IOException {
         if (keycode == Keyboard.KEY_ESCAPE || keycode == Keyboard.KEY_BACK) {
             Minecraft.getMinecraft().displayGuiScreen(opt.slot.getGui());
             return;
@@ -117,7 +118,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     @Override
-    protected void mouseMovedOrUp(int x, int y, int button) {
+    protected void mouseReleased(int x, int y, int button) {
         if (button == 0 && dragDown != null) {
             setPos(renderPos());
             dragDown = null;
@@ -135,7 +136,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     @Override
-    protected void mouseClicked(int x, int y, int button) {
+    protected void mouseClicked(int x, int y, int button) throws IOException {
         if (button == 0 && selectionBox().contains(x, y))
             dragDown = getMousePosition();
         else

@@ -1,18 +1,9 @@
 list spawnerPlaced
-ILOAD 2
-PUTSTATIC codechicken/nei/ItemMobSpawner.placedX:I
-ILOAD 3
-PUTSTATIC codechicken/nei/ItemMobSpawner.placedY:I
-ILOAD 4
-PUTSTATIC codechicken/nei/ItemMobSpawner.placedZ:I
+ALOAD 1
+ALOAD 2
+ALOAD 5
+INVOKESTATIC codechicken/nei/ItemMobSpawner.onBlockPlaced(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Lnet/minecraft/item/ItemStack;)V
 RETURN
-
-list d_spawnerWorld
-ACONST_NULL
-
-list spawnerWorld
-ALOAD 0
-INVOKEVIRTUAL net/minecraft/tileentity/MobSpawnerBaseLogic.func_98271_a()Lnet/minecraft/world/World;
 
 list n_commaFix
 LDC *
@@ -50,24 +41,6 @@ IFEQ LCONT
 ACONST_NULL
 ARETURN
 LCONT
-
-list d_glintAlphaFix
-ICONST_2
-IF_ICMPGE LBREAK
-SIPUSH 772
-ICONST_1
-ICONST_0
-ICONST_0
-INVOKESTATIC net/minecraft/client/renderer/OpenGlHelper.func_148821_a (IIII)V
-
-list glintAlphaFix
-ICONST_1 #only do one loop. Normally the first one wipes the alpha, and the second one multiplies by the wiped alpha (0) and is redundant
-IF_ICMPGE LBREAK
-SIPUSH 772
-ICONST_1
-ICONST_0
-ICONST_1 #keep the destination alpha
-INVOKESTATIC net/minecraft/client/renderer/OpenGlHelper.func_148821_a (IIII)V
 
 
 #begin GuiContainer patches
@@ -132,8 +105,7 @@ IFNE LSKIP
 
 list n_renderObjects
 INVOKEVIRTUAL net/minecraft/client/gui/inventory/GuiContainer.func_146979_b (II)V
-SIPUSH 2896
-INVOKESTATIC org/lwjgl/opengl/GL11.glEnable (I)V
+INVOKESTATIC net/minecraft/client/renderer/RenderHelper.func_74520_c ()V
 
 list renderObjects
 ALOAD 0
@@ -178,27 +150,21 @@ list zLevel
 LDC 500F
 
 list d_drawSlot
-GETSTATIC net/minecraft/client/gui/inventory/GuiContainer.field_146296_j : Lnet/minecraft/client/renderer/entity/RenderItem;
 ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146289_q : Lnet/minecraft/client/gui/FontRenderer;
-ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146297_k : Lnet/minecraft/client/Minecraft;
-INVOKEVIRTUAL net/minecraft/client/Minecraft.func_110434_K ()Lnet/minecraft/client/renderer/texture/TextureManager;
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146296_j : Lnet/minecraft/client/renderer/entity/RenderItem;
 ALOAD 4
 ILOAD 2
 ILOAD 3
-INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_82406_b (Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;II)V
-GETSTATIC net/minecraft/client/gui/inventory/GuiContainer.field_146296_j : Lnet/minecraft/client/renderer/entity/RenderItem;
+INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_180450_b (Lnet/minecraft/item/ItemStack;II)V
+ALOAD 0
+GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146296_j : Lnet/minecraft/client/renderer/entity/RenderItem;
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146289_q : Lnet/minecraft/client/gui/FontRenderer;
-ALOAD 0
-GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146297_k : Lnet/minecraft/client/Minecraft;
-INVOKEVIRTUAL net/minecraft/client/Minecraft.func_110434_K ()Lnet/minecraft/client/renderer/texture/TextureManager;
 ALOAD 4
 ILOAD 2
 ILOAD 3
 ALOAD 8
-INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_94148_a (Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V
+INVOKEVIRTUAL net/minecraft/client/renderer/entity/RenderItem.func_180453_a (Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V
 
 list drawSlot
 ALOAD 0
@@ -277,8 +243,8 @@ list n_mouseUp
 LSKIP
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146297_k : Lnet/minecraft/client/Minecraft;
-GETFIELD net/minecraft/client/Minecraft.field_71439_g : Lnet/minecraft/client/entity/EntityClientPlayerMP;
-GETFIELD net/minecraft/client/entity/EntityClientPlayerMP.field_71071_by : Lnet/minecraft/entity/player/InventoryPlayer;
+GETFIELD net/minecraft/client/Minecraft.field_71439_g : Lnet/minecraft/client/entity/EntityPlayerSP;
+GETFIELD net/minecraft/client/entity/EntityPlayerSP.field_71071_by : Lnet/minecraft/entity/player/InventoryPlayer;
 INVOKEVIRTUAL net/minecraft/entity/player/InventoryPlayer.func_70445_o ()Lnet/minecraft/item/ItemStack;
 IFNONNULL L30
 ALOAD 0
@@ -309,7 +275,7 @@ ILOAD 3
 ILOAD 4
 ALOAD 0
 GETFIELD net/minecraft/client/gui/inventory/GuiContainer.field_146297_k : Lnet/minecraft/client/Minecraft;
-GETFIELD net/minecraft/client/Minecraft.field_71439_g : Lnet/minecraft/client/entity/EntityClientPlayerMP;
+GETFIELD net/minecraft/client/Minecraft.field_71439_g : Lnet/minecraft/client/entity/EntityPlayerSP;
 INVOKEVIRTUAL net/minecraft/client/multiplayer/PlayerControllerMP.func_78753_a (IIIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;
 POP
 

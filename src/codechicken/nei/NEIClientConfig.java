@@ -226,7 +226,7 @@ public class NEIClientConfig
         SubsetWidget.loadHidden();
 
         if (newWorld && Minecraft.getMinecraft().isSingleplayer())
-            world.config.getTag("inventory.cheatmode").setIntValue(NEIClientUtils.mc().playerController.isInCreativeMode() ? 2 : 0);
+            world.config.getTag("inventory.cheatmode").setIntValue(Minecraft.getMinecraft().playerController.isInCreativeMode() ? 2 : 0);
 
         NEIInfo.load(ClientUtils.getWorld());
     }
@@ -404,7 +404,7 @@ public class NEIClientConfig
         NBTTagCompound statesave = global.nbt.getCompoundTag("save" + state);
         GuiContainer currentContainer = NEIClientUtils.getGuiContainer();
         LinkedList<TaggedInventoryArea> saveAreas = new LinkedList<TaggedInventoryArea>();
-        saveAreas.add(new TaggedInventoryArea(NEIClientUtils.mc().thePlayer.inventory));
+        saveAreas.add(new TaggedInventoryArea(Minecraft.getMinecraft().thePlayer.inventory));
 
         for (INEIGuiHandler handler : GuiInfo.guiHandlers) {
             List<TaggedInventoryArea> areaList = handler.getInventoryAreas(currentContainer);
@@ -436,7 +436,7 @@ public class NEIClientConfig
         NBTTagCompound statesave = global.nbt.getCompoundTag("save" + state);
         GuiContainer currentContainer = NEIClientUtils.getGuiContainer();
         LinkedList<TaggedInventoryArea> saveAreas = new LinkedList<TaggedInventoryArea>();
-        saveAreas.add(new TaggedInventoryArea(NEIClientUtils.mc().thePlayer.inventory));
+        saveAreas.add(new TaggedInventoryArea(Minecraft.getMinecraft().thePlayer.inventory));
 
         for (INEIGuiHandler handler : GuiInfo.guiHandlers) {
             List<TaggedInventoryArea> areaList = handler.getInventoryAreas(currentContainer);

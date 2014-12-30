@@ -49,6 +49,7 @@ println  config.mc_version + "-" + config.forge_version
 // Setup the forge minecraft plugin data. Specify the preferred forge/minecraft version here
 minecraft {
     version = config.mc_version + "-" + config.forge_version
+    mappings = "snapshot_nodoc_20141130"
 }
 
 def root = project.projectDir.parentFile

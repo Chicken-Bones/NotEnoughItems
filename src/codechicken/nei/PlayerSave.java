@@ -1,18 +1,19 @@
 package codechicken.nei;
 
-import codechicken.core.ServerUtils;
 import codechicken.lib.inventory.InventoryUtils;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
 
 import java.io.File;
+import java.util.HashSet;
 
 public class PlayerSave
 {
-    public String username;
+    public EntityPlayerMP player;
 
     private File saveFile;
     private NBTTagCompound nbt;
@@ -23,11 +24,14 @@ public class PlayerSave
     private boolean isDirty;
     private boolean wasOp;
 
-    public PlayerSave(String playername, File saveLocation) {
-        username = playername;
-        wasOp = ServerUtils.isPlayerOP(playername);
+    //runtime things
+    public HashSet<EntityItem> magneticItems = new HashSet<EntityItem>();
 
-        saveFile = new File(saveLocation, username + ".dat");
+    public PlayerSave(EntityPlayerMP player, File saveLocation) {
+        this.player = player;
+        wasOp = MinecraftServer.getServer().getConfigurationManager().canSendCommands(player.getGameProfile());
+
+        saveFile = new File(saveLocation, player.getName() + ".dat");
         if (!saveFile.getParentFile().exists())
             saveFile.getParentFile().mkdirs();
         load();
@@ -41,7 +45,7 @@ public class PlayerSave
             if (saveFile.length() > 0)
                 nbt = NEIServerUtils.readNBT(saveFile);
         } catch (Exception e) {
-            NEIClientConfig.logger.error("Error loading player save: "+username, e);
+            NEIClientConfig.logger.error("Error loading player save: "+player, e);
         }
 
         loadCreativeInv();
@@ -65,7 +69,7 @@ public class PlayerSave
             NEIServerUtils.writeNBT(nbt, saveFile);
             isDirty = false;
         } catch (Exception e) {
-            NEIClientConfig.logger.error("Error saving player: "+username, e);
+            NEIClientConfig.logger.error("Error saving player: "+player, e);
         }
     }
 
@@ -84,8 +88,8 @@ public class PlayerSave
         isDirty = true;
     }
 
-    public void updateOpChange(EntityPlayerMP player) {
-        boolean isOp = ServerUtils.isPlayerOP(username);
+    public void updateOpChange() {
+        boolean isOp = MinecraftServer.getServer().getConfigurationManager().canSendCommands(player.getGameProfile());
         if (isOp != wasOp) {
             NEISPH.sendHasServerSideTo(player);
             wasOp = isOp;
@@ -105,7 +109,12 @@ public class PlayerSave
 
     public void enableAction(String name, boolean enabled) {
         getEnabledActions().setBoolean(name, enabled);
-        NEISPH.sendActionEnabled(ServerUtils.getPlayer(username), name, enabled);
+        NEISPH.sendActionEnabled(player, name, enabled);
         setDirty();
+    }
+
+    public void onWorldReload() {
+        NEISPH.sendHasServerSideTo(player);
+        magneticItems.clear();
     }
 }

@@ -30,7 +30,7 @@ public class ItemStackMap<T>
         }
 
         public StackMetaKey(ItemStack key) {
-            this(actualDamage(key), key.stackTagCompound);
+            this(actualDamage(key), key.getTagCompound());
         }
 
         public int hashCode() {
@@ -74,7 +74,7 @@ public class ItemStackMap<T>
                 if (ret != null) return ret;
             }
             if (tagMap != null) {
-                T ret = tagMap.get(key.stackTagCompound);
+                T ret = tagMap.get(key.getTagCompound());
                 if (ret != null) return ret;
             }
             if (metaMap != null)
@@ -85,13 +85,13 @@ public class ItemStackMap<T>
 
         public T put(ItemStack key, T value) {
             try {
-                switch (getKeyType(actualDamage(key), key.stackTagCompound)) {
+                switch (getKeyType(actualDamage(key), key.getTagCompound())) {
                     case 0:
                         if (metaMap == null) metaMap = new HashMap<StackMetaKey, T>();
                         return metaMap.put(new StackMetaKey(key), value);
                     case 1:
                         if (tagMap == null) tagMap = new HashMap<NBTTagCompound, T>();
-                        return tagMap.put(key.stackTagCompound, value);
+                        return tagMap.put(key.getTagCompound(), value);
                     case 2:
                         if (damageMap == null) damageMap = new HashMap<Integer, T>();
                         return damageMap.put(actualDamage(key), value);
@@ -109,11 +109,11 @@ public class ItemStackMap<T>
 
         public T remove(ItemStack key) {
             try {
-                switch (getKeyType(actualDamage(key), key.stackTagCompound)) {
+                switch (getKeyType(actualDamage(key), key.getTagCompound())) {
                     case 0:
                         return metaMap != null ? metaMap.remove(new StackMetaKey(key)) : null;
                     case 1:
-                        return tagMap != null ? tagMap.remove(key.stackTagCompound) : null;
+                        return tagMap != null ? tagMap.remove(key.getTagCompound()) : null;
                     case 2:
                         return damageMap != null ? damageMap.remove(actualDamage(key)) : null;
                     case 3:

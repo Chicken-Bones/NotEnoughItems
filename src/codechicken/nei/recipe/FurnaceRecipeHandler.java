@@ -5,6 +5,7 @@ import codechicken.nei.NEIClientUtils;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.init.Blocks;
@@ -85,7 +86,7 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals("smelting") && getClass() == FurnaceRecipeHandler.class) {//don't want subclasses getting a hold of this
-            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.instance().getSmeltingList();
             for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
         } else
@@ -94,7 +95,7 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.instance().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameType(recipe.getValue(), result))
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
@@ -110,7 +111,7 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.instance().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
                 SmeltingPair arecipe = new SmeltingPair(recipe.getKey(), recipe.getValue());
@@ -136,7 +137,6 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
         efuels.add(Item.getItemFromBlock(Blocks.red_mushroom));
         efuels.add(Item.getItemFromBlock(Blocks.standing_sign));
         efuels.add(Item.getItemFromBlock(Blocks.wall_sign));
-        efuels.add(Item.getItemFromBlock(Blocks.wooden_door));
         efuels.add(Item.getItemFromBlock(Blocks.trapped_chest));
         return efuels;
     }
@@ -144,12 +144,17 @@ public class FurnaceRecipeHandler extends TemplateRecipeHandler
     private static void findFuels() {
         afuels = new ArrayList<FuelPair>();
         Set<Item> efuels = excludedFuels();
-        for (ItemStack item : ItemList.items)
-            if (!efuels.contains(item.getItem())) {
-                int burnTime = TileEntityFurnace.getItemBurnTime(item);
-                if (burnTime > 0)
-                    afuels.add(new FuelPair(item.copy(), burnTime));
-            }
+        for (ItemStack item : ItemList.items) {
+            Block block = Block.getBlockFromItem(item.getItem());
+            if (block instanceof BlockDoor)
+                continue;
+            if (efuels.contains(item.getItem()))
+                continue;
+
+            int burnTime = TileEntityFurnace.getItemBurnTime(item);
+            if (burnTime > 0)
+                afuels.add(new FuelPair(item.copy(), burnTime));
+        }
     }
 
     @Override

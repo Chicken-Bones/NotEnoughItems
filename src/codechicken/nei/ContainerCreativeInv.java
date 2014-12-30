@@ -1,7 +1,7 @@
 package codechicken.nei;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -9,7 +9,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 public class ContainerCreativeInv extends Container
 {
@@ -17,8 +16,8 @@ public class ContainerCreativeInv extends Container
     {
         int armorType;
 
-        public SlotArmor(IInventory inv, int x, int y, int slot, int armor) {
-            super(inv, x, y, slot);
+        public SlotArmor(IInventory inv, int slot, int x, int y, int armor) {
+            super(inv, slot, x, y);
             armorType = armor;
         }
 
@@ -34,15 +33,16 @@ public class ContainerCreativeInv extends Container
 
         @Override
         @SideOnly(Side.CLIENT)
-        public IIcon getBackgroundIconIndex() {
-            return ItemArmor.func_94602_b(armorType);
+        public String getSlotTexture()
+        {
+            return ItemArmor.EMPTY_SLOT_NAMES[armorType];
         }
     }
 
     private class SlotBlockArmor extends SlotArmor
     {
-        public SlotBlockArmor(IInventory inv, int x, int y, int slot, int armor) {
-            super(inv, x, y, slot, armor);
+        public SlotBlockArmor(IInventory inv, int slot, int x, int y, int armor) {
+            super(inv, slot, x, y, armor);
         }
 
         @Override
