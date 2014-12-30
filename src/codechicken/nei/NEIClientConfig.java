@@ -397,9 +397,8 @@ public class NEIClientConfig
     }
 
     public static void loadState(int state) {
-        if (!statesSaved[state]) {
+        if (!statesSaved[state])
             return;
-        }
 
         NBTTagCompound statesave = global.nbt.getCompoundTag("save" + state);
         GuiContainer currentContainer = NEIClientUtils.getGuiContainer();

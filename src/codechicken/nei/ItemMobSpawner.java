@@ -138,7 +138,10 @@ public class ItemMobSpawner extends ItemBlock
 
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
-        for(int i : IDtoNameMap.keySet())
-            list.add(new ItemStack(item, 1, i));
+        if(!NEIClientConfig.hasSMPCounterPart())
+            list.add(new ItemStack(item));
+        else
+            for(int i : IDtoNameMap.keySet())
+                list.add(new ItemStack(item, 1, i));
     }
 }
