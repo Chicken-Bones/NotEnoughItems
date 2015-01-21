@@ -195,7 +195,7 @@ public class NEIServerConfig
                     continue;
                 }
                 try {
-                    NBTTagCompound key = JsonToNBT.func_180713_a(s.substring(0, delim));
+                    NBTTagCompound key = JsonToNBT.getTagFromJson(s.substring(0, delim));
                     Set<String> values = new HashSet<String>();
                     for(String s2 : s.substring(delim+1).split(","))
                         values.add(s2.trim());
