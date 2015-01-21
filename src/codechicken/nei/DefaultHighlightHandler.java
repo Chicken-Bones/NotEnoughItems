@@ -6,6 +6,7 @@ import codechicken.nei.guihook.GuiContainerManager;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -27,8 +28,8 @@ public class DefaultHighlightHandler implements IHighlightHandler
                 currenttip.add(name);
         } catch (Exception ignored) {}
 
-        if (name != null && stack.getItem() == Items.redstone) {
-            IBlockState b = world.getBlockState(mop.getBlockPos());
+        IBlockState b = world.getBlockState(mop.getBlockPos());
+        if (name != null && b.getBlock() == Blocks.redstone_wire) {
             String s = "" + b.getValue(BlockRedstoneWire.POWER);
             if (s.length() < 2)
                 s = " " + s;
