@@ -15,7 +15,7 @@ public interface INEIGuiHandler
     
     /**
      * NEI will give the specified item to the InventoryRange returned if the player's inventory is full.
-     * return null for no range
+     * Should not return null, just an empty list
      */
     public Iterable<Integer> getItemSpawnSlots(GuiContainer gui, ItemStack item);
     
