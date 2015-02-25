@@ -341,7 +341,7 @@ public class NEIServerUtils
         if (obj instanceof List)
             return ((List<ItemStack>) obj).toArray(new ItemStack[0]);
 
-        throw new ClassCastException("not an ItemStack, ItemStack[] or List<ItemStack?");
+        throw new ClassCastException(obj+" not an ItemStack, ItemStack[] or List<ItemStack?");
     }
 
     public static List<Integer> getRange(final int start, final int end) {

@@ -148,22 +148,20 @@ public class ShapedRecipeHandler extends TemplateRecipeHandler
     }
 
     public CachedShapedRecipe forgeShapedRecipe(ShapedOreRecipe recipe) {
-        int width;
-        int height;
         try {
-            width = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 4);
-            height = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 5);
+            int width = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 4);
+            int height = ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, recipe, 5);
+
+            Object[] items = recipe.getInput();
+            for (Object item : items)
+                if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
+                    return null;
+
+            return new CachedShapedRecipe(width, height, items, recipe.getRecipeOutput());
         } catch (Exception e) {
-            NEIClientConfig.logger.error("Error loading recipe", e);
+            NEIClientConfig.logger.error("Error loading recipe: ", e);
             return null;
         }
-
-        Object[] items = recipe.getInput();
-        for (Object item : items)
-            if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
-                return null;
-
-        return new CachedShapedRecipe(width, height, items, recipe.getRecipeOutput());
     }
 
     @Override

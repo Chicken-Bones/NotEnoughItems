@@ -2,7 +2,6 @@ package codechicken.nei.api;
 
 import codechicken.core.featurehack.GameDataManipulator;
 import codechicken.nei.*;
-import codechicken.nei.ItemList.EverythingItemFilter;
 import codechicken.nei.ItemList.ItemsLoadedCallback;
 import codechicken.nei.api.ItemFilter.ItemFilterProvider;
 import codechicken.nei.config.ArrayDumper;

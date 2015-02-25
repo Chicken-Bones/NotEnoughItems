@@ -1,5 +1,6 @@
 package codechicken.nei.recipe;
 
+import codechicken.nei.NEIClientConfig;
 import codechicken.nei.NEIClientUtils;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
@@ -151,7 +152,12 @@ public class ShapelessRecipeHandler extends ShapedRecipeHandler
             if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
                 return null;
 
-        return new CachedShapelessRecipe(items, recipe.getRecipeOutput());
+        try {
+            return new CachedShapelessRecipe(items, recipe.getRecipeOutput());
+        } catch (Exception e) {
+            NEIClientConfig.logger.error("Error loading recipe: ", e);
+            return null;
+        }
     }
 
     @Override
