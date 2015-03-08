@@ -102,7 +102,7 @@ nei.options.inventory.utilities.tip=Wähle Inhalte für den Mehrzweckmodus
 nei.options.inventory.utilities.time=Zeit
 nei.options.inventory.utilities.rain=Regen
 nei.options.inventory.utilities.heal=Heilen
-nei.options.inventory.utilities.delete=Löschem
+nei.options.inventory.utilities.delete=Löschen
 nei.options.inventory.utilities.magnet=Magnet
 nei.options.inventory.utilities.gamemode=Spielmodus
 nei.options.inventory.utilities.enchant=Verzaubern
@@ -118,7 +118,7 @@ nei.options.command=Befehle
 nei.options.command.creative=Spielmodus
 nei.options.command.creative.tip={0} = 1 für Kreativ, 0 für Überleben, {1} = Spieler
 nei.options.command.item=Item
-nei.options.command.item.tip={0} = Spieler, {1} = itemID, {2} = Anzahl, {3} = itemDamage
+nei.options.command.item.tip={0} = Spieler, {1} = Name, {2} = Anzahl, {3} = Schaden, {4} = NBT, {5} = ID
 nei.options.command.time=Zeit
 nei.options.command.time.tip={0} = Weltzeit
 nei.options.command.rain=Regen
@@ -152,6 +152,9 @@ nei.options.tools.dump.itempanel.dumped=Inhalte des Item-Panels wurden nach %s a
 nei.options.tools.dump.itempanel.mode.0=CSV
 nei.options.tools.dump.itempanel.mode.1=NBT
 nei.options.tools.dump.itempanel.mode.2=Json
+nei.options.tools.dump.itempanel.mode.3=PNG
+nei.options.tools.dump.itempanel.icon.dumped=Icons des Item-Panels wurden nach %s abgelegt
+nei.options.tools.dump.itempanel.icon.cancelled=Ablegen abgebrochen
 
 nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Altes TMI
@@ -167,7 +170,7 @@ nei.recipe.fuel.produced=%s produziert
 nei.recipe.firework=Feuerwerk
 nei.recipe.firework.tooltip0=Farbstoffe fügen den Ladungen Farben hinzu
 nei.recipe.firework.tooltip1=Neu zu färben fügt der Ladung verblassende Farben hinzu
-nei.recipe.firework.tooltip2=Mehere Ladungen können von einer Rakete gespawnt werden
+nei.recipe.firework.tooltip2=Mehrere Ladungen können von einer Rakete gespawnt werden
 nei.recipe.brewing=Brauen
 nei.recipe.profiler.crafting=Herstellungsprofil
 nei.recipe.profiler.usage=Nutzungsprofil
