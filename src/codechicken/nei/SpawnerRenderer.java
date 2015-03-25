@@ -1,11 +1,13 @@
 package codechicken.nei;
 
 import codechicken.core.ClientUtils;
+import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.TextureUtils;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.init.Blocks;
@@ -36,7 +38,7 @@ public class SpawnerRenderer implements IItemRenderer
         {
             World world = NEIClientUtils.mc().theWorld;
             ItemMobSpawner.loadSpawners(world);
-            TextureUtils.bindAtlas(0);
+            CCRenderState.changeTexture(TextureMap.locationBlocksTexture);
             render.renderBlockAsItem(Blocks.mob_spawner, 0, 1F);
             GL11.glPushMatrix();
             
