@@ -260,12 +260,17 @@ public class ItemInfo
     private static void parseModItems() {
         HashMap<String, ItemStackSet> modSubsets = new HashMap<String, ItemStackSet>();
         for (Item item : (Iterable<Item>) Item.itemRegistry) {
-            UniqueIdentifier ident = GameRegistry.findUniqueIdentifierFor(item);
+            UniqueIdentifier ident = null;
+            try {
+                ident = GameRegistry.findUniqueIdentifierFor(item);
+            } catch (Exception ignored) {}
+
             if(ident == null) {
                 NEIClientConfig.logger.error("Failed to find identifier for: "+item);
                 continue;
             }
-            String modId = GameRegistry.findUniqueIdentifierFor(item).modId;
+
+            String modId = ident.modId;
             itemOwners.put(item, modId);
             ItemStackSet itemset = modSubsets.get(modId);
             if(itemset == null)
