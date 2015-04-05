@@ -176,7 +176,7 @@ public class NEIClientUtils extends NEIServerUtils
             for (int given = 0; given < stack.stackSize; ) {
                 int qty = Math.min(stack.stackSize - given, stack.getMaxStackSize());
                 sendCommand(getStringSetting("command.item"),
-                        mc().thePlayer.getName(),
+                        mc().thePlayer.getCommandSenderName(),
                         Item.itemRegistry.getNameForObject(stack.getItem()),
                         qty,
                         stack.getItemDamage(),
@@ -236,7 +236,7 @@ public class NEIClientUtils extends NEIServerUtils
         if (hasSMPCounterPart())
             NEICPH.sendGamemode(nmode);
         else
-            sendCommand(getStringSetting("command.creative"), getGameType(nmode), mc().thePlayer.getName());
+            sendCommand(getStringSetting("command.creative"), getGameType(nmode), mc().thePlayer.getCommandSenderName());
     }
 
     public static long getTime() {
@@ -286,7 +286,7 @@ public class NEIClientUtils extends NEIServerUtils
         if (hasSMPCounterPart())
             NEICPH.sendHeal();
         else
-            sendCommand(getStringSetting("command.heal"), mc().thePlayer.getName());
+            sendCommand(getStringSetting("command.heal"), mc().thePlayer.getCommandSenderName());
     }
 
     public static void toggleMagnetMode() {

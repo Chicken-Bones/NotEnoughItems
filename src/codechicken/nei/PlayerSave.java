@@ -31,7 +31,7 @@ public class PlayerSave
         this.player = player;
         wasOp = MinecraftServer.getServer().getConfigurationManager().canSendCommands(player.getGameProfile());
 
-        saveFile = new File(saveLocation, player.getName() + ".dat");
+        saveFile = new File(saveLocation, player.getCommandSenderName() + ".dat");
         if (!saveFile.getParentFile().exists())
             saveFile.getParentFile().mkdirs();
         load();
