@@ -113,7 +113,7 @@ public class ExtendedCreativeInv implements IInventory
     public void clear() {}
 
     @Override
-    public String getName() {
+    public String getCommandSenderName() {
         return null;
     }
 

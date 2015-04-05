@@ -83,7 +83,7 @@ public class NEIServerUtils
         for (Slot slot : (List<Slot>) player.openContainer.inventorySlots)
             slot.putStack(null);
 
-        player.sendContainerAndContentsToPlayer(player.openContainer, player.openContainer.getInventory());
+        player.updateCraftingInventory(player.openContainer, player.openContainer.getInventory());
     }
 
     public static void setHourForward(World world, int hour, boolean notify) {
@@ -110,7 +110,7 @@ public class NEIServerUtils
     }
 
     public static void sendNotice(ICommandSender sender, IChatComponent msg, String permission) {
-        ChatComponentTranslation notice = new ChatComponentTranslation("chat.type.admin", sender.getName(), msg.createCopy());
+        ChatComponentTranslation notice = new ChatComponentTranslation("chat.type.admin", sender.getCommandSenderName(), msg.createCopy());
         notice.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(true);
 
         if (NEIServerConfig.canPlayerPerformAction("CONSOLE", permission))
@@ -119,7 +119,7 @@ public class NEIServerUtils
         for (EntityPlayer p : ServerUtils.getPlayers())
             if(p == sender)
                 p.addChatComponentMessage(msg);
-            else if (NEIServerConfig.canPlayerPerformAction(p.getName(), permission))
+            else if (NEIServerConfig.canPlayerPerformAction(p.getCommandSenderName(), permission))
                 p.addChatComponentMessage(notice);
     }
 
@@ -186,7 +186,7 @@ public class NEIServerUtils
                 given -= InventoryUtils.insertItem(player.inventory, stack, false);
         }
 
-        sendNotice(player, new ChatComponentTranslation("commands.give.success", stack.getChatComponent(), infinite ? "\u221E" : Integer.toString(given), player.getName()), "notify-item");
+        sendNotice(player, new ChatComponentTranslation("commands.give.success", stack.getChatComponent(), infinite ? "\u221E" : Integer.toString(given), player.getCommandSenderName()), "notify-item");
         player.openContainer.detectAndSendChanges();
     }
 
@@ -206,12 +206,12 @@ public class NEIServerUtils
     }
 
     public static void toggleMagnetMode(EntityPlayerMP player) {
-        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getName());
+        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getCommandSenderName());
         playerSave.enableAction("magnet", !playerSave.isActionEnabled("magnet"));
     }
 
     public static int getCreativeMode(EntityPlayerMP player) {
-        if (NEIServerConfig.forPlayer(player.getName()).isActionEnabled("creative+"))
+        if (NEIServerConfig.forPlayer(player.getCommandSenderName()).isActionEnabled("creative+"))
             return 2;
         else if (player.theItemInWorldManager.isCreative())
             return 1;
@@ -237,11 +237,11 @@ public class NEIServerUtils
     public static void setGamemode(EntityPlayerMP player, int mode) {
         if (mode < 0 || mode >= NEIActions.gameModes.length ||
                 NEIActions.nameActionMap.containsKey(NEIActions.gameModes[mode]) &&
-                        !NEIServerConfig.canPlayerPerformAction(player.getName(), NEIActions.gameModes[mode]))
+                        !NEIServerConfig.canPlayerPerformAction(player.getCommandSenderName(), NEIActions.gameModes[mode]))
             return;
 
         //creative+
-        NEIServerConfig.forPlayer(player.getName()).enableAction("creative+", mode == 2);
+        NEIServerConfig.forPlayer(player.getCommandSenderName()).enableAction("creative+", mode == 2);
         if(mode == 2 && !(player.openContainer instanceof ContainerCreativeInv))//open the container immediately for the client
             NEISPH.processCreativeInv(player, true);
 
@@ -258,7 +258,7 @@ public class NEIServerUtils
 
         //top down [row][col]
         ItemStack[][] slots = new ItemStack[10][9];
-        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getName());
+        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getCommandSenderName());
 
         //get
         System.arraycopy(inventory.mainInventory, 0, slots[9], 0, 9);

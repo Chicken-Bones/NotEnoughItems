@@ -51,7 +51,7 @@ public class ServerHandler
     public void tickEvent(TickEvent.PlayerTickEvent event) {
         if (event.phase == Phase.START && event.player instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.player;
-            PlayerSave save = NEIServerConfig.forPlayer(player.getName());
+            PlayerSave save = NEIServerConfig.forPlayer(player.getCommandSenderName());
             if (save == null)
                 return;
             updateMagneticPlayer(player, save);
@@ -138,11 +138,11 @@ public class ServerHandler
 
     @SubscribeEvent
     public void dimChangeEvent(PlayerChangedDimensionEvent event) {
-        NEIServerConfig.forPlayer(event.player.getName()).onWorldReload();
+        NEIServerConfig.forPlayer(event.player.getCommandSenderName()).onWorldReload();
     }
 
     @SubscribeEvent
     public void loginEvent(PlayerRespawnEvent event) {
-        NEIServerConfig.forPlayer(event.player.getName()).onWorldReload();
+        NEIServerConfig.forPlayer(event.player.getCommandSenderName()).onWorldReload();
     }
 }

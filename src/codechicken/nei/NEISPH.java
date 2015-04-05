@@ -54,7 +54,7 @@ public class NEISPH implements IServerPacketHandler
                 sendLoginState(sender);
                 break;
             case 11:
-                sender.sendContainerAndContentsToPlayer(sender.openContainer, sender.openContainer.getInventory());
+                sender.updateCraftingInventory(sender.openContainer, sender.openContainer.getInventory());
                 break;
             case 12:
                 handlePropertyChange(sender, packet);
@@ -111,13 +111,13 @@ public class NEISPH implements IServerPacketHandler
 
     private void handlePropertyChange(EntityPlayerMP sender, PacketCustom packet) {
         String name = packet.readString();
-        if (NEIServerConfig.canPlayerPerformAction(sender.getName(), name))
+        if (NEIServerConfig.canPlayerPerformAction(sender.getCommandSenderName(), name))
             NEIServerConfig.disableAction(sender.dimension, name, packet.readBoolean());
     }
 
     public static void processCreativeInv(EntityPlayerMP sender, boolean open) {
         if (open) {
-            ServerUtils.openSMPContainer(sender, new ContainerCreativeInv(sender, new ExtendedCreativeInv(NEIServerConfig.forPlayer(sender.getName()), Side.SERVER)), new IGuiPacketSender()
+            ServerUtils.openSMPContainer(sender, new ContainerCreativeInv(sender, new ExtendedCreativeInv(NEIServerConfig.forPlayer(sender.getCommandSenderName()), Side.SERVER)), new IGuiPacketSender()
             {
                 @Override
                 public void sendPacket(EntityPlayerMP player, int windowId) {
@@ -146,7 +146,7 @@ public class NEISPH implements IServerPacketHandler
 
         ItemStack old = NEIServerUtils.getSlotContents(player, slot, container);
         boolean deleting = item == null || old != null && NEIServerUtils.areStacksSameType(item, old) && item.stackSize < old.stackSize;
-        if (NEIServerConfig.canPlayerPerformAction(player.getName(), deleting ? "delete" : "item"))
+        if (NEIServerConfig.canPlayerPerformAction(player.getCommandSenderName(), deleting ? "delete" : "item"))
             NEIServerUtils.setSlotContents(player, slot, item, container);
     }
 
@@ -205,10 +205,10 @@ public class NEISPH implements IServerPacketHandler
         LinkedList<String> disabled = new LinkedList<String>();
         LinkedList<String> enabled = new LinkedList<String>();
         LinkedList<ItemStack> bannedItems = new LinkedList<ItemStack>();
-        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getName());
+        PlayerSave playerSave = NEIServerConfig.forPlayer(player.getCommandSenderName());
 
         for (String name : NEIActions.nameActionMap.keySet()) {
-            if (NEIServerConfig.canPlayerPerformAction(player.getName(), name))
+            if (NEIServerConfig.canPlayerPerformAction(player.getCommandSenderName(), name))
                 actions.add(name);
             if (NEIServerConfig.isActionDisabled(player.dimension, name))
                 disabled.add(name);
@@ -216,7 +216,7 @@ public class NEISPH implements IServerPacketHandler
                 enabled.add(name);
         }
         for (ItemStackMap.Entry<Set<String>> entry : NEIServerConfig.bannedItems.entries())
-            if (!NEIServerConfig.isPlayerInList(player.getName(), entry.value, true))
+            if (!NEIServerConfig.isPlayerInList(player.getCommandSenderName(), entry.value, true))
                 bannedItems.add(entry.key);
 
         PacketCustom packet = new PacketCustom(channel, 10);
@@ -241,7 +241,7 @@ public class NEISPH implements IServerPacketHandler
     }
 
     public static void sendHasServerSideTo(EntityPlayerMP player) {
-        NEIServerConfig.logger.debug("Sending serverside check to: " + player.getName());
+        NEIServerConfig.logger.debug("Sending serverside check to: " + player.getCommandSenderName());
         PacketCustom packet = new PacketCustom(channel, 1);
         packet.writeByte(NEIActions.protocol);
         packet.writeString(player.worldObj.getWorldInfo().getWorldName());

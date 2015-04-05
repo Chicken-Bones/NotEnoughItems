@@ -88,7 +88,7 @@ public class ContainerRecipe extends Container
         }
 
         @Override
-        public String getName() {
+        public String getCommandSenderName() {
             return null;
         }
 
