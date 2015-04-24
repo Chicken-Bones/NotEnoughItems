@@ -364,10 +364,15 @@ public class ItemInfo
                     ItemStackSet set = creativeTabRanges.get(itemTab.getTabIndex());
                     if (set == null)
                         creativeTabRanges.set(itemTab.getTabIndex(), set = new ItemStackSet());
-                    stackList.clear();
-                    item.getSubItems(item, itemTab, stackList);
-                    for(ItemStack stack : stackList)
-                        set.add(stack);
+
+                    try {
+                        stackList.clear();
+                        item.getSubItems(item, itemTab, stackList);
+                        for(ItemStack stack : stackList)
+                            set.add(stack);
+                    } catch (Exception e) {
+                        NEIClientConfig.logger.error("Error loading sub-items for: "+item+". Tab: "+itemTab.getTabLabel(), e);
+                    }
                 }
             }
 
