@@ -108,15 +108,15 @@ public class GuiContainerManager
     /**
      * Extra lines are often used for more information. For example enchantments, potion effects and mob spawner contents.
      *
-     * @param itemstack       The item to get the name for.
+     * @param stack       The item to get the name for.
      * @param gui             An instance of the currentscreen passed to tooltip handlers. If null, only gui inspecific handlers should respond
      * @param includeHandlers If true tooltip handlers will add to the item tip
      * @return A list of Strings representing the text to be displayed on each line of the tool tip.
      */
-    public static List<String> itemDisplayNameMultiline(ItemStack itemstack, GuiContainer gui, boolean includeHandlers) {
+    public static List<String> itemDisplayNameMultiline(ItemStack stack, GuiContainer gui, boolean includeHandlers) {
         List<String> namelist = null;
         try {
-            namelist = itemstack.getTooltip(Minecraft.getMinecraft().thePlayer, includeHandlers && Minecraft.getMinecraft().gameSettings.advancedItemTooltips);
+            namelist = stack.getTooltip(Minecraft.getMinecraft().thePlayer, includeHandlers && Minecraft.getMinecraft().gameSettings.advancedItemTooltips);
         } catch (Throwable ignored) {}
 
         if (namelist == null)
@@ -130,11 +130,11 @@ public class GuiContainerManager
 
         if (includeHandlers) {
             for (IContainerTooltipHandler handler : tooltipHandlers) {
-                namelist = handler.handleItemDisplayName(gui, itemstack, namelist);
+                namelist = handler.handleItemDisplayName(gui, stack, namelist);
             }
         }
 
-        namelist.set(0, itemstack.getRarity().rarityColor.toString() + namelist.get(0));
+        namelist.set(0, stack.getRarity().rarityColor.toString() + namelist.get(0));
         for (int i = 1; i < namelist.size(); i++)
             namelist.set(i, "\u00a77" + namelist.get(i));
 
@@ -393,16 +393,16 @@ public class GuiContainerManager
 
     public void renderToolTips(int mousex, int mousey) {
         List<String> tooltip = new LinkedList<String>();
+        FontRenderer font = GuiDraw.fontRenderer;
 
         for (IContainerTooltipHandler handler : instanceTooltipHandlers)
             tooltip = handler.handleTooltip(window, mousex, mousey, tooltip);
 
-        if (tooltip.isEmpty() && shouldShowTooltip(window))//mouseover tip, not holding an item
-        {
+        if (tooltip.isEmpty() && shouldShowTooltip(window)) {//mouseover tip, not holding an item
             ItemStack stack = getStackMouseOver(window);
+            font = getFontRenderer(stack);
             if (stack != null)
                 tooltip = itemDisplayNameMultiline(stack, window, true);
-
 
             for (IContainerTooltipHandler handler : instanceTooltipHandlers)
                 tooltip = handler.handleItemTooltip(window, stack, mousex, mousey, tooltip);
@@ -410,7 +410,8 @@ public class GuiContainerManager
 
         if (tooltip.size() > 0)
             tooltip.set(0, tooltip.get(0) + GuiDraw.TOOLTIP_LINESPACE);//add space after 'title'
-        drawMultilineTip(mousex + 12, mousey - 12, tooltip);
+
+        drawMultilineTip(font, mousex + 12, mousey - 12, tooltip);
     }
 
     public static boolean shouldShowTooltip(GuiContainer window) {
