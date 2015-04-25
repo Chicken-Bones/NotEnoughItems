@@ -585,7 +585,7 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
         Point relMouse = new Point(pos.x - gui.guiLeft - offsetx, pos.y - gui.guiTop - offsety);
         for (RecipeTransferRect rect : transferRects) {
             if (rect.rect.contains(relMouse)) {
-                currenttip.add("Recipes");
+                currenttip.add(NEIClientUtils.translate("recipe.tooltip"));
                 break;
             }
         }

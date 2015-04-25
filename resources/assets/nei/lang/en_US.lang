@@ -165,6 +165,7 @@ nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Old TMI
 
 nei.recipe.page=Page %s/%s
+nei.recipe.tooltip=Recipes
 nei.recipe.shaped=Shaped Crafting
 nei.recipe.shapeless=Shapeless Crafting
 nei.recipe.furnace=Smelting
