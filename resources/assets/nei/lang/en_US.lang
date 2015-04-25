@@ -6,10 +6,14 @@ nei.enchant.level=Level
 nei.enchant.locked=Locked
 nei.enchant.unlocked=Unlocked
 
+nei.potion.favourite=Favourite Potions
+nei.potion.duration=Duration
+nei.potion.level=Level
+
 nei.inventory.options=Options
 nei.inventory.prev=Prev
 nei.inventory.next=Next
-nei.inventory.item_subsets=Item SubSets
+nei.inventory.item_subsets=Item Subsets
 nei.inventory.delete.inv=DELETE ALL ITEMS from current inventory screen
 nei.inventory.delete.one=Delete %s
 nei.inventory.delete.all=Delete ALL %s
@@ -129,6 +133,7 @@ nei.options.command.heal.tip={0} = player
 nei.options.world.highlight_tips=Highlight Tooltips
 nei.options.world.highlight_tips.hide=Hidden
 nei.options.world.highlight_tips.show=Shown
+nei.options.world.highlight_tips.sample=Sample
 
 nei.options.tools=Tools
 nei.options.tools.dump=Data Dumps
@@ -184,3 +189,30 @@ nei.itemsort.default=Default
 nei.itemsort.default.tip=Leave the natural ordering of each item unchanged
 nei.itemsort.damage=Item Damage
 nei.itemsort.name=Display Name
+
+nei.subsets.Blocks=Blocks
+nei.subsets.Blocks.MobSpawners=Mob Spawners
+nei.subsets.CreativeTabs=Creative Tabs
+nei.subsets.Items=Items
+nei.subsets.Items.Armor=Armor
+nei.subsets.Items.Armor.Boots=Boots
+nei.subsets.Items.Armor.Chestplates=Chestplates
+nei.subsets.Items.Armor.Helmets=Helmets
+nei.subsets.Items.Armor.Leggings=Leggings
+nei.subsets.Items.Food=Food
+nei.subsets.Items.Potions=Potions
+nei.subsets.Items.Potions.Ingredients=Ingredients
+nei.subsets.Items.Potions.Negative=Negative
+nei.subsets.Items.Potions.Neutral=Neutral
+nei.subsets.Items.Potions.Positive=Positive
+nei.subsets.Items.Potions.Splash=Splash
+nei.subsets.Items.Tools=Tools
+nei.subsets.Items.Tools.Axes=Axes
+nei.subsets.Items.Tools.Hoes=Hoes
+nei.subsets.Items.Tools.Other=Other
+nei.subsets.Items.Tools.Pickaxes=Pickaxes
+nei.subsets.Items.Tools.Shovels=Shovels
+nei.subsets.Items.Weapons=Weapons
+nei.subsets.Items.Weapons.Ranged=Ranged
+nei.subsets.Items.Weapons.Swords=Swords
+nei.subsets.Mod=Mod

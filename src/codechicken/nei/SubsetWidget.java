@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
+import static codechicken.nei.NEIClientUtils.translate;
+
 public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoadedCallback, ISearchProvider
 {
     public static class SubsetState
@@ -125,7 +127,6 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         public List<SubsetTag> sorted = Collections.emptyList();
         private int childwidth;
 
-        protected String displayName;
         protected SubsetState state = new SubsetState();
         protected final SubsetSlot slot = new SubsetSlot();
         private SubsetTag selectedChild;
@@ -139,15 +140,15 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
             assert filter != null : "Filter cannot be null";
             this.fullname = EnumChatFormatting.getTextWithoutFormattingCodes(fullname);
             this.filter = filter;
-
-            if(fullname != null) {
-                int idx = fullname.lastIndexOf('.');
-                displayName = idx < 0 ? fullname : fullname.substring(idx + 1);
-            }
         }
 
         public String displayName() {
-            return displayName;
+            String translated = translate("subsets."+fullname);
+            if(!translated.startsWith("nei."))
+                return translated;
+
+            int idx = fullname.lastIndexOf('.');
+            return idx < 0 ? fullname : fullname.substring(idx + 1);
         }
 
         public String name() {
@@ -593,6 +594,11 @@ public class SubsetWidget extends Button implements ItemFilterProvider, ItemsLoa
         API.addItemFilter(this);
         API.addSearchProvider(this);
         ItemList.loadCallbacks.add(this);
+    }
+
+    @Override
+    public String getRenderLabel() {
+        return translate("inventory.item_subsets");
     }
 
     @Override

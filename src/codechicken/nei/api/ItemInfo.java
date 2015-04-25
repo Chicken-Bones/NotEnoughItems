@@ -433,7 +433,7 @@ public class ItemInfo
         API.addSubset("Items.Tools.Other", other);
         API.addSubset("Items.Weapons.Swords", swords);
         API.addSubset("Items.Weapons.Ranged", ranged);
-        API.addSubset("Items.Armor.ChestPlates", chest);
+        API.addSubset("Items.Armor.Chestplates", chest);
         API.addSubset("Items.Armor.Leggings", legs);
         API.addSubset("Items.Armor.Helmets", helmets);
         API.addSubset("Items.Armor.Boots", boots);

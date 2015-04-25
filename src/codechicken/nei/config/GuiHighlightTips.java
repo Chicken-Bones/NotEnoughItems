@@ -5,7 +5,6 @@ import codechicken.core.gui.GuiScreenWidget;
 import codechicken.lib.math.MathHelper;
 import codechicken.lib.vec.Rectangle4i;
 import codechicken.nei.HUDRenderer;
-import codechicken.nei.NEIClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -14,9 +13,11 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.List;
 
 import static codechicken.lib.gui.GuiDraw.displaySize;
 import static codechicken.lib.gui.GuiDraw.getMousePosition;
+import static codechicken.nei.NEIClientUtils.translate;
 
 public class GuiHighlightTips extends GuiScreenWidget
 {
@@ -50,7 +51,7 @@ public class GuiHighlightTips extends GuiScreenWidget
     }
 
     private void updateNames() {
-        toggleButton.text = NEIClientUtils.translate("options." + name + "." + (show() ? "show" : "hide"));
+        toggleButton.text = translate("options." + name + "." + (show() ? "show" : "hide"));
     }
 
     private boolean show() {
@@ -69,8 +70,11 @@ public class GuiHighlightTips extends GuiScreenWidget
     @Override
     public void drawScreen(int mousex, int mousey, float f) {
         super.drawScreen(mousex, mousey, f);
-        if (show())
-            HUDRenderer.renderOverlay(new ItemStack(Blocks.redstone_block), Arrays.asList("RedstoneBlock", EnumChatFormatting.RED+"Sample"), renderPos());
+        if (show()) {
+            ItemStack stack = new ItemStack(Blocks.redstone_block);
+            List<String> tip = Arrays.asList(stack.getDisplayName(), EnumChatFormatting.RED+translate("options."+name+".sample"));
+            HUDRenderer.renderOverlay(stack, tip, renderPos());
+        }
     }
 
     public Point getPos() {

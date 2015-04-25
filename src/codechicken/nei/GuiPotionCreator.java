@@ -17,6 +17,8 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static codechicken.nei.NEIClientUtils.translate;
+
 public class GuiPotionCreator extends GuiContainerWidget
 {
     public class GuiSlotPotionEffects extends GuiScrollSlot
@@ -288,18 +290,13 @@ public class GuiPotionCreator extends GuiContainerWidget
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        //fontRenderer.drawString("Potion", 12, 6, 0x404040);
-    }
-
-    @Override
     public void drawBackground() {
         CCRenderState.changeTexture("nei:textures/gui/potion.png");
         drawTexturedModalRect(0, 0, 0, 0, xSize, ySize);
 
-        FontUtils.drawCenteredString("Favourite Potions", xSize / 2, 4, 0x404040);
-        fontRendererObj.drawString("Duration", 12, 40, 0x404040);
-        fontRendererObj.drawString("Level", 19, 73, 0x404040);
+        FontUtils.drawCenteredString(translate("potion.favourite"), xSize / 2, 4, 0x404040);
+        fontRendererObj.drawString(translate("potion.duration"), 12, 40, 0x404040);
+        fontRendererObj.drawString(translate("potion.level"), 19, 73, 0x404040);
         FontUtils.drawCenteredString(translateAmplifier(amplifier), 33, 86, 0xFF606060);
     }
 
