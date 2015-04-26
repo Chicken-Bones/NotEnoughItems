@@ -3,12 +3,16 @@ nei.save=Salva
 
 nei.enchant=Incanta
 nei.enchant.level=Livello
-nei.enchant.locked=Serrato
+nei.enchant.locked=Chiuso
 nei.enchant.unlocked=Libero
+
+nei.potion.favourite=Pozioni preferiti
+nei.potion.duration=Durata
+nei.potion.level=Livello
 
 nei.inventory.options=Opzioni
 nei.inventory.prev=Prec
-nei.inventory.next=Pros
+nei.inventory.next=Succ
 nei.inventory.item_subsets=Sottoinsieme oggetti
 nei.inventory.delete.inv=ELIMINA TUTTI GLI OGGETTI nell'inventario corrente
 nei.inventory.delete.one=Elimina %s
@@ -49,10 +53,10 @@ nei.options=Opzioni NEI
 nei.options.back=Indietro
 nei.options.world=Mondo
 nei.options.global=Globale
-nei.options.global.tip.0=Opzioni avvengono su tutti i mondi
+nei.options.global.tip.0=Opzioni cambiano su tutti i mondi
 nei.options.global.tip.1=Clicca la W vicino a una:opzione per impostarla:solo su questo mondo
-nei.options.wbutton.tip.0=Usando opzione globale
-nei.options.wbutton.tip.1=Sovrascrivendo opzioni globali
+nei.options.wbutton.tip.0=Usando le opzioni globali
+nei.options.wbutton.tip.1=Sovrascrivendo le opzioni globali
 
 nei.options.keys=Controlli
 nei.options.keys.gui=Inventario
@@ -60,9 +64,9 @@ nei.options.keys.gui.recipe=Ricetta
 nei.options.keys.gui.usage=Usi
 nei.options.keys.gui.enchant=Incantare
 nei.options.keys.gui.potion=Pozioni
-nei.options.keys.gui.back=Ricetta prec
-nei.options.keys.gui.prev=Pagina prec
-nei.options.keys.gui.next=Pagina pros
+nei.options.keys.gui.back=Ricetta precedente
+nei.options.keys.gui.prev=Pagina precedente
+nei.options.keys.gui.next=Pagina successiva
 nei.options.keys.gui.hide=Modifica visibilità NEI
 nei.options.keys.gui.search=Attiva barra di ricerca
 nei.options.keys.world=Mondo
@@ -118,7 +122,7 @@ nei.options.command=Comandi
 nei.options.command.creative=Modalità di gioco
 nei.options.command.creative.tip={0} = 1 per creativa, 0 per sopravvivenza, {1} = giocatore
 nei.options.command.item=Oggetti
-nei.options.command.item.tip={0} = giocatore, {1} = id, {2} = quantità, {3} = danno, {4} = nbt, {5} = nome
+nei.options.command.item.tip={0} = giocatore, {1} = nome, {2} = quantità, {3} = danno, {4} = nbt, {5} = id
 nei.options.command.time=Tempo
 nei.options.command.time.tip={0} = orario
 nei.options.command.rain=Pioggia
@@ -126,9 +130,10 @@ nei.options.command.rain.tip={0} = 1 per attivarlo, 0 per disattivarlo
 nei.options.command.heal=Cura
 nei.options.command.heal.tip={0} = giocatore
 
-nei.options.world.highlight_tips=Esalta tooltips
+nei.options.world.highlight_tips=Esalta tooltip
 nei.options.world.highlight_tips.hide=Mostra
-nei.options.world.highlight_tips.show=Nascosto
+nei.options.world.highlight_tips.show=Nascondi
+nei.options.world.highlight_tips.sample=Esempio
 
 nei.options.tools=Attrezzi
 nei.options.tools.dump=Scarica data
@@ -148,17 +153,21 @@ nei.options.tools.dump.enchantments=Incantesimi
 nei.options.tools.dump.biome=Bioma
 nei.options.tools.dump.biomes=Biomi
 nei.options.tools.dump.itempanel=Pannello oggetti
-nei.options.tools.dump.itempanel.dumped=Il contenuto del Pannello oggetti è stato scricato in %s
+nei.options.tools.dump.itempanel.dumped=Il contenuto del Item Panel è stato scricato in %s
 nei.options.tools.dump.itempanel.mode.0=CSV
 nei.options.tools.dump.itempanel.mode.1=NBT
 nei.options.tools.dump.itempanel.mode.2=Json
++nei.options.tools.dump.itempanel.mode.3=PNG
++nei.options.tools.dump.itempanel.icon.dumped=Le icone del Item Panel è stato scricato ino %s
++nei.options.tools.dump.itempanel.icon.cancelled=File scaricati eliminati
 
 nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Vecchio TMI
 
 nei.recipe.page=Pagina %s/%s
-nei.recipe.shaped=Fabbric. formata
-nei.recipe.shapeless=Fabbric. senzaforma
+nei.recipe.tooltip=Ricette
+nei.recipe.shaped=Fabbric. con forma
+nei.recipe.shapeless=Fabbric. senza forma
 nei.recipe.furnace=Fornace
 nei.recipe.fuel=Carburante
 nei.recipe.fuel.required=%s richiesto
@@ -166,7 +175,7 @@ nei.recipe.fuel.processed=%s processato
 nei.recipe.fuel.produced=%s prodotto
 nei.recipe.firework=Razzi pirotecnici
 nei.recipe.firework.tooltip0=Tinture aggiungono colore alle stelle pirotecniche
-nei.recipe.firework.tooltip1=Riclorando le stelle pirotecniche si aggiungono dei colori che svaniscono
+nei.recipe.firework.tooltip1=Ricolorando le stelle pirotecniche si aggiungono dei colori che svaniscono
 nei.recipe.firework.tooltip2=Più stelle pirotecniche possono essere usati nello stesso razzo
 nei.recipe.brewing=Pozioni
 nei.recipe.profiler.crafting=Fabbrica profiling
@@ -175,9 +184,36 @@ nei.recipe.profiler.usage=Usa profiling
 nei.itemsort.minecraft=Minecraft
 nei.itemsort.minecraft.tip=Ordina oggetti da vanilla per prima
 nei.itemsort.mod=Mod
-nei.itemsort.mod.tip=Gruppi di oggetti dello stesso mod, ordinati per nome della mod
+nei.itemsort.mod.tip=Gruppi di oggetti della stessa mod, ordinati per nome della mod
 nei.itemsort.id=ID degli oggetti
 nei.itemsort.default=Classico
 nei.itemsort.default.tip=Lascia l'ordine di ogni oggetto così com'è
 nei.itemsort.damage=Danno degli oggetti
 nei.itemsort.name=Mostra nome
+
+nei.subsets.Blocks=Blocchi
+nei.subsets.Blocks.MobSpawners=Generatori di mostri
+nei.subsets.CreativeTabs=Tab creativa
+nei.subsets.Items=Oggetti
+nei.subsets.Items.Armor=Armature
+nei.subsets.Items.Armor.Boots=Stivali
+nei.subsets.Items.Armor.Chestplates=Corazza
+nei.subsets.Items.Armor.Helmets=Elmo
+nei.subsets.Items.Armor.Leggings=Gambiera
+nei.subsets.Items.Food=Cibo
+nei.subsets.Items.Potions=Pozioni
+nei.subsets.Items.Potions.Ingredients=Ingredienti
+nei.subsets.Items.Potions.Negative=Negativ
+nei.subsets.Items.Potions.Neutral=Neutrali
+nei.subsets.Items.Potions.Positive=Positivi
+nei.subsets.Items.Potions.Splash=Lanciabili
+nei.subsets.Items.Tools=Attrezzi
+nei.subsets.Items.Tools.Axes=Asce
+nei.subsets.Items.Tools.Hoes=Zappe
+nei.subsets.Items.Tools.Other=Altri
+nei.subsets.Items.Tools.Pickaxes=Picconi
+nei.subsets.Items.Tools.Shovels=Pale
+nei.subsets.Items.Weapons=Armi
+nei.subsets.Items.Weapons.Ranged=Da lancio
+nei.subsets.Items.Weapons.Swords=Spade
+nei.subsets.Mod=Mod 
