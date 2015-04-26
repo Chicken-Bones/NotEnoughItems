@@ -157,9 +157,9 @@ nei.options.tools.dump.itempanel.dumped=Il contenuto del Item Panel è stato scr
 nei.options.tools.dump.itempanel.mode.0=CSV
 nei.options.tools.dump.itempanel.mode.1=NBT
 nei.options.tools.dump.itempanel.mode.2=Json
-+nei.options.tools.dump.itempanel.mode.3=PNG
-+nei.options.tools.dump.itempanel.icon.dumped=Le icone del Item Panel è stato scricato ino %s
-+nei.options.tools.dump.itempanel.icon.cancelled=File scaricati eliminati
+nei.options.tools.dump.itempanel.mode.3=PNG
+nei.options.tools.dump.itempanel.icon.dumped=Le icone del Item Panel è stato scricato ino %s
+nei.options.tools.dump.itempanel.icon.cancelled=File scaricati eliminati
 
 nei.layoutstyle.minecraft=Minecraft
 nei.layoutstyle.oldtmi=Vecchio TMI
