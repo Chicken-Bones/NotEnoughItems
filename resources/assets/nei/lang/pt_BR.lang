@@ -179,5 +179,5 @@ nei.itemsort.mod.tip=Agrupa itens do mesmo mod, ordenados pelo nome no mod
 nei.itemsort.id=ID de Itens
 nei.itemsort.default=Padrão
 nei.itemsort.default.tip=Deixa a ordem natural de cada item não trocada
-nei.itemsort.damage=Dano do Itens
+nei.itemsort.damage=Dano do Item
 nei.itemsort.name=Mostrar Nome
