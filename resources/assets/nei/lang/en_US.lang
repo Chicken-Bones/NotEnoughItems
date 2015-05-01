@@ -192,6 +192,7 @@ nei.itemsort.damage=Item Damage
 nei.itemsort.name=Display Name
 
 nei.subsets.Blocks=Blocks
+nei.subsets.Blocks.Fluids=Fluids
 nei.subsets.Blocks.MobSpawners=Mob Spawners
 nei.subsets.CreativeTabs=Creative Tabs
 nei.subsets.Items=Items
