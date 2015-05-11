@@ -142,7 +142,11 @@ public class ShapelessRecipeHandler extends ShapedRecipeHandler
         if(recipe.recipeItems == null) //because some mod subclasses actually do this
             return null;
 
-        return new CachedShapelessRecipe(recipe.recipeItems, recipe.getRecipeOutput());
+        try {
+            return new CachedShapelessRecipe(recipe.recipeItems, recipe.getRecipeOutput());
+        } catch (ClassCastException e) { //because some mod subclasses put whatever they want in recipeItems
+            return null;
+        }
     }
 
     public CachedShapelessRecipe forgeShapelessRecipe(ShapelessOreRecipe recipe) {
