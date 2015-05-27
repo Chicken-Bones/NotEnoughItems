@@ -483,7 +483,7 @@ public class ItemInfo
         if (items.size() > 0)
             return items;
 
-        ItemStack pick = mouseoverBlock.getPickBlock(hit, world, x, y, z);
+        ItemStack pick = mouseoverBlock.getPickBlock(hit, world, x, y, z, player);
         if (pick != null)
             items.add(pick);
 
