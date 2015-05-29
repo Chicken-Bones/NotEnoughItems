@@ -227,10 +227,6 @@ public class NEICPH implements IClientPacketHandler
         packet.sendToServer();
     }
 
-    public static PacketCustom createContainerPacket() {
-        return new PacketCustom(channel, 20);
-    }
-
     public static void sendOpenPotionWindow() {
         ItemStack[] potionStore = new ItemStack[9];
         InventoryUtils.readItemStacksFromTag(potionStore, NEIClientConfig.global.nbt.getCompoundTag("potionStore").getTagList("items", 10));

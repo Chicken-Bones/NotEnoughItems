@@ -1,7 +1,7 @@
 package codechicken.nei;
 
-import codechicken.core.inventory.ContainerExtended;
-import codechicken.core.inventory.SlotDummy;
+import codechicken.lib.inventory.ContainerExtended;
+import codechicken.lib.inventory.SlotDummy;
 import codechicken.nei.api.INEIGuiAdapter;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;

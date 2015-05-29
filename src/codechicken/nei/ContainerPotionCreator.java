@@ -1,7 +1,7 @@
 package codechicken.nei;
 
-import codechicken.core.inventory.ContainerExtended;
-import codechicken.core.inventory.SlotHandleClicks;
+import codechicken.lib.inventory.ContainerExtended;
+import codechicken.lib.inventory.SlotHandleClicks;
 import codechicken.lib.inventory.InventoryNBT;
 import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.packet.PacketCustom;
@@ -123,12 +123,12 @@ public class ContainerPotionCreator extends ContainerExtended
 
     @SuppressWarnings("unchecked")
     @Override
-    public void handleInputPacket(PacketCustom packet) {
+    public void handleServerPacket(PacketCustom packet) {
         ItemStack potion = potionInv.getStackInSlot(0);
         if (potion == null)
             return;
 
-        boolean add = packet.readBoolean();
+        boolean add = packet.getType() == 3;
         int effectID = packet.readUByte();
 
         NBTTagList effects = potion.getTagCompound().getTagList("CustomPotionEffects", 10);
@@ -145,8 +145,7 @@ public class ContainerPotionCreator extends ContainerExtended
     }
 
     public void setPotionEffect(int effectID, int duration, int amplifier) {
-        PacketCustom packet = NEICPH.createContainerPacket();
-        packet.writeBoolean(true);
+        PacketCustom packet = getPacket(3);
         packet.writeByte(effectID);
         packet.writeInt(duration);
         packet.writeByte(amplifier);
@@ -154,8 +153,7 @@ public class ContainerPotionCreator extends ContainerExtended
     }
 
     public void removePotionEffect(int effectID) {
-        PacketCustom packet = NEICPH.createContainerPacket();
-        packet.writeBoolean(false);
+        PacketCustom packet = getPacket(2);
         packet.writeByte(effectID);
         packet.sendToServer();
     }

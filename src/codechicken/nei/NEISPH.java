@@ -3,8 +3,7 @@ package codechicken.nei;
 import codechicken.core.CommonUtils;
 import codechicken.core.IGuiPacketSender;
 import codechicken.core.ServerUtils;
-import codechicken.core.inventory.ContainerExtended;
-import codechicken.core.inventory.SlotDummy;
+import codechicken.lib.inventory.SlotDummy;
 import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.packet.PacketCustom.IServerPacketHandler;
 import codechicken.lib.vec.BlockCoord;
@@ -69,9 +68,6 @@ public class NEISPH implements IServerPacketHandler
             case 15:
                 handleMobSpawnerID(sender.worldObj, packet.readCoord(), packet.readString());
                 break;
-            case 20:
-                handleContainerPacket(sender, packet);
-                break;
             case 21:
                 openEnchantmentGui(sender);
                 break;
@@ -97,11 +93,6 @@ public class NEISPH implements IServerPacketHandler
         Slot slot = sender.openContainer.getSlot(slotNumber);
         if (slot instanceof SlotDummy)
             slot.putStack(stack);
-    }
-
-    private void handleContainerPacket(EntityPlayerMP sender, PacketCustom packet) {
-        if (sender.openContainer instanceof ContainerExtended)
-            ((ContainerExtended) sender.openContainer).handleInputPacket(packet);
     }
 
     private void handleMobSpawnerID(World world, BlockCoord coord, String mobtype) {
