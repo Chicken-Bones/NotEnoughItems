@@ -416,7 +416,7 @@ public class ItemInfo
                 LinkedList<ItemStack> subItems = new LinkedList<ItemStack>();
                 item.getSubItems(item, null, subItems);
                 for(ItemStack stack : subItems) {
-                    if (item.isPotionIngredient(stack)) {
+                    if (item.isPotionIngredient(stack) && item.getPotionEffect(stack) != null) {
                         BrewingRecipeHandler.ingredients.add(stack);
                         potioningredients.add(stack);
                     }
