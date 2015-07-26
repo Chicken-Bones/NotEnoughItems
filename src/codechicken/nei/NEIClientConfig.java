@@ -212,7 +212,14 @@ public class NEIClientConfig
         if (newWorld)
             saveDir.mkdirs();
 
-        world = new ConfigSet(new File(saveDir, "NEI.dat"), new ConfigFile(new File(saveDir, "NEI.cfg")));
+        try {
+          world = new ConfigSet(new File(saveDir, "NEI.dat"), new ConfigFile(new File(saveDir, "NEI.cfg")));
+        } catch (Exception e) {
+          // I'd kill the process here, but not sure how - exceptions are out
+          // there is a catch-all-and-swallow handler between here and there.
+          NEIClientConfig.logger.error("Failed to load NEI configuration; the process is going to die with an NPE later on.", e);
+        }
+
         onWorldLoad(newWorld);
     }
 
