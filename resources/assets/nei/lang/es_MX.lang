@@ -1,0 +1,186 @@
+nei.load=Cargar
+nei.save=Guardar
+
+nei.enchant=Encantamiento
+nei.enchant.level=Nivel
+nei.enchant.locked=Bloqueado
+nei.enchant.unlocked=Desbloqueado
+
+nei.inventory.options=Opciones
+nei.inventory.prev=Prev.
+nei.inventory.next=Sig.
+nei.inventory.item_subsets=Subconjuntos de objetos
+nei.inventory.delete.inv=BORRAR TODA la pantalla de inventario actual
+nei.inventory.delete.one=Borrar %s
+nei.inventory.delete.all=Borrar TODO %s
+nei.inventory.delete.enable=Habilitar modo de borrado
+nei.inventory.delete.1=Activar modo de borrado
+nei.inventory.delete.0=Desactivar modo de borrado
+nei.inventory.rain.enable=Habilitar lluvia
+nei.inventory.rain.1=Activar lluvia
+nei.inventory.rain.0=Desactivar lluvia
+nei.inventory.magnet.enable=Habilitar modo imán
+nei.inventory.magnet.1=Activar modo imán
+nei.inventory.magnet.0=Desactivar modo imán
+nei.inventory.dawn.enable=Habilitar alba-mediodía
+nei.inventory.dawn.set=Establecer hora al alba
+nei.inventory.noon.enable=Habilitar mediodia-atardecer
+nei.inventory.noon.set=Establecer hora a mediodía
+nei.inventory.dusk.enable=Habilitar atardecer-medianoche
+nei.inventory.dusk.set=Establecer hora al atardecer
+nei.inventory.midnight.enable=Habilitar medianoche-alba
+nei.inventory.midnight.set=Establecer hora a medianoche
+nei.inventory.heal=Curar al jugador
+nei.inventory.gamemode.0=Establecer modo de juego a Supervivencia
+nei.inventory.gamemode.1=Establecer modo de juego a Creativo
+nei.inventory.gamemode.2=Establecer modo de juego a Creativo+
+nei.inventory.gamemode.3=Establecer modo de juevo a Aventura
+
+nei.chat.gamemode.0=Ahora estás jugando en Supervivencia
+nei.chat.gamemode.1=Ahora estás jugando en Creativo
+nei.chat.gamemode.2=Ahora estás jugando en Creativo+
+nei.chat.gamemode.3=Ahora estás jugando en Aventura
+nei.chat.rain.on=Lluvia activada
+nei.chat.rain.off=Lluvia desactivada
+nei.chat.time=Día %d. %d:00
+nei.chat.give.noitem=De ningún modo ese objeto.
+
+nei.options=Opciones NEI
+nei.options.back=Atrás
+nei.options.world=Mundo
+nei.options.global=Global
+nei.options.global.tip.0=Las opciones se aplican a todos los mundos
+nei.options.global.tip.1=Haz clic en W junto a una:opción para habilitar una:reconfiguración en este mundo
+nei.options.wbutton.tip.0=Usas los ajustes globales
+nei.options.wbutton.tip.1=Estableciendo ajustes globales
+
+nei.options.keys=Atajos de teclado
+nei.options.keys.gui=Inventario
+nei.options.keys.gui.recipe=Receta
+nei.options.keys.gui.usage=Uso
+nei.options.keys.gui.enchant=Encantamientos
+nei.options.keys.gui.potion=Pociones
+nei.options.keys.gui.back=Receta Prev.
+nei.options.keys.gui.prev=Pág. Prev.
+nei.options.keys.gui.next=Pág. Sig.
+nei.options.keys.gui.hide=Alternar Visibilidad del NEI
+nei.options.keys.gui.search=Priorizar barra de búsqueda
+nei.options.keys.world=Mundo
+nei.options.keys.world.chunkoverlay=Límite de chunks transparente
+nei.options.keys.world.moboverlay=Generación de monstruos transparente
+nei.options.keys.world.highlight_tips=Resaltar Nombre de Bloque
+nei.options.keys.world.dawn=Alba
+nei.options.keys.world.noon=Mediodía
+nei.options.keys.world.dusk=Atardecer
+nei.options.keys.world.midnight=Medianoche
+nei.options.keys.world.rain=Lluvia
+nei.options.keys.world.heal=Curar
+nei.options.keys.world.creative=Modo de Juego
+nei.options.keys.world.creative.tip=Cambiar modo de juego cíclicamente
+
+nei.options.inventory=Inventario
+nei.options.inventory.widgetsenabled.true=NEI Habilitado
+nei.options.inventory.widgetsenabled.false=NEI Deshabilitado
+nei.options.inventory.cheatmode.0=Modo Receta
+nei.options.inventory.cheatmode.1=Modo Utilidad
+nei.options.inventory.cheatmode.2=Modo con Trucos
+nei.options.inventory.layoutstyle=Estilo de Gráficos
+nei.options.inventory.profileRecipes=Recetas del Perfil
+nei.options.inventory.profileRecipes.true=Verdadero
+nei.options.inventory.profileRecipes.false=Falso
+nei.options.inventory.itemsort=Ordenamiento de los paneles de objetos
+nei.options.inventory.itemIDs=IDs de Objetos
+nei.options.inventory.itemIDs.0=Oculto
+nei.options.inventory.itemIDs.1=Auto
+nei.options.inventory.itemIDs.2=Visible
+nei.options.inventory.searchmode=Modo Buscar
+nei.options.inventory.searchmode.0=Plano
+nei.options.inventory.searchmode.1=Extendido
+nei.options.inventory.searchmode.2=Regex
+nei.options.inventory.utilities=Utilidades
+nei.options.inventory.utilities.tip=Selecciona las características para el Modo Utilidad
+nei.options.inventory.utilities.time=Hora
+nei.options.inventory.utilities.rain=Lluvia
+nei.options.inventory.utilities.heal=Curar
+nei.options.inventory.utilities.delete=Eliminar
+nei.options.inventory.utilities.magnet=Imán
+nei.options.inventory.utilities.gamemode=Modo de Juego
+nei.options.inventory.utilities.enchant=Encantamientos
+nei.options.inventory.utilities.potion=Pociones
+nei.options.inventory.utilities.item=Objetos
+nei.options.inventory.gamemodes=Modos de Juego
+nei.options.inventory.gamemodes.tip=Selecciona los modos de juego entre los que quieras alternar
+nei.options.inventory.gamemodes.creative=Creativo
+nei.options.inventory.gamemodes.creative+=Creativo+
+nei.options.inventory.gamemodes.adventure=Aventura
+
+nei.options.command=Comandos
+nei.options.command.creative=Modo de Juego
+nei.options.command.creative.tip={0} = 1 para creativo, 0 para supervivencia, {1} = jugador
+nei.options.command.item=Objeto
+nei.options.command.item.tip={0} = jugador, {1} = nombre, {2} = cantidad, {3} = durabilidad, {4} = nbt, {5} = id
+nei.options.command.time=Hora
+nei.options.command.time.tip={0} = Tiempo del mundo
+nei.options.command.rain=Lluvia
+nei.options.command.rain.tip={0} = 1 para activar, 0 para desactivar
+nei.options.command.heal=Curar
+nei.options.command.heal.tip={0} = jugador
+
+nei.options.world.highlight_tips=Resaltar Nombre de Bloque
+nei.options.world.highlight_tips.hide=Oculto
+nei.options.world.highlight_tips.show=Visible
+
+nei.options.tools=Herramientas
+nei.options.tools.dump=Volcados de datos
+nei.options.tools.dump.dump=Volcado
+nei.options.tools.dump.dumped=%s IDs volcadas a %s
+nei.options.tools.dump.mode.0=Usados
+nei.options.tools.dump.mode.1=Libres
+nei.options.tools.dump.mode.2=Todos
+nei.options.tools.dump.item=Objeto
+nei.options.tools.dump.items=Objetos
+nei.options.tools.dump.block=Bloque
+nei.options.tools.dump.blocks=Bloques
+nei.options.tools.dump.potion=Poción
+nei.options.tools.dump.potions=Pociones
+nei.options.tools.dump.enchantment=Encantamiento
+nei.options.tools.dump.enchantments=Encantamientos
+nei.options.tools.dump.biome=Bioma
+nei.options.tools.dump.biomes=Biomas
+nei.options.tools.dump.itempanel=Panel de Objetos
+nei.options.tools.dump.itempanel.dumped=El contenido del Panel de Objetos se ha volcado a %s
+nei.options.tools.dump.itempanel.mode.0=CSV
+nei.options.tools.dump.itempanel.mode.1=NBT
+nei.options.tools.dump.itempanel.mode.2=Json
+nei.options.tools.dump.itempanel.mode.3=PNG
+nei.options.tools.dump.itempanel.icon.dumped=Los iconos del Panel de Objetos se ha volcado a %s
+nei.options.tools.dump.itempanel.icon.cancelled=Volcado cancelado
+
+nei.layoutstyle.minecraft=Minecraft
+nei.layoutstyle.oldtmi=TMI Antiguo
+
+nei.recipe.page=Pág. %s/%s
+nei.recipe.shaped=Fabricación con forma
+nei.recipe.shapeless=Fabricación sin forma
+nei.recipe.furnace=Fundición
+nei.recipe.fuel=Combustible
+nei.recipe.fuel.required=%s requeridos
+nei.recipe.fuel.processed=%s procesados
+nei.recipe.fuel.produced=%s producidos
+nei.recipe.firework=Fuegos Artificiales
+nei.recipe.firework.tooltip0=Los tintes añaden colores a las cargas
+nei.recipe.firework.tooltip1=Recolorear añade colores difuminados a la carga
+nei.recipe.firework.tooltip2=se pueden generar múltiples cargas para un cohete
+nei.recipe.brewing=Destilación
+nei.recipe.profiler.crafting=Evaluación de Fabricación
+nei.recipe.profiler.usage=Uso de Evaluación
+
+nei.itemsort.minecraft=Minecraft
+nei.itemsort.minecraft.tip=Ordena los objetos del Minecraft estándar primero
+nei.itemsort.mod=Mod
+nei.itemsort.mod.tip=Agrupa los objetos del mismo mod y los ordena por nombre del mod
+nei.itemsort.id=ID de Objetos
+nei.itemsort.default=Por defecto
+nei.itemsort.default.tip=Mantiene la ordenación natural de cada objeto sin cambios
+nei.itemsort.damage=Durabilidad del Objeto
+nei.itemsort.name=Nombre Mostrado
