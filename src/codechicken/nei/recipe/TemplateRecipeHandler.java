@@ -117,6 +117,9 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
                     if (NEIServerUtils.areStacksSameTypeCrafting(ingredient, stack.items[i])) {
                         stack.item = stack.items[i];
                         stack.item.setItemDamage(ingredient.getItemDamage());
+                        if (ingredient.hasTagCompound()) {
+                            stack.item.setTagCompound((NBTTagCompound) ingredient.getTagCompound().copy());
+                        }
                         stack.items = new ItemStack[]{stack.item};
                         stack.setPermutationToRender(0);
                         break;
