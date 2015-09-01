@@ -56,6 +56,7 @@ public class ItemInfo
     public static final ItemStackSet hiddenItems = new ItemStackSet();
     public static final ItemStackSet finiteItems = new ItemStackSet();
     public static final ArrayListMultimap<Item, ItemStack> itemOverrides = ArrayListMultimap.create();
+    public static final ArrayListMultimap<Item, ItemStack> itemVariants = ArrayListMultimap.create();
 
     public static final LinkedList<IInfiniteItemHandler> infiniteHandlers = new LinkedList<IInfiniteItemHandler>();
     public static final ArrayListMultimap<Block, IHighlightHandler> highlightIdentifiers = ArrayListMultimap.create();
@@ -82,6 +83,11 @@ public class ItemInfo
         return !finiteItems.contains(stack);
     }
 
+    /**
+     * @deprecated
+     * Use field directly
+     */
+    @Deprecated
     public static List<ItemStack> getItemOverrides(Item item) {
         return itemOverrides.get(item);
     }
