@@ -197,12 +197,15 @@ public class ItemList
                     timer.reset(item);
 
                     permutations.clear();
-                    permutations.addAll(ItemInfo.getItemOverrides(item));
+                    permutations.addAll(ItemInfo.itemOverrides.get(item));
+
                     if (permutations.isEmpty())
                         item.getSubItems(item, null, permutations);
 
                     if (permutations.isEmpty())
                         damageSearch(item, permutations);
+
+                    permutations.addAll(ItemInfo.itemVariants.get(item));
 
                     timer.reset();
 

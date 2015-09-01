@@ -253,4 +253,13 @@ public class API
     public static void addSortOption(String name, Comparator<ItemStack> comparator) {
         ItemSorter.add(name, comparator);
     }
+
+    /**
+     * Adds an additional item list entry for an item, sorted after the rest of the items are found through the normal process
+     * @param item The item to add the variant for
+     * @param variant The stack to appear in the item panel
+     */
+    public static void addItemVariant(Item item, ItemStack variant) {
+        ItemInfo.itemVariants.put(item, variant);
+    }
 }
