@@ -15,6 +15,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -374,7 +375,6 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
     /**
      * Extension point for drawing progress bars and other overlays
      *
-     * @param gui    Drawing class
      * @param recipe The recipeIndex being drawn
      */
     public void drawExtras(int recipe) {}
@@ -383,7 +383,6 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
      * Draws a texture rectangle that changes size with time.
      * Commonly used for progress bars.
      *
-     * @param gui       Drawing class
      * @param x         X position on screen
      * @param y         Y position on screen
      * @param tx        Texture X position
@@ -402,7 +401,6 @@ public abstract class TemplateRecipeHandler implements ICraftingHandler, IUsageH
      * Commonly used for progress bars.
      * If for some reason you don't like the default counter use this and specify the progress percentage.
      *
-     * @param gui        Drawing class
      * @param x          X position on screen
      * @param y          Y position on screen
      * @param tx         Texture X position
