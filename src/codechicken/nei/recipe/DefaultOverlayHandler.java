@@ -112,7 +112,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
                     continue;
                 
                 ItemStack stack = slot.getStack();
-                if(!InventoryUtils.canStack(stack, pstack))
+                if(!canStack(stack, pstack))
                     continue;
                 
                 FastTransferManager.clickSlot(gui, slot.slotNumber);
@@ -225,7 +225,7 @@ public class DefaultOverlayHandler implements IOverlayHandler
                 for(int j = 0; j < ingredStacks.size(); j++)
                 {
                     DistributedIngred istack = ingredStacks.get(j);
-                    if(!InventoryUtils.canStack(pstack, istack.stack) || istack.invAmount-istack.distributed < pstack.stackSize)
+                    if(!canStack(pstack, istack.stack) || istack.invAmount-istack.distributed < pstack.stackSize)
                         continue;
                     
                     int relsize = (istack.invAmount-istack.invAmount/istack.recipeAmount*istack.distributed)/pstack.stackSize;
@@ -308,8 +308,14 @@ public class DefaultOverlayHandler implements IOverlayHandler
     public DistributedIngred findIngred(List<DistributedIngred> ingredStacks, ItemStack pstack)
     {
         for(DistributedIngred istack : ingredStacks)
-            if(InventoryUtils.canStack(pstack, istack.stack))
+            if(canStack(pstack, istack.stack))
                 return istack;
         return null;
+    }
+
+    protected boolean canStack(ItemStack stack1, ItemStack stack2) {
+        if (stack1 == null || stack2 == null)
+            return true;
+        return stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage() && ItemStack.areItemStackTagsEqual(stack2, stack1);
     }
 }
