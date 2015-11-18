@@ -115,10 +115,13 @@ public class NEICPH implements IClientPacketHandler
     }
 
     private static String getSaveName(String worldName) {
-        if (Minecraft.getMinecraft().isSingleplayer())
+        if (Minecraft.getMinecraft().isSingleplayer()) {
             return "local/" + ClientUtils.getWorldSaveName();
-
-        return "remote/" + ClientUtils.getServerIP().replace(':', '~') + "/" + worldName;
+        } else {
+            // The server's world name is untrusted input; we can't create a
+            // path using the name sent from the server, so just default it.
+            return "remote/" + ClientUtils.getServerIP().replace(':', '~') + "/world";
+        }
     }
 
     public static void sendGiveItem(ItemStack spawnstack, boolean infinite, boolean doSpawn) {
