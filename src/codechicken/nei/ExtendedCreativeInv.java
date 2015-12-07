@@ -49,7 +49,7 @@ public class ExtendedCreativeInv implements IInventory
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int slot) {
+    public ItemStack removeStackFromSlot(int slot) {
         synchronized (this) {
             ItemStack stack = getStackInSlot(slot);
             setInventorySlotContents(slot, null);
@@ -113,7 +113,7 @@ public class ExtendedCreativeInv implements IInventory
     public void clear() {}
 
     @Override
-    public String getCommandSenderName() {
+    public String getName() {
         return null;
     }
 

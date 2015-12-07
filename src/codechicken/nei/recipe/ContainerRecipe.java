@@ -52,7 +52,7 @@ public class ContainerRecipe extends Container
         }
 
         @Override
-        public ItemStack getStackInSlotOnClosing(int var1) {
+        public ItemStack removeStackFromSlot(int var1) {
             return null;
         }
 
@@ -88,7 +88,7 @@ public class ContainerRecipe extends Container
         }
 
         @Override
-        public String getCommandSenderName() {
+        public String getName() {
             return null;
         }
 
