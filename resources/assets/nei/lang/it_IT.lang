@@ -192,6 +192,7 @@ nei.itemsort.damage=Danno degli oggetti
 nei.itemsort.name=Mostra nome
 
 nei.subsets.Blocks=Blocchi
+nei.subsets.Blocks.Fluids=Fluidi
 nei.subsets.Blocks.MobSpawners=Generatori di mostri
 nei.subsets.CreativeTabs=Tab creativa
 nei.subsets.Items=Oggetti
