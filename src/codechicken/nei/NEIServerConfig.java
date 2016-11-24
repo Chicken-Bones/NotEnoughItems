@@ -245,12 +245,12 @@ public class NEIServerConfig
 
     public static void loadPlayer(EntityPlayer player) {
         logger.debug("Loading Player: " + player.getGameProfile().getName());
-        playerSaves.put(player.getCommandSenderName(), new PlayerSave((EntityPlayerMP) player, new File(saveDir, "players")));
+        playerSaves.put(player.getName(), new PlayerSave((EntityPlayerMP) player, new File(saveDir, "players")));
     }
 
     public static void unloadPlayer(EntityPlayer player) {
-        logger.debug("Unloading Player: " + player.getCommandSenderName());
-        PlayerSave playerSave = playerSaves.remove(player.getCommandSenderName());
+        logger.debug("Unloading Player: " + player.getName());
+        PlayerSave playerSave = playerSaves.remove(player.getName());
         if (playerSave != null)
             playerSave.save();
     }
@@ -258,25 +258,25 @@ public class NEIServerConfig
     public static boolean authenticatePacket(EntityPlayerMP sender, PacketCustom packet) {
         switch (packet.getType()) {
             case 1:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "item");
+                return canPlayerPerformAction(sender.getName(), "item");
             case 4:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "delete");
+                return canPlayerPerformAction(sender.getName(), "delete");
             case 6:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "magnet");
+                return canPlayerPerformAction(sender.getName(), "magnet");
             case 7:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "time");
+                return canPlayerPerformAction(sender.getName(), "time");
             case 8:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "heal");
+                return canPlayerPerformAction(sender.getName(), "heal");
             case 9:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "rain");
+                return canPlayerPerformAction(sender.getName(), "rain");
             case 14:
             case 23:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "creative+");
+                return canPlayerPerformAction(sender.getName(), "creative+");
             case 21:
             case 22:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "enchant");
+                return canPlayerPerformAction(sender.getName(), "enchant");
             case 24:
-                return canPlayerPerformAction(sender.getCommandSenderName(), "potion");
+                return canPlayerPerformAction(sender.getName(), "potion");
         }
         return true;
     }
